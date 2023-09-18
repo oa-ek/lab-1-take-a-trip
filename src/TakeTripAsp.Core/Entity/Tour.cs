@@ -14,7 +14,12 @@
 
         public decimal BookingPrice { get; set; }
 
+        public int StatusId { get; set; }
+
+        public Status? Status { get; set; }
+
         public ICollection<Category>? Categories { get; set; }
+
         public ICollection<Bookings>? Bookings { get; set; }
 
         public ICollection<Images>? Images { get; set; }

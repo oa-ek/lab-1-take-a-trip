@@ -4,8 +4,6 @@
     {
         public required string StatusName { get; set; }
 
-        public int TourId { get; set; }
-
-        public Tour? Tour { get; set; }
+        public ICollection<Tour>? Tours { get; set; }
     }
 }

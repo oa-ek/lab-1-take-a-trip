@@ -4,6 +4,6 @@ namespace TakeTripAsp.Core.Entity
     {
         public required string Name { get; set; }
 
-        public ICollection<SelectedTour> Tours { get; set; }
+        public ICollection<Tour>? Tours { get; set; }
     }
 }

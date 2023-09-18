@@ -36,6 +36,8 @@ namespace TakeTripAsp.Core.Context
                 .Property(p => p.Amount)
                 .HasColumnType("decimal(18,2)");
 
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(TakeTripAspDbContext).Assembly);
+
             base.OnModelCreating(modelBuilder);
         }
     }

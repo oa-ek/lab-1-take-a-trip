@@ -4,6 +4,6 @@
     {
         public required string BookingStatusName { get; set; }
 
-        ICollection<Bookings> Bookings { get; set; }
+        public ICollection<Bookings>? Bookings { get; set; }
     }
 }
