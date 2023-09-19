@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TakeTripAsp.Core.Context;
+using TakeTripAsp.Core.Entity;
+using TakeTripAsp.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<TakeTripAspDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IRepository<Status, int>, Repository< Status, int>>();
 
 var app = builder.Build();
 

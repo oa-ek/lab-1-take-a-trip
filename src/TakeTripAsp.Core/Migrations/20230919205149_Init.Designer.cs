@@ -12,8 +12,8 @@ using TakeTripAsp.Core.Context;
 namespace TakeTripAsp.Core.Migrations
 {
     [DbContext(typeof(TakeTripAspDbContext))]
-    [Migration("20230918181956_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230919205149_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
