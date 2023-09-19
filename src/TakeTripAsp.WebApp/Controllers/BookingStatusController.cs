@@ -4,11 +4,11 @@ using TakeTripAsp.Repository;
 
 namespace TakeTripAsp.WebApp.Controllers
 {
-    public class StatusController : Controller
+    public class BookingStatusController : Controller
     {
-        public readonly IRepository<Status, int> repository;
+        public readonly IRepository<BookingStatus, int> repository;
 
-        public StatusController(IRepository<Status, int> repository)
+        public BookingStatusController(IRepository<BookingStatus, int> repository)
         {
             this.repository = repository;
         }
@@ -23,12 +23,12 @@ namespace TakeTripAsp.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Status model)
+        public IActionResult Create(BookingStatus model)
         {
             if (ModelState.IsValid)
             {
-                var status = new Status { StatusName = model.StatusName };
-                repository.Create(status);
+                var bookingStatus = new BookingStatus { BookingStatusName = model.BookingStatusName };
+                repository.Create(bookingStatus);
                 return RedirectToAction("Index");
             }
             return View();
@@ -40,9 +40,9 @@ namespace TakeTripAsp.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(Status status)
+        public IActionResult Delete(BookingStatus bookingStatus)
         {
-            repository.Delete(status);
+            repository.Delete(bookingStatus);
 
             return RedirectToAction("Index");
         }
@@ -53,11 +53,13 @@ namespace TakeTripAsp.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Status status)
+        public IActionResult Edit(BookingStatus bookingStatus)
         {
-            repository.Update(status);
+            repository.Update(bookingStatus);
 
             return RedirectToAction("Index");
         }
     }
+
+
 }

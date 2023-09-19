@@ -17,6 +17,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IRepository<Status, int>, Repository< Status, int>>();
+builder.Services.AddScoped<IRepository<BookingStatus, int>, Repository< BookingStatus, int>>();
+
 
 var app = builder.Build();
 
