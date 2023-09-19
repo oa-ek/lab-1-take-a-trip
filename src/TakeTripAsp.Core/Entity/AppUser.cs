@@ -4,6 +4,6 @@
     {
         public required string Name { get; set; }
 
-        public ICollection<SelectedTour> Tours { get; set; }
+        public ICollection<SelectedTour>? Tours { get; set; }
     }
 }
