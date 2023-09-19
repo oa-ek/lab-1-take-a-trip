@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TakeTripAsp.Core\TakeTripAsp.Core.csproj" />
-    <ProjectReference Include="..\TakeTripAsp.Dtos\TakeTripAsp.Dtos.csproj" />
     <ProjectReference Include="..\TakeTripAsp.Repository\TakeTripAsp.Repository.csproj" />
   </ItemGroup>
 
