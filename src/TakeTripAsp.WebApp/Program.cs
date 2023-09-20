@@ -18,6 +18,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IRepository<Status, int>, Repository< Status, int>>();
 builder.Services.AddScoped<IRepository<BookingStatus, int>, Repository< BookingStatus, int>>();
+builder.Services.AddScoped<IRepository<Category, int>, Repository< Category, int>>();
 
 
 var app = builder.Build();
