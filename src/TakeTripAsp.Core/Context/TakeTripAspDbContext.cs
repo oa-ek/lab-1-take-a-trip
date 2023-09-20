@@ -17,13 +17,17 @@ namespace TakeTripAsp.Core.Context
         public DbSet<BookingStatus> BookingsStatus { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Status> Statuses { get; set; }
-        public DbSet<Images> Images { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<SelectedTour> SelectedTour { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Reviews> Reviews { get; set; }
 
-        
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+            base.OnConfiguring(optionsBuilder);
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Tour>()

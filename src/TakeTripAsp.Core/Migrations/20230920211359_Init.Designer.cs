@@ -12,7 +12,7 @@ using TakeTripAsp.Core.Context;
 namespace TakeTripAsp.Core.Migrations
 {
     [DbContext(typeof(TakeTripAspDbContext))]
-    [Migration("20230919205149_Init")]
+    [Migration("20230920211359_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -21,6 +21,9 @@ namespace TakeTripAsp.Core.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -398,27 +401,6 @@ namespace TakeTripAsp.Core.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TakeTripAsp.Core.Entity.Images", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CoverPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TourId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TourId");
-
-                    b.ToTable("Images");
-                });
-
             modelBuilder.Entity("TakeTripAsp.Core.Entity.Payment", b =>
                 {
                     b.Property<int>("Id")
@@ -559,6 +541,9 @@ namespace TakeTripAsp.Core.Migrations
                     b.Property<decimal>("BookingPrice")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("CoverPath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -678,17 +663,6 @@ namespace TakeTripAsp.Core.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TakeTripAsp.Core.Entity.Images", b =>
-                {
-                    b.HasOne("TakeTripAsp.Core.Entity.Tour", "Tour")
-                        .WithMany("Images")
-                        .HasForeignKey("TourId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tour");
-                });
-
             modelBuilder.Entity("TakeTripAsp.Core.Entity.Payment", b =>
                 {
                     b.HasOne("TakeTripAsp.Core.Entity.Bookings", "Booking")
@@ -778,8 +752,6 @@ namespace TakeTripAsp.Core.Migrations
             modelBuilder.Entity("TakeTripAsp.Core.Entity.Tour", b =>
                 {
                     b.Navigation("Bookings");
-
-                    b.Navigation("Images");
 
                     b.Navigation("Reviews");
                 });

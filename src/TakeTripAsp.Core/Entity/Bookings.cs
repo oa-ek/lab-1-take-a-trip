@@ -12,14 +12,14 @@ namespace TakeTripAsp.Core.Entity
 
         public int UserId { get; set; }
 
-        public AppUser? User { get; set; }
+        public virtual AppUser? User { get; set; }
 
         public int TourId { get; set; }
 
-        public Tour? Tour { get; set; }
+        public virtual Tour? Tour { get; set; }
 
         public int BookingStatusId { get; set; }
 
-        public BookingStatus? BookingStatus { get; set; }
+        public virtual BookingStatus? BookingStatus { get; set; }
     }
 }

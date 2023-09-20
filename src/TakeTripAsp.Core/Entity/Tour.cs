@@ -1,4 +1,7 @@
-﻿namespace TakeTripAsp.Core.Entity
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace TakeTripAsp.Core.Entity
 {
     public class Tour : BaseEntity
     {
@@ -16,15 +19,18 @@
 
         public int StatusId { get; set; }
 
-        public Status? Status { get; set; }
+        public virtual Status? Status { get; set; }
 
-        public ICollection<Category>? Categories { get; set; }
+        public virtual ICollection<Category>? Categories { get; set; }
 
-        public ICollection<Bookings>? Bookings { get; set; }
+        public virtual ICollection<Bookings>? Bookings { get; set; }
 
-        public ICollection<Images>? Images { get; set; }
+        public string? CoverPath { get; set; } = "\\img\\tour\\tour.jpg";
 
-        public ICollection<Reviews>? Reviews { get; set; }
+        [NotMapped]
+        public IFormFile? CoverFile { get; set; }
+
+        public virtual ICollection<Reviews>? Reviews { get; set; }
 
     }
 

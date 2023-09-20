@@ -20,6 +20,7 @@ builder.Services.AddScoped<IRepository<Status, int>, Repository< Status, int>>()
 builder.Services.AddScoped<IRepository<BookingStatus, int>, Repository< BookingStatus, int>>();
 builder.Services.AddScoped<IRepository<Category, int>, Repository< Category, int>>(); 
 builder.Services.AddScoped<IRepository<AppUser, int>, Repository<AppUser, int>>();
+builder.Services.AddScoped<IRepository<Tour, int>, Repository<Tour, int>>();
 
 
 

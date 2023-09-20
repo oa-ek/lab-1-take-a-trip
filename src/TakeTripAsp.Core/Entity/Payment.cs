@@ -6,6 +6,6 @@
 
         public int BookingId { get; set; }
 
-        public Bookings? Booking { get; set; }
+        public virtual Bookings? Booking { get; set; }
     }
 }

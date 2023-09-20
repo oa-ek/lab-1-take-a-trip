@@ -7,7 +7,7 @@ namespace TakeTripAsp.Core.Entity
     {
         public int UserId { get; set; }
 
-        public AppUser? User { get; set; }
+        public virtual AppUser? User { get; set; }
 
         public string? CoverPath { get; set; } = "\\img\\profile\\profile.jpg";
 

@@ -4,6 +4,6 @@
     {
         public required string StatusName { get; set; }
 
-        public ICollection<Tour>? Tours { get; set; }
+        public virtual ICollection<Tour>? Tours { get; set; }
     }
 }
