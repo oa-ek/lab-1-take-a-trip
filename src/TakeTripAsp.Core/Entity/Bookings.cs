@@ -10,6 +10,8 @@ namespace TakeTripAsp.Core.Entity
     {
         public bool IsFullPayment { get; set; }
 
+        public decimal Payment { get; set; }
+
         public int UserId { get; set; }
 
         public virtual AppUser? User { get; set; }

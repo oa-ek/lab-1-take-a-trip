@@ -264,6 +264,7 @@ namespace TakeTripAsp.Core.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IsFullPayment = table.Column<bool>(type: "bit", nullable: false),
+                    Payment = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     TourId = table.Column<int>(type: "int", nullable: false),
                     BookingStatusId = table.Column<int>(type: "int", nullable: false)
@@ -368,26 +369,6 @@ namespace TakeTripAsp.Core.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Payments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    BookingId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Payments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Payments_Bookings_BookingId",
-                        column: x => x.BookingId,
-                        principalTable: "Bookings",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "BookingsStatus",
                 columns: new[] { "Id", "BookingStatusName" },
@@ -486,11 +467,6 @@ namespace TakeTripAsp.Core.Migrations
                 column: "ToursId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_BookingId",
-                table: "Payments",
-                column: "BookingId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Profiles_UserId",
                 table: "Profiles",
                 column: "UserId");
@@ -540,10 +516,10 @@ namespace TakeTripAsp.Core.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CategoryTour");
+                name: "Bookings");
 
             migrationBuilder.DropTable(
-                name: "Payments");
+                name: "CategoryTour");
 
             migrationBuilder.DropTable(
                 name: "Profiles");
@@ -561,16 +537,13 @@ namespace TakeTripAsp.Core.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "BookingsStatus");
+
+            migrationBuilder.DropTable(
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Bookings");
-
-            migrationBuilder.DropTable(
                 name: "AppUsers");
-
-            migrationBuilder.DropTable(
-                name: "BookingsStatus");
 
             migrationBuilder.DropTable(
                 name: "Tours");

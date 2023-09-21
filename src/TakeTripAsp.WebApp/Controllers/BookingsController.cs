@@ -41,9 +41,16 @@ namespace TakeTripAsp.WebApp.Controllers
                     IsFullPayment = model.IsFullPayment, 
                     UserId = 1, 
                     BookingStatusId = statusId, 
-                    TourId = tourId 
+                    TourId = tourId, 
                 };
-
+                if (booking.IsFullPayment)
+                {
+                    booking.Payment = tourrepository.Get(booking.TourId).FullPrice;
+                }
+                else
+                {
+                    booking.Payment = tourrepository.Get(booking.TourId).BookingPrice;
+                }
                 bookingsrepository.Create(booking);
                 return RedirectToAction("Index");
             }

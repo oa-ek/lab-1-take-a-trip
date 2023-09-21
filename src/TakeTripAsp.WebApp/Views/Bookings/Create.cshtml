@@ -22,7 +22,11 @@
                 <select class="form-control" id="tour" name="tourId">
                     @foreach (var tour in ViewBag.Tours)
                     {
-                        <option value="@tour.Id">@tour.Name</option>
+                        <option value="@tour.Id">
+                            @tour.Name
+                            <div>Повна вартість @tour.FullPrice </div>
+                            <div>Вартість бронювання @tour.BookingPrice </div>
+                        </option>
                     }
                 </select>
             </div>

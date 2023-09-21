@@ -17,7 +17,6 @@ namespace TakeTripAsp.Core.Context
         public DbSet<BookingStatus> BookingsStatus { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Status> Statuses { get; set; }
-        public DbSet<Payment> Payments { get; set; }
         public DbSet<SelectedTour> SelectedTour { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Reviews> Reviews { get; set; }
@@ -36,8 +35,8 @@ namespace TakeTripAsp.Core.Context
             modelBuilder.Entity<Tour>()
                 .Property(p => p.BookingPrice)
                 .HasColumnType("decimal(18,2)");
-            modelBuilder.Entity<Payment>()
-                .Property(p => p.Amount)
+            modelBuilder.Entity<Bookings>()
+                .Property(p => p.Payment)
                 .HasColumnType("decimal(18,2)");
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(TakeTripAspDbContext).Assembly);

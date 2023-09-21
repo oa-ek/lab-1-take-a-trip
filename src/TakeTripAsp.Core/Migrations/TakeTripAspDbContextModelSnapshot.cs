@@ -312,6 +312,9 @@ namespace TakeTripAsp.Core.Migrations
                     b.Property<bool>("IsFullPayment")
                         .HasColumnType("bit");
 
+                    b.Property<decimal>("Payment")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("TourId")
                         .HasColumnType("int");
 
@@ -396,27 +399,6 @@ namespace TakeTripAsp.Core.Migrations
                             Id = 10,
                             Name = "Зелений"
                         });
-                });
-
-            modelBuilder.Entity("TakeTripAsp.Core.Entity.Payment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("BookingId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookingId");
-
-                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("TakeTripAsp.Core.Entity.Profile", b =>
@@ -658,17 +640,6 @@ namespace TakeTripAsp.Core.Migrations
                     b.Navigation("Tour");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("TakeTripAsp.Core.Entity.Payment", b =>
-                {
-                    b.HasOne("TakeTripAsp.Core.Entity.Bookings", "Booking")
-                        .WithMany()
-                        .HasForeignKey("BookingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Booking");
                 });
 
             modelBuilder.Entity("TakeTripAsp.Core.Entity.Profile", b =>

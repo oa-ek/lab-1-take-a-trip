@@ -26,7 +26,6 @@ builder.Services.AddScoped<IRepository<Bookings, int>, Repository<Bookings, int>
 builder.Services.AddScoped<IRepository<Reviews, int>, Repository<Reviews, int>>();
 
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
