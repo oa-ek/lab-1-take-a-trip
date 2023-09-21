@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\img\profile\" />
     <Folder Include="wwwroot\img\tour\" />
   </ItemGroup>
 
