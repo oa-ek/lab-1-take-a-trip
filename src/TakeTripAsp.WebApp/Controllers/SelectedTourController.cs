@@ -33,7 +33,7 @@ namespace TakeTripAsp.WebApp.Controllers
             {
                 var selectedtour = new SelectedTour
                 {
-                    UserId = 1,
+                    ClientId = "",
                     TourId = tourId
                 };
                 repository.Create(selectedtour);

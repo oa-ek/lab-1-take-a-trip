@@ -32,7 +32,7 @@ namespace TakeTripAsp.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var profile = new Profile { UserId = 1, DateOfBirth = model.DateOfBirth};
+                var profile = new Profile { UserId = "", DateOfBirth = model.DateOfBirth};
                                
                 string wwwRootPath = webHostEnvironment.WebRootPath;
 

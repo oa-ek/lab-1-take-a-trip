@@ -1,10 +1,13 @@
-﻿namespace TakeTripAsp.Core.Entity
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace TakeTripAsp.Core.Entity
 {
     public class SelectedTour : BaseEntity
     {
-        public int UserId { get; set; }
+        public virtual AppUser? Client { get; set; }
 
-        public virtual AppUser? User { get; set; }
+        [ForeignKey(nameof(Client))]
+        public string ClientId { get; set; }
 
         public int TourId { get; set; }
 

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 using TakeTripAsp.Core.Context;
 using TakeTripAsp.Core.Entity;
 using TakeTripAsp.Repository;
@@ -12,14 +13,26 @@ builder.Services.AddDbContext<TakeTripAspDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<TakeTripAspDbContext>();
+
+builder.Services.AddDefaultIdentity<AppUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 4;
+}).AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<TakeTripAspDbContext>();
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IRepository<Status, int>, Repository< Status, int>>();
 builder.Services.AddScoped<IRepository<BookingStatus, int>, Repository< BookingStatus, int>>();
 builder.Services.AddScoped<IRepository<Category, int>, Repository< Category, int>>(); 
-builder.Services.AddScoped<IRepository<AppUser, int>, Repository<AppUser, int>>();
+//builder.Services.AddScoped<IRepository<AppUser, int>, Repository<AppUser, int>>();
 builder.Services.AddScoped<IRepository<Tour, int>, Repository<Tour, int>>();
 builder.Services.AddScoped<IRepository<Profile, int>, Repository<Profile, int>>();
 builder.Services.AddScoped<IRepository<Bookings, int>, Repository<Bookings, int>>();

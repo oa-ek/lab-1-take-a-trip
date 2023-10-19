@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TakeTripAsp.Core.Entity
 {
@@ -12,9 +8,10 @@ namespace TakeTripAsp.Core.Entity
 
         public decimal Payment { get; set; }
 
-        public int UserId { get; set; }
+        public virtual AppUser? Client { get; set; }
 
-        public virtual AppUser? User { get; set; }
+        [ForeignKey(nameof(Client))]
+        public string ClientId { get; set; }
 
         public int TourId { get; set; }
 

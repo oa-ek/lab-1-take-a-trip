@@ -38,8 +38,8 @@ namespace TakeTripAsp.WebApp.Controllers
             if (ModelState.IsValid)
             {
                 var booking = new Bookings { 
-                    IsFullPayment = model.IsFullPayment, 
-                    UserId = 1, 
+                    IsFullPayment = model.IsFullPayment,
+                    ClientId = "", 
                     BookingStatusId = statusId, 
                     TourId = tourId, 
                 };

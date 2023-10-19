@@ -34,7 +34,7 @@ namespace TakeTripAsp.WebApp.Controllers
                 var reviews = new Reviews
                 {
                     Comment = model.Comment,
-                    UserId = 1,
+                    ClientId = "",
                     TourId = tourId
                 };
                 repository.Create(reviews);

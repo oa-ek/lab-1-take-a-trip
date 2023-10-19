@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.Comment)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserId)
+                @Html.DisplayNameFor(model => model.ClientId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TourId)
@@ -33,9 +33,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Comment)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.User.Name)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Tour.Name)
             </td>

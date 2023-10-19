@@ -4,14 +4,13 @@ using TakeTripAsp.Core.Entity;
 
 namespace TakeTripAsp.Core.Context
 {
-    public class TakeTripAspDbContext  : IdentityDbContext
+    public class TakeTripAspDbContext  : IdentityDbContext<AppUser>
     {
         public TakeTripAspDbContext(DbContextOptions<TakeTripAspDbContext> options)
             : base(options)
         {
         }
-
-        public DbSet<AppUser> AppUsers { get; set; }
+       
         public DbSet<Tour> Tours { get; set; }
         public DbSet<Bookings> Bookings { get; set; }
         public DbSet<BookingStatus> BookingsStatus { get; set; }
