@@ -40,6 +40,8 @@ namespace TakeTripAsp.Core.Context
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(TakeTripAspDbContext).Assembly);
 
+            modelBuilder.Seed();
+
             base.OnModelCreating(modelBuilder);
         }
     }

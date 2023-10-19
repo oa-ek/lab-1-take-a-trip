@@ -1,13 +1,23 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using TakeTripAsp.Core.Entity;
 
-namespace TakeTripAsp.Data
+namespace TakeTripAsp.Core.Context
 {
-    public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
+    public static class TakeTripAspDbInitializerExtension
     {
-        public void Configure(EntityTypeBuilder<AppUser> builder)
+        public static void Seed(this ModelBuilder builder)
+        {
+            (string adminId, string sellerId, string clientId) = seedUsersAndRoles(builder);
+          
+        }
+
+        static (string, string, string) seedUsersAndRoles(ModelBuilder builder)
         {
             var ADMIN_ID = Guid.NewGuid().ToString();
             var CLIENT_ID = Guid.NewGuid().ToString();
@@ -46,7 +56,7 @@ namespace TakeTripAsp.Data
                      EmailConfirmed = true,
                      NormalizedUserName = "IVAN",
                      NormalizedEmail = "SELLER@TAKETRIP.COM",
-                     PasswordHash = hasher.HashPassword(null, "maneger$pass"), 
+                     PasswordHash = hasher.HashPassword(null, "maneger$pass"),
                      AccessFailedCount = 0,
 
                  },
@@ -67,16 +77,15 @@ namespace TakeTripAsp.Data
                  }
             };
 
-            builder.HasData(users);
+            builder.Entity<AppUser>().HasData(users);
 
-            var roles = new List<IdentityRole>
-            {
-                new IdentityRole
-                {
-                    Id = ADMIN_ROLE_ID,
-                    Name = "admin",
-                    NormalizedName = "ADMIN"
-                },
+            builder.Entity<IdentityRole>().HasData(
+               new IdentityRole
+               {
+                   Id = ADMIN_ROLE_ID,
+                   Name = "admin",
+                   NormalizedName = "ADMIN"
+               },
                 new IdentityRole
                 {
                     Id = SELLER_ROLE_ID,
@@ -88,18 +97,15 @@ namespace TakeTripAsp.Data
                     Id = CLIENT_ROLE_ID,
                     Name = "client",
                     NormalizedName = "CLIENT"
-                }
-            };
+                });
 
-            builder.HasData(roles);
+            builder.Entity<IdentityUserRole<string>>().HasData(
 
-            var userRoles = new List<IdentityUserRole<string>>
-            {
-                new IdentityUserRole<string>
-                {
-                    UserId = ADMIN_ID,
-                    RoleId = ADMIN_ROLE_ID
-                },
+               new IdentityUserRole<string>
+               {
+                   UserId = ADMIN_ID,
+                   RoleId = ADMIN_ROLE_ID
+               },
                 new IdentityUserRole<string>
                 {
                     UserId = SELLER_ID,
@@ -109,10 +115,8 @@ namespace TakeTripAsp.Data
                 {
                     UserId = CLIENT_ID,
                     RoleId = CLIENT_ROLE_ID
-                }
-            };
-
-            builder.HasData(userRoles);
+                });
+            return (ADMIN_ID, SELLER_ID, CLIENT_ID);
         }
     }
 }
