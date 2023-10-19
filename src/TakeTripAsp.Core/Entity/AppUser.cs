@@ -14,21 +14,6 @@ namespace TakeTripAsp.Core.Entity
 
         public string? CoverPath { get; set; } = "\\img\\user\\user.jpg";
 
-        //[NotMapped]
-        //public int AccessFailedCount { get; set; }
-
-        //[NotMapped]
-        //public bool EmailConfirmed { get; set; }
-
-        //[NotMapped]
-        //public bool LockoutEnabled { get; set; }
-        
-        //[NotMapped]
-        //public bool PhoneNumberConfirmed { get; set; }
-
-        //[NotMapped]
-        //public bool TwoFactorEnabled { get; set; }
-
         [NotMapped]
         public IFormFile? CoverFile { get; set; }
 

@@ -33,6 +33,7 @@ namespace TakeTripAsp.Data
                      NormalizedUserName = "MARIIA",
                      NormalizedEmail = "ADMIN@TAKETRIP.COM",
                      PasswordHash = hasher.HashPassword(null, "admin$pass"),
+                     AccessFailedCount = 0,
                  },
                  new AppUser
                  {
@@ -45,7 +46,9 @@ namespace TakeTripAsp.Data
                      EmailConfirmed = true,
                      NormalizedUserName = "IVAN",
                      NormalizedEmail = "SELLER@TAKETRIP.COM",
-                     PasswordHash = hasher.HashPassword(null, "maneger$pass"),                    
+                     PasswordHash = hasher.HashPassword(null, "maneger$pass"), 
+                     AccessFailedCount = 0,
+
                  },
                  new AppUser
                  {
@@ -59,6 +62,8 @@ namespace TakeTripAsp.Data
                      NormalizedUserName = "OLEKSANDR",
                      NormalizedEmail = "CLIENT@TAKETRIP.COM",
                      PasswordHash = hasher.HashPassword(null, "client$pass"),
+                     AccessFailedCount = 0,
+
                  }
             };
 
