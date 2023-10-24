@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TakeTripAsp.Core.Context;
 
@@ -11,9 +12,11 @@ using TakeTripAsp.Core.Context;
 namespace TakeTripAsp.Core.Migrations
 {
     [DbContext(typeof(TakeTripAspDbContext))]
-    partial class TakeTripAspDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231024195526_TourChange")]
+    partial class TourChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

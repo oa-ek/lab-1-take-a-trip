@@ -41,6 +41,8 @@ namespace TakeTripAsp.WebApp.Controllers
             {
                 Name = model.Name,
                 Description = model.Description,
+                Continent = model.Continent,
+                City = model.City,
                 Start = model.Start,
                 End = model.End,
                 FullPrice = model.FullPrice,

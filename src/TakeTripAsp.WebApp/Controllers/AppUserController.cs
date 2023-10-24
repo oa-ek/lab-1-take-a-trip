@@ -1,61 +1,81 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Data;
+using TakeTripAsp.Core.Entity;
+using TakeTripAsp.Repository;
+using TakeTripAsp.Repository.DTOsUser;
+using TakeTripAsp.Repository.Interfaces;
 
 namespace TakeTripAsp.WebApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AppUserController : Controller
     {
-        //public readonly IRepository<AppUser, int> repository;
+        private readonly IUserRepository userRepository;
 
-        //public AppUserController(IRepository<AppUser, int> repository)
-        //{
-        //    this.repository = repository;
-        //}
-        //public IActionResult Index()
-        //{
-        //    return View(repository.GetAll());
-        //}
+        public AppUserController(IUserRepository userRepository)
+        {
+            this.userRepository = userRepository;
+        }
 
-        //public IActionResult Create()
-        //{
-        //    return View("Create");
-        //}
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Index()
+        {
+            return View(await userRepository.GetAllAsync());
+        }
 
-        //[HttpPost]
-        //public IActionResult Create(AppUser model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var appUser = new AppUser { Name = model.Name };
-        //        repository.Create(appUser);
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View();
-        //}
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            return View(new UserCreateDto());
+        }
 
-        //public IActionResult Delete(int id)
-        //{
-        //    return View(repository.Get(id));
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(UserCreateDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = await userRepository.CreateAsync(model);
+                return RedirectToAction("Edit", new { id = userId });
+            }
+            return View(model);
+        }
 
-        //[HttpPost]
-        //public IActionResult Delete(AppUser appUser)
-        //{
-        //    repository.Delete(appUser);
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            ViewBag.Roles = await userRepository.GetRolesAsync();
+            var userUpdate = await userRepository.GetAsync(id);
+            return View(userUpdate);
+        }
 
-        //    return RedirectToAction("Index");
-        //}
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Edit(UserDto model, string[] roles)
+        {
+            if (ModelState.IsValid)
+            {
+                await userRepository.UpdateAsync(model, roles);
+                return RedirectToAction("Index");
+            }
+            ViewBag.Roles = await userRepository.GetRolesAsync();
+            return View(model);
+        }
 
-        //public IActionResult Edit(int id)
-        //{
-        //    return View(repository.Get(id));
-        //}
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            return View(await userRepository.GetAsync(id));
+        }
 
-        //[HttpPost]
-        //public IActionResult Edit(AppUser appUser)
-        //{
-        //    repository.Update(appUser);
-
-        //    return RedirectToAction("Index");
-        //}
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> ConfirmDelete(string id)
+        {
+            await userRepository.DeleteAsync(id);
+            return RedirectToAction("Index");
+        }
     }
 }

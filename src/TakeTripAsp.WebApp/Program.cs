@@ -4,6 +4,8 @@ using System.Configuration;
 using TakeTripAsp.Core.Context;
 using TakeTripAsp.Core.Entity;
 using TakeTripAsp.Repository;
+using TakeTripAsp.Repository.Interfaces;
+using TakeTripAsp.Repository.Repos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,18 +29,18 @@ builder.Services.AddDefaultIdentity<AppUser>(options =>
 }).AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<TakeTripAspDbContext>();
 
-builder.Services.AddControllersWithViews();
-
+//builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRepository<Status, int>, Repository< Status, int>>();
 builder.Services.AddScoped<IRepository<BookingStatus, int>, Repository< BookingStatus, int>>();
 builder.Services.AddScoped<IRepository<Category, int>, Repository< Category, int>>(); 
-//builder.Services.AddScoped<IRepository<AppUser, int>, Repository<AppUser, int>>();
 builder.Services.AddScoped<IRepository<Tour, int>, Repository<Tour, int>>();
 builder.Services.AddScoped<IRepository<Profile, int>, Repository<Profile, int>>();
 builder.Services.AddScoped<IRepository<Bookings, int>, Repository<Bookings, int>>();
 builder.Services.AddScoped<IRepository<Reviews, int>, Repository<Reviews, int>>();
 builder.Services.AddScoped<IRepository<SelectedTour,int>, Repository<SelectedTour, int>>();
 
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
