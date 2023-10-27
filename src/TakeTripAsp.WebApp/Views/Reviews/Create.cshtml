@@ -20,9 +20,12 @@
             <div class="form-group">
                 <label for="tour">Оберіть тур:</label>
                 <select class="form-control" id="tour" name="tourId">
-                    @foreach (var tour in ViewBag.Tours)
+                    @if (ViewBag.Tours != null)
                     {
-                        <option value="@tour.Id">@tour.Name</option>
+                        foreach (var tour in ViewBag.Tours)
+                        {
+                            <option value="@tour.Id">@tour.Name</option>
+                        }
                     }
                 </select>
             </div>

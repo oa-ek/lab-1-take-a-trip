@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Core.Types;
+using System.Security.Claims;
 using TakeTripAsp.Core.Entity;
 using TakeTripAsp.Repository;
 
@@ -7,18 +9,21 @@ namespace TakeTripAsp.WebApp.Controllers
 {
     public class BookingsController : Controller
     {
-        public readonly IRepository<Bookings, int> bookingsrepository; 
+        public readonly IRepository<Bookings, int> bookingsrepository;
         public readonly IRepository<Tour, int> tourrepository;
         public readonly IRepository<BookingStatus, int> bookingstatusreposotory;
-        
-        public BookingsController(IRepository<Tour, int> repository, 
+        private readonly UserManager<AppUser> _userManager;
+
+        public BookingsController(IRepository<Tour, int> repository,
             IRepository<Bookings, int> bookingsrepository,
-            IRepository<BookingStatus, int> bookingstatusreposotory)
+            IRepository<BookingStatus, int> bookingstatusreposotory,
+            UserManager<AppUser> userManager)
         {
             this.tourrepository = repository;
             this.bookingsrepository = bookingsrepository;
             this.bookingstatusreposotory = bookingstatusreposotory;
-        
+            this._userManager = userManager;
+
         }
         public IActionResult Index()
         {
@@ -35,25 +40,23 @@ namespace TakeTripAsp.WebApp.Controllers
         [HttpPost]
         public IActionResult Create(Bookings model, int tourId, int statusId)
         {
-            if (ModelState.IsValid)
+            var userId = _userManager.GetUserId(User);
+            var booking = new Bookings
             {
-                var booking = new Bookings { 
-                    IsFullPayment = model.IsFullPayment,
-                    ClientId = "", 
-                    BookingStatusId = statusId, 
-                    TourId = tourId, 
-                };
-                if (booking.IsFullPayment)
-                {
-                    booking.Payment = tourrepository.Get(booking.TourId).FullPrice;
-                }
-                else
-                {
-                    booking.Payment = tourrepository.Get(booking.TourId).BookingPrice;
-                }
-                bookingsrepository.Create(booking);
-                return RedirectToAction("Index");
+                IsFullPayment = model.IsFullPayment,
+                ClientId = userId,
+                BookingStatusId = statusId,
+                TourId = tourId,
+            };
+            if (booking.IsFullPayment)
+            {
+                booking.Payment = tourrepository.Get(booking.TourId).FullPrice;
             }
+            else
+            {
+                booking.Payment = tourrepository.Get(booking.TourId).BookingPrice;
+            }
+            bookingsrepository.Create(booking);
             return RedirectToAction("Index");
         }
 
@@ -74,7 +77,7 @@ namespace TakeTripAsp.WebApp.Controllers
         public IActionResult Edit(int id)
         {
             ViewBag.Tours = tourrepository.GetAll();
-            ViewBag.Status = bookingstatusreposotory.GetAll(); 
+            ViewBag.Status = bookingstatusreposotory.GetAll();
             return View(bookingsrepository.Get(id));
         }
 
@@ -85,12 +88,12 @@ namespace TakeTripAsp.WebApp.Controllers
 
             if (existingBooking == null)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
             existingBooking.IsFullPayment = model.IsFullPayment;
-            existingBooking.TourId = tourId; 
-            existingBooking.BookingStatusId = statusId; 
+            existingBooking.TourId = tourId;
+            existingBooking.BookingStatusId = statusId;
 
             bookingsrepository.Update(existingBooking);
 

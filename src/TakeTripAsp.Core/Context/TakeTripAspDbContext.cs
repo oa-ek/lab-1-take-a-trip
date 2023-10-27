@@ -17,7 +17,6 @@ namespace TakeTripAsp.Core.Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<SelectedTour> SelectedTour { get; set; }
-        public DbSet<Profile> Profiles { get; set; }
         public DbSet<Reviews> Reviews { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

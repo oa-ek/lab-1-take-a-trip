@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
-namespace JetStudy.WebApp.Areas.Identity.Pages.Account
+namespace TakeTripAsp.WebApp.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
