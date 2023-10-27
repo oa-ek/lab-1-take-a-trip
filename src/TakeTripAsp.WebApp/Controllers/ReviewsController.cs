@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Core.Types;
+using System.Security.Claims;
 using TakeTripAsp.Core.Entity;
 using TakeTripAsp.Repository;
 
@@ -8,12 +11,15 @@ namespace TakeTripAsp.WebApp.Controllers
     {
         public readonly IRepository<Reviews, int> repository;
         public readonly IRepository<Tour, int> tourrepository;
+        private readonly UserManager<AppUser> _userManager;
 
         public ReviewsController(IRepository<Reviews, int> repository,
-            IRepository<Tour, int> tourrepository)
+            IRepository<Tour, int> tourrepository,
+            UserManager<AppUser> userManager)
         {
             this.repository = repository;
             this.tourrepository = tourrepository;
+            this._userManager = userManager;
         }
         public IActionResult Index()
         {
@@ -29,18 +35,17 @@ namespace TakeTripAsp.WebApp.Controllers
         [HttpPost]
         public IActionResult Create(Reviews model, int tourId)
         {
-            if (ModelState.IsValid)
+            var userId = _userManager.GetUserId(User);
+
+            var reviews = new Reviews
             {
-                var reviews = new Reviews
-                {
-                    Comment = model.Comment,
-                    ClientId = "",
-                    TourId = tourId
-                };
-                repository.Create(reviews);
-                return RedirectToAction("Index");
-            }
-            return View();
+                Comment = model.Comment,
+                ClientId = userId,
+                TourId = tourId
+            };
+            repository.Create(reviews);
+            return RedirectToAction("Index");
+
         }
 
         public IActionResult Delete(int id)
