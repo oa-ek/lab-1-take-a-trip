@@ -6,7 +6,7 @@ namespace TakeTripAsp.WebApp.Controllers
 {
     public class BookingStatusController : Controller
     {
-        public readonly IRepository<BookingStatus, int> repository;
+        private readonly IRepository<BookingStatus, int> repository;
 
         public BookingStatusController(IRepository<BookingStatus, int> repository)
         {

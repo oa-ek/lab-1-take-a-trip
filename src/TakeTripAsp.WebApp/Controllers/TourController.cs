@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using TakeTripAsp.Core.Entity;
 using TakeTripAsp.Repository;
 
@@ -8,10 +6,10 @@ namespace TakeTripAsp.WebApp.Controllers
 {
     public class TourController : Controller
     {
-        public readonly IRepository<Tour, int> repository;
-        public readonly IRepository<Category, int> categoryrepository;
-        public readonly IRepository<Status, int> statusrepository;
-        public readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IRepository<Tour, int> repository;
+        private readonly IRepository<Category, int> categoryrepository;
+        private readonly IRepository<Status, int> statusrepository;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
         public TourController(IRepository<Tour, int> repository,
             IRepository<Category, int> categoryrepository,

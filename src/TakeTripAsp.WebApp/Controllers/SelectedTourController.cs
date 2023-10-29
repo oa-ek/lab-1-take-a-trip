@@ -7,8 +7,8 @@ namespace TakeTripAsp.WebApp.Controllers
 {
     public class SelectedTourController : Controller
     {
-        public readonly IRepository<SelectedTour, int> repository;
-        public readonly IRepository<Tour, int> tourrepository;
+        private readonly IRepository<SelectedTour, int> repository;
+        private readonly IRepository<Tour, int> tourrepository;
         private readonly UserManager<AppUser> _userManager;
 
         public SelectedTourController(IRepository<SelectedTour, int> repository,

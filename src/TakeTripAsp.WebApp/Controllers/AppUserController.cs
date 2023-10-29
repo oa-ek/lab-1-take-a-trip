@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
-using TakeTripAsp.Core.Entity;
-using TakeTripAsp.Repository;
 using TakeTripAsp.Repository.DTOsUser;
 using TakeTripAsp.Repository.Interfaces;
 

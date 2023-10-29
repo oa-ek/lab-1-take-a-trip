@@ -6,7 +6,7 @@ namespace TakeTripAsp.WebApp.Controllers
 {
     public class CategoryController : Controller
     {
-        public readonly IRepository<Category, int> repository;
+        private readonly IRepository<Category, int> repository;
 
         public CategoryController(IRepository<Category, int> repository)
         {

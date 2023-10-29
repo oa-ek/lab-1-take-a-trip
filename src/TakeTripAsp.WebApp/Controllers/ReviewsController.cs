@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Core.Types;
-using System.Security.Claims;
 using TakeTripAsp.Core.Entity;
 using TakeTripAsp.Repository;
 
@@ -9,8 +7,8 @@ namespace TakeTripAsp.WebApp.Controllers
 {
     public class ReviewsController : Controller
     {
-        public readonly IRepository<Reviews, int> repository;
-        public readonly IRepository<Tour, int> tourrepository;
+        private readonly IRepository<Reviews, int> repository;
+        private readonly IRepository<Tour, int> tourrepository;
         private readonly UserManager<AppUser> _userManager;
 
         public ReviewsController(IRepository<Reviews, int> repository,
