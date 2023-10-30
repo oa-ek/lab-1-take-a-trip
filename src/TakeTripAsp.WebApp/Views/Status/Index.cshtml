@@ -1,15 +1,16 @@
 ﻿@model IEnumerable<TakeTripAsp.Core.Entity.Status>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Статус";
+    Layout = "_TakeATripAdminLayout";
 }
 
-<h1>Index</h1>
+<h1>Статус</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-controller="Status" asp-action="Create" class="btn btn-inverse-primary btn-fw">Створити</a>
 </p>
-<table class="table">
+<table class="table-bordered">
     <thead>
         <tr>
             <th>
@@ -21,7 +22,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody >
         @foreach (var item in Model)
         {
             <tr>
@@ -33,8 +34,8 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new {  id=item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
+                    <a class="btn btn-warning btn-rounded btn-fw" href="@Url.Action("Edit", "Status", new { id = item.Id })">Редагувати</a>
+                    <a class="btn btn-danger btn-rounded btn-fw" href="@Url.Action("Delete", "Status", new { id = item.Id })">Видалити</a>
                 </td>
             </tr>
         }
