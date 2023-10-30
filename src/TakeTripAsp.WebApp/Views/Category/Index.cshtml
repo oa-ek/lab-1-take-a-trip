@@ -1,15 +1,16 @@
 ﻿@model IEnumerable<TakeTripAsp.Core.Entity.Category>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Категорії";
+    Layout = "_TakeATripAdminLayout";
 }
 
-<h1>Index</h1>
+<h1>Категорії</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-controller="Category" asp-action="Create" class="btn btn-inverse-primary btn-fw">Створити</a>
 </p>
-<table class="table">
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>
@@ -21,20 +22,21 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-            </td>
-        </tr>
-}
+    <tbody class="display3">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    <a class="btn btn-warning btn-rounded btn-fw" href="@Url.Action("Edit", "Category", new { id = item.Id })">Редагувати</a>
+                    <a class="btn btn-danger btn-rounded btn-fw" href="@Url.Action("Delete", "Category", new { id = item.Id })">Видалити</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

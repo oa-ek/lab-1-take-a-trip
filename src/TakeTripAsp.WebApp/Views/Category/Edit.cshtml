@@ -1,12 +1,13 @@
 ﻿@model TakeTripAsp.Core.Entity.Category
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Редагування";
+    Layout = "_TakeATripAdminLayout";
 }
 
-<h1>Edit</h1>
+<h1>Редагування</h1>
 
-<h4>Category</h4>
+<h4>Категорії</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -18,14 +19,14 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-warning btn-rounded btn-fw" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-inverse-info btn-fw">Повернутись до списку</a>
 </div>
 
 @section Scripts {
