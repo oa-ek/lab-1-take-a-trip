@@ -103,7 +103,22 @@ namespace TakeTripAsp.WebApp.Controllers
         [HttpPost]
         public IActionResult Edit(Tour tour)
         {
-            repository.Update(tour);
+            var existingTour = repository.Get(tour.Id);
+            var userId = _userManager.GetUserId(User);
+
+
+            existingTour.Name = tour.Name;
+            existingTour.Description = tour.Description;
+            existingTour.Continent = tour.Continent;
+            existingTour.City = tour.City;
+            existingTour.Start = tour.Start;
+            existingTour.End = tour.End;
+            existingTour.FullPrice = tour.FullPrice;
+            existingTour.BookingPrice = tour.BookingPrice;
+            existingTour.StatusId = 1;
+            existingTour.ManagerId = userId;
+
+            repository.Update(existingTour);
 
             return RedirectToAction("Index");
         }

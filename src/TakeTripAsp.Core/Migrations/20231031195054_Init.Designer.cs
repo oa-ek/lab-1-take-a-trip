@@ -12,7 +12,7 @@ using TakeTripAsp.Core.Context;
 namespace TakeTripAsp.Core.Migrations
 {
     [DbContext(typeof(TakeTripAspDbContext))]
-    [Migration("20231031175350_Init")]
+    [Migration("20231031195054_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -72,19 +72,19 @@ namespace TakeTripAsp.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "431952a1-7694-44dd-b9dd-a8cfaab62f54",
+                            Id = "13022ef0-039e-4e33-aa28-b03f014bf707",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "61d87c54-3db0-44c5-9f72-f78c9dfc0428",
+                            Id = "484c15b8-8b38-4bd3-bbfa-1258b3d5e342",
                             Name = "seller",
                             NormalizedName = "SELLER"
                         },
                         new
                         {
-                            Id = "4b940910-dbf3-41e6-b72a-f21594dca46c",
+                            Id = "cd51b908-1df3-4183-98e3-c79f3e1a38a6",
                             Name = "client",
                             NormalizedName = "CLIENT"
                         });
@@ -181,18 +181,18 @@ namespace TakeTripAsp.Core.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "9db1b8f3-699d-46a8-9e44-c599a19fce51",
-                            RoleId = "431952a1-7694-44dd-b9dd-a8cfaab62f54"
+                            UserId = "5b0168f9-5c9a-4388-98e2-57fb43684a77",
+                            RoleId = "13022ef0-039e-4e33-aa28-b03f014bf707"
                         },
                         new
                         {
-                            UserId = "6b45059c-350b-41b3-97b4-7a7ae038e7bd",
-                            RoleId = "61d87c54-3db0-44c5-9f72-f78c9dfc0428"
+                            UserId = "2c46546e-eeaa-47c6-8858-f7ccc30b72c4",
+                            RoleId = "484c15b8-8b38-4bd3-bbfa-1258b3d5e342"
                         },
                         new
                         {
-                            UserId = "5be4e251-2bcb-48ca-8f78-f0eccc9aac70",
-                            RoleId = "4b940910-dbf3-41e6-b72a-f21594dca46c"
+                            UserId = "37e8be70-52cb-450e-9ef1-583695c703c2",
+                            RoleId = "cd51b908-1df3-4183-98e3-c79f3e1a38a6"
                         });
                 });
 
@@ -296,11 +296,11 @@ namespace TakeTripAsp.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9db1b8f3-699d-46a8-9e44-c599a19fce51",
+                            Id = "5b0168f9-5c9a-4388-98e2-57fb43684a77",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0a7467a3-f554-4276-b4c4-252fb5c08c31",
+                            ConcurrencyStamp = "be900cd0-b1db-4b56-94da-04428094e24f",
                             CoverPath = "\\img\\user\\user.jpg",
-                            DateOfBirth = new DateTime(1998, 10, 31, 19, 53, 50, 7, DateTimeKind.Local).AddTicks(574),
+                            DateOfBirth = new DateTime(1998, 10, 31, 21, 50, 53, 527, DateTimeKind.Local).AddTicks(3654),
                             Email = "admin@taketrip.com",
                             EmailConfirmed = true,
                             FirstName = "Mariia",
@@ -308,19 +308,19 @@ namespace TakeTripAsp.Core.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@TAKETRIP.COM",
                             NormalizedUserName = "ADMIN@TAKETRIP.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEC2awe95D+aM370pscfa16oj0PZ381ocf6GdQCEVFk6cldMjkXqqTQEXiOI7nniItA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEB30v0Ip4RLeOOMvxgM1Ah8AjFnQfoCECJfQX7Nbty1l80jmnlr/FUAwsRvQbO9l1A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6715335b-10ab-4209-a0df-9b308f87fcda",
+                            SecurityStamp = "92e24db3-74dc-4362-852d-a77b2367fc03",
                             TwoFactorEnabled = false,
                             UserName = "admin@taketrip.com"
                         },
                         new
                         {
-                            Id = "6b45059c-350b-41b3-97b4-7a7ae038e7bd",
+                            Id = "2c46546e-eeaa-47c6-8858-f7ccc30b72c4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d81a229b-f902-4202-ab50-ab83e7925028",
+                            ConcurrencyStamp = "e88d655e-ad95-4468-8e5f-008041f586dc",
                             CoverPath = "\\img\\user\\user.jpg",
-                            DateOfBirth = new DateTime(1998, 10, 31, 19, 53, 50, 65, DateTimeKind.Local).AddTicks(8763),
+                            DateOfBirth = new DateTime(1998, 10, 31, 21, 50, 53, 679, DateTimeKind.Local).AddTicks(3234),
                             Email = "seller@taketrip.com",
                             EmailConfirmed = true,
                             FirstName = "Ivan",
@@ -328,19 +328,19 @@ namespace TakeTripAsp.Core.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "SELLER@TAKETRIP.COM",
                             NormalizedUserName = "SELLER@TAKETRIP.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO6VTrtaARSXgq0b7mFW52hiLB/IkKkVOmnalo8TH2yVtEO6Z+O/Bad6guXhEZ6Umg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDcE/KtRaXNihBdofCGCIq4DWuB2h6uP+Lf2oawR4veHGRRCcJdz72aTvZXBf/4WRQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ded2fd4f-1323-46fe-84d7-4326f6934ee0",
+                            SecurityStamp = "bc4cb5b3-cd89-4955-baef-7674b5a61ee2",
                             TwoFactorEnabled = false,
                             UserName = "seller@taketrip.com"
                         },
                         new
                         {
-                            Id = "5be4e251-2bcb-48ca-8f78-f0eccc9aac70",
+                            Id = "37e8be70-52cb-450e-9ef1-583695c703c2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4e700013-d150-4259-800e-0f518906e8a2",
+                            ConcurrencyStamp = "da3e4955-fe60-4758-8ec3-7941fc3ab0d0",
                             CoverPath = "\\img\\user\\user.jpg",
-                            DateOfBirth = new DateTime(1998, 10, 31, 19, 53, 50, 124, DateTimeKind.Local).AddTicks(9319),
+                            DateOfBirth = new DateTime(1998, 10, 31, 21, 50, 53, 858, DateTimeKind.Local).AddTicks(4263),
                             Email = "client@taketrip.com",
                             EmailConfirmed = true,
                             FirstName = "Oleksandr",
@@ -348,9 +348,9 @@ namespace TakeTripAsp.Core.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CLIENT@TAKETRIP.COM",
                             NormalizedUserName = "CLIENT@TAKETRIP.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEErRkkkBdg9P3QTUjUgqQY8VKtHS6eX93UJFKiNuchbQn7QCSrG39IOujXZiwi5eYQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJm+gHGsu090fPtJgOcJFj+RJNkAZAOsSyvGx/6G9VG+JoZ/T2ctWWbofehCC1kc3w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "22aa1321-8453-4d54-956e-b81cf15f8047",
+                            SecurityStamp = "0f7142b5-afb5-4852-bbab-6a4df0622951",
                             TwoFactorEnabled = false,
                             UserName = "client@taketrip.com"
                         });
