@@ -10,8 +10,6 @@ namespace TakeTripAsp.Core.Entity
 
         public string? LastName { get; set; }
 
-        public string? Email { get; set; }
-
         public string? CoverPath { get; set; } = "\\img\\user\\user.jpg";
 
         [NotMapped]

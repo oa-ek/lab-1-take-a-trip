@@ -1,30 +1,35 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using TakeTripAsp.Repository;
 using TakeTripAsp.Repository.DTOsUser;
 using TakeTripAsp.Repository.Interfaces;
 
 namespace TakeTripAsp.WebApp.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     public class AppUserController : Controller
     {
         private readonly IUserRepository userRepository;
+       
 
         public AppUserController(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
+         
         }
 
-        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Index()
         {
             return View(await userRepository.GetAllAsync());
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            var role = await userRepository.GetRolesAsync();
+            ViewBag.RoleList = role.ToList();
             return View(new UserCreateDto());
         }
 
@@ -43,7 +48,8 @@ namespace TakeTripAsp.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-            ViewBag.Roles = await userRepository.GetRolesAsync();
+            var role = await userRepository.GetRolesAsync();
+            ViewBag.RoleList = role.ToList();
             var userUpdate = await userRepository.GetAsync(id);
             return View(userUpdate);
         }
@@ -52,13 +58,11 @@ namespace TakeTripAsp.WebApp.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Edit(UserDto model, string[] roles)
         {
-            if (ModelState.IsValid)
-            {
-                await userRepository.UpdateAsync(model, roles);
-                return RedirectToAction("Index");
-            }
-            ViewBag.Roles = await userRepository.GetRolesAsync();
-            return View(model);
+
+            await userRepository.UpdateAsync(model, roles);
+            return RedirectToAction("Index");
+
+            
         }
 
         [HttpGet]
@@ -69,9 +73,9 @@ namespace TakeTripAsp.WebApp.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> ConfirmDelete(string id)
+        public async Task<IActionResult> Delete(UserDto user)
         {
-            await userRepository.DeleteAsync(id);
+            await userRepository.DeleteAsync(user.Id);
             return RedirectToAction("Index");
         }
     }

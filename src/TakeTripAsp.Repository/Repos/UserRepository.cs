@@ -36,7 +36,7 @@ namespace TakeTripAsp.Repository.Repos
             };
 
             await userManager.CreateAsync(newUser, obj.Password);
-
+            await userManager.AddToRoleAsync(newUser,obj.Role); // додати до ролі 
             return _context.Users.First(x => x.Email == obj.Email).Id;
         }
 
@@ -63,7 +63,7 @@ namespace TakeTripAsp.Repository.Repos
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     IsConfirmed = user.EmailConfirmed,
-                    Roles = roles.ToList()
+                    Role = roles.ToList()
                 };
         }
 
