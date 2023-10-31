@@ -16,8 +16,8 @@ namespace TakeTripAsp.Core.Context
         public DbSet<BookingStatus> BookingsStatus { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Status> Statuses { get; set; }
-        public DbSet<SelectedTour> SelectedTour { get; set; }
         public DbSet<Reviews> Reviews { get; set; }
+        public DbSet<TourManagerRequest> TourManagerRequest { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

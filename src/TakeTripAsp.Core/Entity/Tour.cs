@@ -25,6 +25,11 @@ namespace TakeTripAsp.Core.Entity
 
         public virtual Status? Status { get; set; }
 
+        public virtual AppUser? Manager { get; set; }
+
+        [ForeignKey(nameof(Manager))]
+        public string? ManagerId { get; set; }
+
         public virtual ICollection<Category>? Categories { get; set; }
 
         public virtual ICollection<Bookings>? Bookings { get; set; }
@@ -35,7 +40,5 @@ namespace TakeTripAsp.Core.Entity
         public IFormFile? CoverFile { get; set; }
 
         public virtual ICollection<Reviews>? Reviews { get; set; }
-
     }
-
 }

@@ -40,7 +40,7 @@ namespace TakeTripAsp.WebApp.Controllers
             if (ModelState.IsValid)
             {
                 var userId = await userRepository.CreateAsync(model);
-                return RedirectToAction("Edit", new { id = userId });
+                return RedirectToAction("Index");
             }
             return View(model);
         }

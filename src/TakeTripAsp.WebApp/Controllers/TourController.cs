@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using TakeTripAsp.Core.Entity;
 using TakeTripAsp.Repository;
 
@@ -9,17 +10,20 @@ namespace TakeTripAsp.WebApp.Controllers
         private readonly IRepository<Tour, int> repository;
         private readonly IRepository<Category, int> categoryrepository;
         private readonly IRepository<Status, int> statusrepository;
+        private readonly UserManager<AppUser> _userManager;
         private readonly IWebHostEnvironment webHostEnvironment;
 
         public TourController(IRepository<Tour, int> repository,
             IRepository<Category, int> categoryrepository,
             IWebHostEnvironment webHostEnvironment,
-            IRepository<Status, int> statusrepository)
+            IRepository<Status, int> statusrepository,
+            UserManager<AppUser> _userManager)
         {
             this.repository = repository;
             this.categoryrepository = categoryrepository;
             this.webHostEnvironment = webHostEnvironment;
             this.statusrepository = statusrepository;
+            this._userManager = _userManager;
         }
         public IActionResult Index()
         {
@@ -35,6 +39,7 @@ namespace TakeTripAsp.WebApp.Controllers
         [HttpPost]
         public IActionResult Create(Tour model, List<int> selectedCategories)
         {
+            var userId = _userManager.GetUserId(User);
             var tour = new Tour
             {
                 Name = model.Name,
@@ -46,6 +51,7 @@ namespace TakeTripAsp.WebApp.Controllers
                 FullPrice = model.FullPrice,
                 BookingPrice = model.BookingPrice,
                 StatusId = 1,
+                ManagerId = userId
             };
 
             List<Category> categories = new List<Category>();
