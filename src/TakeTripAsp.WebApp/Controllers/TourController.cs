@@ -97,6 +97,7 @@ namespace TakeTripAsp.WebApp.Controllers
 
         public IActionResult Edit(int id)
         {
+            ViewBag.Categories = categoryrepository.GetAll();
             return View(repository.Get(id));
         }
 

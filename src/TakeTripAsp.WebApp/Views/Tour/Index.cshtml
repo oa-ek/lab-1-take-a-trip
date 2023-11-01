@@ -2,101 +2,173 @@
 
 @{
     ViewData["Title"] = "Index";
-    //Layout = "_TakeATripAdminLayout";
+    Layout = "_TakeATripAdminLayout";
 }
 
-<h1>Index</h1>
+<h1>Наші тури</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-controller="Tour" asp-action="Create" class="btn btn-inverse-primary btn-fw">Створити</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Continent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Start)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.End)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FullPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categories)
-            </th>
-            <th></th>
-        </tr>
+<div class="ml-1" style="width: 1250px;">
+    @foreach (var item in Model)
+    {
+        <div class="content-wrapper border mr-2 mb-2">
+            <div class="card-body mb-0">
+                <div class="row align-items-center justify-content-between">
+                    <h1 class="display-1">@Html.DisplayFor(modelItem => item.Name)</h1>
+                    <div>
+                        <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "Tour", new { id = item.Id })">Редагувати</a>
+                        <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "Tour", new { id = item.Id })">Видалити</a>
+                    </div>
+                </div>
+                <div class="wrapper d-flex mb-3">
+                    <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
+                        <p class="text-muted mr-2 ml-2">Континент</p>
+                        <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.Continent)</p>
+                    </div>
+                    <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
+                        <p class="text-muted mr-2 ml-2">Країна</p>
+                        <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.City)</p>
+                    </div>
+                    <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
+                        <p class="text-muted mr-2 ml-2">Тривалість</p>
+                        <p class="lead mr-2 ml-2">
+                            @item.Start.ToString("dd.MM.yyyy") - @item.End.ToString("dd.MM.yyyy")
+                        </p>
+                    </div>
+                    <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
+                        <p class="text-muted mr-2 ml-2">Ціна</p>
+                        <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.FullPrice)</p>
+                    </div>
+                    <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
+                        <p class="text-muted mr-2 ml-2">Ціна броні</p>
+                        <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.BookingPrice)</p>
+                    </div>
+                    <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
+                        <p class="text-muted mr-2 ml-2">Статус</p>
+                        <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.Status.StatusName)</p>
+                    </div>
+                    <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
+                        <p class="text-muted mr-2 ml-2">Статус</p>
+                        <p class="lead mr-2 ml-2">
+                            @if (item.Categories != null)
+                            {
+                                foreach (var category in item.Categories)
+                                {
+                                    <span>@category.Name,</span>
+                                }
+                            }
+                        </p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-between">
+                    <img src="@item.CoverPath" alt="@item.Name" style="display: block; height: 250px; width: 500px;">
+                    <div>
+                        <p class="blockquote">@Html.DisplayFor(modelItem => item.Description)</p>
+                        <div>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-outline-secondary">
+                                    <i class="fa-regular fa-heart" style="color: #6610f2;"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary">
+                                    <i class=" fa-solid fa-wallet" style="color: #6610f2;"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@*<table class="table">*@
+@* <thead>
+    <tr>
+    <th>
+    @Html.DisplayNameFor(model => model.Id)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Name)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Description)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Continent)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.City)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Start)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.End)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.FullPrice)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.BookingPrice)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Status)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Categories)
+    </th>
+    <th></th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Continent)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.City)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Start)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.End)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FullPrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BookingPrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status.StatusName)
-                </td>
-                <td>
-                    @if (item.Categories != null)
-                    {
-                        foreach (var category in item.Categories)
-                        {
-                            <span>@category.Name</span>
-                        }
-                    }
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    @foreach (var item in Model)
+    {
+    <tr>
+    <td>
+    @Html.DisplayFor(modelItem => item.Id)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Continent)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.City)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Start)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.End)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.FullPrice)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.BookingPrice)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Status.StatusName)
+    </td>
+    <td>
+    @if (item.Categories != null)
+    {
+    foreach (var category in item.Categories)
+    {
+    <span>@category.Name</span>
+    }
+    }
+    </td>
+    <td>
+    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+    </td>
+    </tr>
+    }
+    </tbody>*@
+@*</table>*@
