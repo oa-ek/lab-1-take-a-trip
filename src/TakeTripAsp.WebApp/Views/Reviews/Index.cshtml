@@ -1,52 +1,49 @@
 ﻿@model IEnumerable<TakeTripAsp.Core.Entity.Reviews>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Відгуки";
+    Layout = "_TakeATripAdminLayout";
 }
 
-<h1>Index</h1>
+<h1>Відгуки</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-controller="Reviews" asp-action="Create" class="btn btn-inverse-primary btn-fw">Створити</a>
 </p>
-<table class="table">
+<table class="table table-hover ml-3 mb-3">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Comment)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ClientId)
+                @Html.DisplayNameFor(model => model.Client)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TourId)
+                @Html.DisplayNameFor(model => model.Tour)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th></th>
+
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comment)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.User.Name)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Tour.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="form-control content-wrapper" style="width: 500px; height:auto;  word-wrap: break-word; overflow-y: auto;">
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Client.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tour.Name)
+                </td>
+                <td>
+                    <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "Reviews", new { id = item.Id })">Редагувати</a>
+                    <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "Reviews", new { id = item.Id })">Видалити</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
