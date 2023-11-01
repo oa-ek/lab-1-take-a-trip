@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TakeTripAsp.Core.Entity;
 using TakeTripAsp.Repository;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TakeTripAsp.WebApp.Controllers
 {
@@ -97,27 +98,55 @@ namespace TakeTripAsp.WebApp.Controllers
 
         public IActionResult Edit(int id)
         {
+            var tour = repository.Get(id);
+            ViewBag.Statuses = statusrepository.GetAll();
             ViewBag.Categories = categoryrepository.GetAll();
             return View(repository.Get(id));
         }
 
         [HttpPost]
-        public IActionResult Edit(Tour tour)
+        public IActionResult Edit(Tour model, List<int> selectedCategories)
         {
-            var existingTour = repository.Get(tour.Id);
+            var existingTour = repository.Get(model.Id);
             var userId = _userManager.GetUserId(User);
 
-
-            existingTour.Name = tour.Name;
-            existingTour.Description = tour.Description;
-            existingTour.Continent = tour.Continent;
-            existingTour.City = tour.City;
-            existingTour.Start = tour.Start;
-            existingTour.End = tour.End;
-            existingTour.FullPrice = tour.FullPrice;
-            existingTour.BookingPrice = tour.BookingPrice;
-            existingTour.StatusId = 1;
+            existingTour.Name = model.Name;
+            existingTour.Description = model.Description;
+            existingTour.Continent = model.Continent;
+            existingTour.City = model.City;
+            existingTour.Start = model.Start;
+            existingTour.End = model.End;
+            existingTour.FullPrice = model.FullPrice;
+            existingTour.StatusId = model.StatusId;
+            existingTour.BookingPrice = model.BookingPrice;
             existingTour.ManagerId = userId;
+
+
+            List<Category> categories = new List<Category>();
+            existingTour.Categories.Clear();
+            foreach (int categoryId in selectedCategories)
+            {
+                categories.Add(categoryrepository.Get(categoryId));
+            }
+            existingTour.Categories = categories;
+
+            
+            if (model.CoverFile != null)
+            {
+                string wwwRootPath = webHostEnvironment.WebRootPath;
+
+                string fileName = Path.GetFileNameWithoutExtension(model.CoverFile.FileName);
+
+                string extension = Path.GetExtension(model.CoverFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                existingTour.CoverPath = "/img/profile/" + fileName;
+                string path = Path.Combine(wwwRootPath + "/img/profile/", fileName);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    model.CoverFile.CopyTo(fileStream);
+                }
+            }
 
             repository.Update(existingTour);
 
