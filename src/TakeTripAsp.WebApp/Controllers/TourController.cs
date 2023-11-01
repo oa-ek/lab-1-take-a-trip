@@ -121,16 +121,17 @@ namespace TakeTripAsp.WebApp.Controllers
             existingTour.BookingPrice = model.BookingPrice;
             existingTour.ManagerId = userId;
 
-
-            List<Category> categories = new List<Category>();
-            existingTour.Categories.Clear();
-            foreach (int categoryId in selectedCategories)
+            if (model.Categories != null)
             {
-                categories.Add(categoryrepository.Get(categoryId));
-            }
-            existingTour.Categories = categories;
+                List<Category> categories = new List<Category>();
+                existingTour.Categories.Clear();
+                foreach (int categoryId in selectedCategories)
+                {
+                    categories.Add(categoryrepository.Get(categoryId));
+                }
+                existingTour.Categories = categories;
 
-            
+            }
             if (model.CoverFile != null)
             {
                 string wwwRootPath = webHostEnvironment.WebRootPath;
