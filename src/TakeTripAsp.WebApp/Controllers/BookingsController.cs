@@ -28,36 +28,67 @@ namespace TakeTripAsp.WebApp.Controllers
             return View(bookingsrepository.GetAll());
         }
 
-        public IActionResult Create()
+        //public IActionResult Create()
+        //{
+        //    ViewBag.Status = bookingstatusreposotory.GetAll();
+        //    ViewBag.Tours = tourrepository.GetAll();
+        //    return View("Create");
+        //}
+
+        //[HttpPost]
+        //public IActionResult Create(Bookings model, int tourId, int statusId)
+        //{
+        //    var userId = _userManager.GetUserId(User);
+        //    var booking = new Bookings
+        //    {
+        //        IsFullPayment = model.IsFullPayment,
+        //        ClientId = userId,
+        //        BookingStatusId = statusId,
+        //        TourId = tourId,
+        //    };
+        //    if (booking.IsFullPayment)
+        //    {
+        //        booking.Payment = tourrepository.Get(booking.TourId).FullPrice;
+        //    }
+        //    else
+        //    {
+        //        booking.Payment = tourrepository.Get(booking.TourId).BookingPrice;
+        //    }
+        //    bookingsrepository.Create(booking);
+        //    return RedirectToAction("Index");
+        //}
+
+        public IActionResult Create(int id)
         {
-            ViewBag.Status = bookingstatusreposotory.GetAll();
-            ViewBag.Tours = tourrepository.GetAll();
-            return View("Create");
+            return View(tourrepository.Get(id));
         }
 
         [HttpPost]
-        public IActionResult Create(Bookings model, int tourId, int statusId)
+        public IActionResult CreateBooking(int tourId, bool isFullPayment)
         {
             var userId = _userManager.GetUserId(User);
             var booking = new Bookings
             {
-                IsFullPayment = model.IsFullPayment,
+                IsFullPayment = isFullPayment,
                 ClientId = userId,
-                BookingStatusId = statusId,
                 TourId = tourId,
             };
             if (booking.IsFullPayment)
             {
                 booking.Payment = tourrepository.Get(booking.TourId).FullPrice;
+                booking.BookingStatus = bookingstatusreposotory.GetAll()
+                    .FirstOrDefault(x => x.BookingStatusName == "Оплачено");
             }
             else
             {
                 booking.Payment = tourrepository.Get(booking.TourId).BookingPrice;
+                booking.BookingStatus = bookingstatusreposotory.GetAll()
+                    .FirstOrDefault(x => x.BookingStatusName == "Заброньовано");
             }
+
             bookingsrepository.Create(booking);
             return RedirectToAction("Index");
         }
-
 
         public IActionResult Delete(int id)
         {
