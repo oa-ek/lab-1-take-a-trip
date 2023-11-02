@@ -163,24 +163,25 @@ namespace TakeTripAsp.WebApp.Controllers
             var userId = _userManager.GetUserId(User);
             var user = _userManager.FindByIdAsync(userId).Result;
 
-            if (user.SelectedTours == null)
-            {
-                user.SelectedTours = new List<SelectedTour>();
-            }
+            user.SelectedTours ??= new List<SelectedTour>();
 
             if (user.SelectedTours.All(st => st.TourId != id))
             {
-                var selectedTour = new SelectedTour
+                user.SelectedTours.Add(
+                new SelectedTour
                 {
                     TourId = id
-                };
-                user.SelectedTours.Add(selectedTour);
+                });
+            }
+            else
+            {
+                var tour = user.SelectedTours.First(x => x.TourId == id);
+                user.SelectedTours.Remove(tour);
             }
 
-            //_userManager.UpdateAsync(user).Wait();
+            _userManager.UpdateAsync(user).Wait();
 
             return RedirectToAction("Index", "Tour");
-
         }
 
     }

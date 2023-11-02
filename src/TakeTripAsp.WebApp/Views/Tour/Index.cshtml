@@ -70,7 +70,7 @@
                     <div>
                         <p class="blockquote">@Html.DisplayFor(modelItem => item.Description)</p>
                         <div>
-                            <div class="btn-group" role="group" aria-label="Basic example">
+                            <div class="d-flex justify-content-around" role="group" aria-label="Basic example">
                                 <div>
                                     @if (User.Identity.IsAuthenticated)
                                     {
@@ -78,13 +78,21 @@
                                         var user = userManager.FindByIdAsync(userId).Result;
                                         if (user.SelectedTours != null && user.SelectedTours.Any(st => st.TourId == item.Id))
                                         {
-                                            <span class="text-success">Обрано</span>
+                                            <form action="/Tour/AddToSelectedTours" method="post">
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                                <button type="submit" class="btn btn-outline-secondary like-button">
+                                                    <i class="fa-solid fa-heart" style="color: #6610f2;"></i>
+                                                </button>
+                                            </form>
                                         }
                                         else
                                         {
-                                            <a asp-controller="Tour" asp-action="AddToSelectedTours" asp-route-id="@item.Id" class="btn btn-outline-secondary">
-                                                <i class="fa-regular fa-heart" style="color: #6610f2;"></i>
-                                            </a>
+                                            <form action="/Tour/AddToSelectedTours" method="post">
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                                <button type="submit" class="btn btn-outline-secondary like-button">
+                                                    <i class="fa-regular fa-heart" style="color: #6610f2;"></i>
+                                                </button>
+                                            </form>
                                         }
                                     }
                                     else
