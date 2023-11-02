@@ -1,19 +1,20 @@
 ﻿@model IEnumerable<TakeTripAsp.Core.Entity.TourManagerRequest>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Запит на роль";
+    Layout = "_TakeATripAdminLayout";
 }
 
-<h1>Index</h1>
+<h1>Запит на роль</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-controller="Category" asp-action="Create" class="btn btn-inverse-primary btn-fw">Створити</a>
 </p>
-<table class="table">
+<table class="table table-bordered ml-3 mb-3">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ClientId)
+                @Html.DisplayNameFor(model => model.Client.FirstName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.RequestDate)
@@ -27,10 +28,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.IsSeller)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th></th>
+            
         </tr>
     </thead>
     <tbody>
@@ -38,7 +36,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ClientId)
+                    @Html.DisplayFor(modelItem => item.Client.FirstName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.RequestDate)
@@ -52,12 +50,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.IsSeller)
                 </td>
+               
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new {  id=item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                    <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "TourManagerRequest", new { id = item.Id })">Редагувати</a>
+                    <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "TourManagerRequest", new { id = item.Id })">Видалити</a>
                 </td>
             </tr>
         }
