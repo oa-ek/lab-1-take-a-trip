@@ -344,14 +344,40 @@ namespace TakeTripAsp.Core.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "SelectedTours",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TourId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SelectedTours", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SelectedTours_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SelectedTours_Tours_TourId",
+                        column: x => x.TourId,
+                        principalTable: "Tours",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "13022ef0-039e-4e33-aa28-b03f014bf707", null, "admin", "ADMIN" },
-                    { "484c15b8-8b38-4bd3-bbfa-1258b3d5e342", null, "seller", "SELLER" },
-                    { "cd51b908-1df3-4183-98e3-c79f3e1a38a6", null, "client", "CLIENT" }
+                    { "2f30d8a7-b9e6-4496-808a-91c96af5155f", null, "seller", "SELLER" },
+                    { "b9e01eba-1217-4546-ac7b-2cc5a68e1d90", null, "client", "CLIENT" },
+                    { "fe0f9a25-7a9d-4378-a4d6-726699b12c7a", null, "admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -359,9 +385,9 @@ namespace TakeTripAsp.Core.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CoverPath", "DateOfBirth", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "2c46546e-eeaa-47c6-8858-f7ccc30b72c4", 0, "e88d655e-ad95-4468-8e5f-008041f586dc", "\\img\\user\\user.jpg", new DateTime(1998, 10, 31, 21, 50, 53, 679, DateTimeKind.Local).AddTicks(3234), "seller@taketrip.com", true, "Ivan", "Petrovych", false, null, "SELLER@TAKETRIP.COM", "SELLER@TAKETRIP.COM", "AQAAAAIAAYagAAAAEDcE/KtRaXNihBdofCGCIq4DWuB2h6uP+Lf2oawR4veHGRRCcJdz72aTvZXBf/4WRQ==", null, false, "bc4cb5b3-cd89-4955-baef-7674b5a61ee2", false, "seller@taketrip.com" },
-                    { "37e8be70-52cb-450e-9ef1-583695c703c2", 0, "da3e4955-fe60-4758-8ec3-7941fc3ab0d0", "\\img\\user\\user.jpg", new DateTime(1998, 10, 31, 21, 50, 53, 858, DateTimeKind.Local).AddTicks(4263), "client@taketrip.com", true, "Oleksandr", "Shevchenko", false, null, "CLIENT@TAKETRIP.COM", "CLIENT@TAKETRIP.COM", "AQAAAAIAAYagAAAAEJm+gHGsu090fPtJgOcJFj+RJNkAZAOsSyvGx/6G9VG+JoZ/T2ctWWbofehCC1kc3w==", null, false, "0f7142b5-afb5-4852-bbab-6a4df0622951", false, "client@taketrip.com" },
-                    { "5b0168f9-5c9a-4388-98e2-57fb43684a77", 0, "be900cd0-b1db-4b56-94da-04428094e24f", "\\img\\user\\user.jpg", new DateTime(1998, 10, 31, 21, 50, 53, 527, DateTimeKind.Local).AddTicks(3654), "admin@taketrip.com", true, "Mariia", "Kovalchuk", false, null, "ADMIN@TAKETRIP.COM", "ADMIN@TAKETRIP.COM", "AQAAAAIAAYagAAAAEB30v0Ip4RLeOOMvxgM1Ah8AjFnQfoCECJfQX7Nbty1l80jmnlr/FUAwsRvQbO9l1A==", null, false, "92e24db3-74dc-4362-852d-a77b2367fc03", false, "admin@taketrip.com" }
+                    { "b52b6c2f-ea65-465b-b08d-189cbd2e80f7", 0, "5110f5c4-e550-4085-9dc1-64eb018c993b", "\\img\\user\\user.jpg", new DateTime(1998, 11, 1, 23, 14, 19, 246, DateTimeKind.Local).AddTicks(6938), "seller@taketrip.com", true, "Ivan", "Petrovych", false, null, "SELLER@TAKETRIP.COM", "SELLER@TAKETRIP.COM", "AQAAAAIAAYagAAAAENrJHek+SOiGy+YmBoEpd3VWPWd1MHpjPwJtLf4CBA3azQrkyVdb3qX6pjRpEn2heA==", null, false, "dd9fbdbf-6a65-44af-a8be-bbfa1e54e1cf", false, "seller@taketrip.com" },
+                    { "c537908e-79b8-424a-91c3-4289d8e597d9", 0, "2ef3dc40-3da2-4f9d-af54-e455718ff483", "\\img\\user\\user.jpg", new DateTime(1998, 11, 1, 23, 14, 19, 188, DateTimeKind.Local).AddTicks(1114), "admin@taketrip.com", true, "Mariia", "Kovalchuk", false, null, "ADMIN@TAKETRIP.COM", "ADMIN@TAKETRIP.COM", "AQAAAAIAAYagAAAAEOyDXc6QksnsJluwDgfA9I0agxjcabIovYYRjDAaLqiHGqmdULswJlwnz1fR6fIp9w==", null, false, "8c6836ed-142c-4253-bca2-d72d3ffa07de", false, "admin@taketrip.com" },
+                    { "d438575b-5917-4f73-9d26-47bb51d1d971", 0, "fe3127b1-3370-4dd9-a1b6-c5a3cceb4623", "\\img\\user\\user.jpg", new DateTime(1998, 11, 1, 23, 14, 19, 305, DateTimeKind.Local).AddTicks(5481), "client@taketrip.com", true, "Oleksandr", "Shevchenko", false, null, "CLIENT@TAKETRIP.COM", "CLIENT@TAKETRIP.COM", "AQAAAAIAAYagAAAAELJnaTzjTSLWjZr6rjkORfzqgDj9IefG6u2ZO9idnrEvB9KeY3uMT0/pO738ptXXPg==", null, false, "25640219-4c38-421a-a7ea-621932c24d91", false, "client@taketrip.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -407,9 +433,9 @@ namespace TakeTripAsp.Core.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "484c15b8-8b38-4bd3-bbfa-1258b3d5e342", "2c46546e-eeaa-47c6-8858-f7ccc30b72c4" },
-                    { "cd51b908-1df3-4183-98e3-c79f3e1a38a6", "37e8be70-52cb-450e-9ef1-583695c703c2" },
-                    { "13022ef0-039e-4e33-aa28-b03f014bf707", "5b0168f9-5c9a-4388-98e2-57fb43684a77" }
+                    { "2f30d8a7-b9e6-4496-808a-91c96af5155f", "b52b6c2f-ea65-465b-b08d-189cbd2e80f7" },
+                    { "fe0f9a25-7a9d-4378-a4d6-726699b12c7a", "c537908e-79b8-424a-91c3-4289d8e597d9" },
+                    { "b9e01eba-1217-4546-ac7b-2cc5a68e1d90", "d438575b-5917-4f73-9d26-47bb51d1d971" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -482,6 +508,16 @@ namespace TakeTripAsp.Core.Migrations
                 column: "TourId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SelectedTours_TourId",
+                table: "SelectedTours",
+                column: "TourId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SelectedTours_UserId",
+                table: "SelectedTours",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TourManagerRequest_ClientId",
                 table: "TourManagerRequest",
                 column: "ClientId");
@@ -523,6 +559,9 @@ namespace TakeTripAsp.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "Reviews");
+
+            migrationBuilder.DropTable(
+                name: "SelectedTours");
 
             migrationBuilder.DropTable(
                 name: "TourManagerRequest");

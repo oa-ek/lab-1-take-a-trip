@@ -17,6 +17,6 @@ namespace TakeTripAsp.Core.Entity
 
         public DateTime? DateOfBirth { get; set; }
 
-        public virtual ICollection<Tour>? SelectedTours { get; set; }
+        public virtual ICollection<SelectedTour> SelectedTours { get; set; }
     }
 }

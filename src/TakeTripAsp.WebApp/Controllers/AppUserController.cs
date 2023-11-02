@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using TakeTripAsp.Core.Entity;
 using TakeTripAsp.Repository;
 using TakeTripAsp.Repository.DTOsUser;
 using TakeTripAsp.Repository.Interfaces;
@@ -11,12 +13,15 @@ namespace TakeTripAsp.WebApp.Controllers
     public class AppUserController : Controller
     {
         private readonly IUserRepository userRepository;
-       
+        private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly UserManager<AppUser> _userManager;
 
-        public AppUserController(IUserRepository userRepository)
+        public AppUserController(IUserRepository userRepository, IWebHostEnvironment webHostEnvironment,
+            UserManager<AppUser> userManager)
         {
             this.userRepository = userRepository;
-         
+            this.webHostEnvironment = webHostEnvironment;
+            this._userManager = userManager;
         }
 
 
@@ -39,6 +44,19 @@ namespace TakeTripAsp.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                string wwwRootPath = webHostEnvironment.WebRootPath;
+
+                string fileName = Path.GetFileNameWithoutExtension(model.CoverFile.FileName);
+
+                string extension = Path.GetExtension(model.CoverFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                model.CoverPath = "/img/user/" + fileName;
+                string path = Path.Combine(wwwRootPath + "/img/user/", fileName);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    model.CoverFile.CopyTo(fileStream);
+                }
                 var userId = await userRepository.CreateAsync(model);
                 return RedirectToAction("Index");
             }
@@ -58,11 +76,25 @@ namespace TakeTripAsp.WebApp.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Edit(UserDto model, string[] roles)
         {
+            if (model.CoverFile != null)
+            {
+                string wwwRootPath = webHostEnvironment.WebRootPath;
 
+                string fileName = Path.GetFileNameWithoutExtension(model.CoverFile.FileName);
+
+                string extension = Path.GetExtension(model.CoverFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                model.CoverPath = "/img/profile/" + fileName;
+                string path = Path.Combine(wwwRootPath + "/img/profile/", fileName);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    model.CoverFile.CopyTo(fileStream);
+                }
+            }
             await userRepository.UpdateAsync(model, roles);
             return RedirectToAction("Index");
-
-            
+ 
         }
 
         [HttpGet]
@@ -77,6 +109,25 @@ namespace TakeTripAsp.WebApp.Controllers
         {
             await userRepository.DeleteAsync(user.Id);
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> Details(string id)
+        {
+            return View(await userRepository.GetAsync(id));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Details(UserDto model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id);
+
+            if (user == null)
+            {
+                return NotFound(); 
+            }
+
+            return View("Home", user);
+            //return View();
         }
     }
 }

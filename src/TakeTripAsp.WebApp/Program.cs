@@ -37,6 +37,7 @@ builder.Services.AddScoped<IRepository<Tour, int>, Repository<Tour, int>>();
 builder.Services.AddScoped<IRepository<Bookings, int>, Repository<Bookings, int>>();
 builder.Services.AddScoped<IRepository<Reviews, int>, Repository<Reviews, int>>();
 builder.Services.AddScoped<IRepository<TourManagerRequest, int>, Repository<TourManagerRequest, int>>();
+builder.Services.AddScoped<IRepository<SelectedTour, int>, Repository<SelectedTour, int>>();
 
 
 builder.Services.AddControllersWithViews();

@@ -1,8 +1,11 @@
 ﻿@model IEnumerable<TakeTripAsp.Core.Entity.Tour>
+@using Microsoft.AspNetCore.Identity
+@using TakeTripAsp.Core.Entity;
 
 @{
     ViewData["Title"] = "Index";
     Layout = "_TakeATripAdminLayout";
+    var userManager = Context.RequestServices.GetService(typeof(UserManager<AppUser>)) as UserManager<AppUser>;
 }
 
 <h1>Наші тури</h1>
@@ -68,9 +71,29 @@
                         <p class="blockquote">@Html.DisplayFor(modelItem => item.Description)</p>
                         <div>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-outline-secondary">
-                                    <i class="fa-regular fa-heart" style="color: #6610f2;"></i>
-                                </button>
+                                <div>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        var userId = userManager.GetUserId(User);
+                                        var user = userManager.FindByIdAsync(userId).Result;
+                                        if (user.SelectedTours != null && user.SelectedTours.Any(st => st.TourId == item.Id))
+                                        {
+                                            <span class="text-success">Обрано</span>
+                                        }
+                                        else
+                                        {
+                                            <a asp-controller="Tour" asp-action="AddToSelectedTours" asp-route-id="@item.Id" class="btn btn-outline-secondary">
+                                                <i class="fa-regular fa-heart" style="color: #6610f2;"></i>
+                                            </a>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <a asp-area="" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Url.Action("Index")" class="btn btn-outline-secondary">
+                                            <i class="fa-regular fa-heart" style="color: #6610f2;"></i>
+                                        </a>
+                                    }
+                                </div>
                                 <button type="button" class="btn btn-outline-secondary">
                                     <i class=" fa-solid fa-wallet" style="color: #6610f2;"></i>
                                 </button>
@@ -82,93 +105,4 @@
         </div>
     }
 </div>
-@*<table class="table">*@
-@* <thead>
-    <tr>
-    <th>
-    @Html.DisplayNameFor(model => model.Id)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.Name)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.Description)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.Continent)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.City)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.Start)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.End)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.FullPrice)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.BookingPrice)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.Status)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.Categories)
-    </th>
-    <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
-    {
-    <tr>
-    <td>
-    @Html.DisplayFor(modelItem => item.Id)
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.Description)
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.Continent)
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.City)
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.Start)
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.End)
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.FullPrice)
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.BookingPrice)
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.Status.StatusName)
-    </td>
-    <td>
-    @if (item.Categories != null)
-    {
-    foreach (var category in item.Categories)
-    {
-    <span>@category.Name</span>
-    }
-    }
-    </td>
-    <td>
-    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-    </td>
-    </tr>
-    }
-    </tbody>*@
-@*</table>*@
+

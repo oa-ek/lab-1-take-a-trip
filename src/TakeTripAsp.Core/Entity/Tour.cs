@@ -40,5 +40,7 @@ namespace TakeTripAsp.Core.Entity
         public IFormFile? CoverFile { get; set; }
 
         public virtual ICollection<Reviews>? Reviews { get; set; }
+
+        public virtual ICollection<SelectedTour> SelectedTours { get; set; }
     }
 }
