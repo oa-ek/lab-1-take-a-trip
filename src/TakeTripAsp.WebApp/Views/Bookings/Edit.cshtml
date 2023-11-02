@@ -1,25 +1,26 @@
 ﻿@model TakeTripAsp.Core.Entity.Bookings
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Редагування";
+    Layout = "_TakeATripAdminLayout";
 }
 
-<h1>Edit</h1>
+<h1>Редагування</h1>
 
-<h4>Bookings</h4>
+<h4>Бронювання</h4>
 <hr />
-<div class="row">
+<div class="row ml-3 mb-3">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsFullPayment" /> @Html.DisplayNameFor(model => model.IsFullPayment)
+                    <input class="form-check-input"  asp-for="IsFullPayment" /> @Html.DisplayNameFor(model => model.IsFullPayment)
                 </label>
             </div>
             <div class="form-group">
                 <label for="tour">Оберіть тур:</label>
-                <select class="form-control" id="tour" name="TourId">
+                <select class="form-control" style="width: 500px; id="tour" name="TourId">
                     @foreach (var tour in ViewBag.Tours)
                     {
                         <option value="@tour.Id">@tour.Name</option>
@@ -28,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label for="status">Оберіть статус:</label>
-                <select class="form-control" id="status" name="StatusId">
+                <select class="form-control" style="width: 500px;id="status" name="StatusId">
                     @foreach (var status in ViewBag.Status)
                     {
                         <option value="@status.Id">@status.BookingStatusName</option>
@@ -36,13 +37,18 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-warning btn-rounded btn-fw" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-inverse-info btn-fw">Повернутись до списку</a>
 </div>
 
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

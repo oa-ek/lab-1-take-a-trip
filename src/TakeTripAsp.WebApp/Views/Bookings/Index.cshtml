@@ -1,34 +1,32 @@
 ﻿@model IEnumerable<TakeTripAsp.Core.Entity.Bookings>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Бронювання";
+    Layout = "_TakeATripAdminLayout";
 }
 
-<h1>Index</h1>
+<h1>Бронювання</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-controller="Category" asp-action="Create" class="btn btn-inverse-primary btn-fw">Створити</a>
 </p>
-<table class="table">
+<table class="table  table-bordered ml-3 mb-3">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.IsFullPayment)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ClientId)
+                @Html.DisplayNameFor(model => model.Client.FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TourId)
+                @Html.DisplayNameFor(model => model.Tour.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingStatusId)
+                @Html.DisplayNameFor(model => model.BookingStatus.BookingStatusName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Payment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th></th>
         </tr>
@@ -41,7 +39,7 @@
                     @Html.DisplayFor(modelItem => item.IsFullPayment)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ClientId)
+                    @Html.DisplayFor(modelItem => item.Client.FirstName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Tour.Name)
@@ -53,11 +51,8 @@
                     @Html.DisplayFor(model => item.Payment)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new {  id=item.Id  }) |
-                    @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
+                    <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "Bookings", new { id = item.Id })">Редагувати</a>
+                    <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "Bookings", new { id = item.Id })">Видалити</a>
                 </td>
             </tr>
         }
