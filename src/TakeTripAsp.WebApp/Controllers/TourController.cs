@@ -11,6 +11,7 @@ namespace TakeTripAsp.WebApp.Controllers
         private readonly IRepository<Tour, int> repository;
         private readonly IRepository<Category, int> categoryrepository;
         private readonly IRepository<Status, int> statusrepository;
+        private readonly IRepository<SelectedTour, int> selectrepository;
         private readonly UserManager<AppUser> _userManager;
         private readonly IWebHostEnvironment webHostEnvironment;
 
@@ -18,13 +19,15 @@ namespace TakeTripAsp.WebApp.Controllers
             IRepository<Category, int> categoryrepository,
             IWebHostEnvironment webHostEnvironment,
             IRepository<Status, int> statusrepository,
-            UserManager<AppUser> _userManager)
+            UserManager<AppUser> _userManager,
+            IRepository<SelectedTour, int> selectrepository)
         {
             this.repository = repository;
             this.categoryrepository = categoryrepository;
             this.webHostEnvironment = webHostEnvironment;
             this.statusrepository = statusrepository;
             this._userManager = _userManager;
+            this.selectrepository = selectrepository;
         }
         public IActionResult Index()
         {
@@ -153,5 +156,32 @@ namespace TakeTripAsp.WebApp.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public IActionResult AddToSelectedTours(int id)
+        {
+            var userId = _userManager.GetUserId(User);
+            var user = _userManager.FindByIdAsync(userId).Result;
+
+            if (user.SelectedTours == null)
+            {
+                user.SelectedTours = new List<SelectedTour>();
+            }
+
+            if (user.SelectedTours.All(st => st.TourId != id))
+            {
+                var selectedTour = new SelectedTour
+                {
+                    TourId = id
+                };
+                user.SelectedTours.Add(selectedTour);
+            }
+
+            //_userManager.UpdateAsync(user).Wait();
+
+            return RedirectToAction("Index", "Tour");
+
+        }
+
     }
 }

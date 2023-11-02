@@ -1,9 +1,52 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity;
+@using TakeTripAsp.Core.Entity;
+@model TakeTripAsp.Repository.DTOsUser.UserDto
+
+@{
     ViewData["Title"] = "Home Page";
     Layout = "_TakeATripAdminLayout";
+    var userManager = Context.RequestServices.GetService(typeof(UserManager<TakeTripAsp.Core.Entity.AppUser>)) as UserManager<AppUser>;
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{
+    var userId = userManager.GetUserId(User);
+    var user = userManager.FindByIdAsync(userId).Result;
+}
+<h1>Особистий кабінет</h1>
+<hr />
+<div class="ml-3 d-flex align-items-center justify-content-center">
+    <div>
+        @if (user != null)
+        {
+            <img src="@user.CoverPath" alt="@user.FirstName" style="display: block; height: 300px; width: 300px; border-radius: 50%; object-fit: cover; border: 5px solid #D0CCFB;">
+        }
+    </div>
+    <div class="">
+        <dl>
+            <dt class="col-sm-2 display-4 text-primary">
+                @Html.DisplayNameFor(model => user.FirstName)
+            </dt>
+            <dd class="col-sm-10 display-5">
+                @Html.DisplayFor(model => user.FirstName)
+            </dd>
+            <dt class="col-sm-2 display-4 text-primary">
+                @Html.DisplayNameFor(model => user.LastName)
+            </dt>
+            <dd class="col-sm-10 display-5">
+                @Html.DisplayFor(model => user.LastName)
+            </dd>
+            <dt class="col-sm-2 display-4 text-primary">
+                @Html.DisplayNameFor(model => user.Email)
+            </dt>
+            <dd class="col-sm-10 display-5">
+                @Html.DisplayFor(model => user.Email)
+            </dd>
+            @*<dt class="col-sm-2 display-4 text-primary">
+                @Html.DisplayNameFor(model => user.DateOfBirth)
+            </dt>
+            <dd class="col-sm-10 display-5">
+                @user.DateOfBirth.Value.ToString("dd.MM.yyyy")
+            </dd>*@
+        </dl>
+    </div>
 </div>
+
