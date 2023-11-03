@@ -1,23 +1,18 @@
 ﻿@model TakeTripAsp.Repository.DTOsUser.UserDto
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Редагування";
     Layout = "_TakeATripAdminLayout";
 }
 
-<h1>Edit</h1>
+<h1>Редагування</h1>
 
-<h4>UserDto</h4>
+<h4>Користувач</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" style="width: 500px; />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" style="width: 500px; />
@@ -53,12 +48,12 @@
                 <span asp-validation-for="CoverFile" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Edit" class="btn btn-outline-success btn-fw" />
+                <input type="submit" value=" Редагувати " class="btn btn-outline-primary btn-fw" />
             </div>
         </form>
     </div>
 </div>
 
 <div class="mb-3">
-    <a asp-action="Index" class="btn btn-inverse-info btn-fw">Повернутись до списку</a>
+   <a asp-action="Index" class="btn btn-outline-info btn-fw">Повернутись до списку</a>
 </div>

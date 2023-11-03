@@ -1,23 +1,23 @@
 ﻿<nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#booking" aria-expanded="false" aria-controls="ui-basic">
-               @* <i class="icon-layout menu-icon"></i>*@
-                <span class="menu-title">Бронювання</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="booking">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="/Bookings/Index">Переглянути</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="/Bookings/Create">Створити</a></li>
-                    @*<li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Редагувати</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Видалити</a></li>*@
-                </ul>
-            </div>
-        </li>
+        @if (User.IsInRole("admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#booking" aria-expanded="false" aria-controls="ui-basic">
+                    <span class="menu-title">Бронювання</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="booking">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="/Bookings/Index">Переглянути</a></li>
+                    </ul>
+                </div>
+            </li>
+        }
+        @if (User.IsInRole("admin") || User.IsInRole("seller"))
+        {
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#reviews" aria-expanded="false" aria-controls="form-elements">
-               @* <i class="icon-columns menu-icon"></i>*@
                 <span class="menu-title">Відгуки</span>
                 <i class="menu-arrow"></i>
             </a>
@@ -25,100 +25,105 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="/Reviews/Index">Переглянути</a></li>
                     <li class="nav-item"> <a class="nav-link" href="/Reviews/Create">Створити</a></li>
-                 @*   <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Редагувати</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Видалити</a></li>*@
                 </ul>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#roles" aria-expanded="false" aria-controls="charts">
-               @* <i class="icon-bar-graph menu-icon"></i>*@
-                <span class="menu-title">Запит на роль</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="roles">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="/TourManagerRequest/Index">Переглянути</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="/TourManagerRequest/Create">Створити</a></li>
-                   @* <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Редагувати</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Видалити</a></li>*@
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#category" aria-expanded="false" aria-controls="tables">
-                @*<i class="icon-grid-2 menu-icon"></i>*@
-                <span class="menu-title">Категорії</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="category">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="/Category/Index">Переглянути</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="/Category/Create">Створити</a></li>
-                   @* <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Редагувати</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Видалити</a></li>*@
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#users" aria-expanded="false" aria-controls="icons">
-                @*<i class="icon-contract menu-icon"></i>*@
-                <span class="menu-title">Користувачі</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="users">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="/AppUser/Index">Переглянути</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="/AppUser/Create">Створити</a></li>
-                  @*  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Редагувати</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Видалити</a></li>*@
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#bookingstatus" aria-expanded="false" aria-controls="auth">
-                @*<i class="icon-contract menu-icon"></i>*@
-                <span class="menu-title">Статус бронювання</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="bookingstatus">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="/BookingStatus/Index">Переглянути</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="/BookingStatus/Create">Створити</a></li>
-@*                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Редагувати</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Видалити</a></li>*@
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#status" aria-expanded="false" aria-controls="error">
-               @* <i class="icon-ban menu-icon"></i>*@
-                <span class="menu-title">Статус турів</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="status">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="/Status/Index">Переглянути</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="/Status/Create">Створити</a></li>
-                    @*<li class="nav-item"> <a class="nav-link" href="@Url.Action("Edit", "Status", new { id = item.Id })">Редагувати</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Видалити</a></li>*@
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#tour" aria-expanded="false" aria-controls="auth">
-                @*<i class="icon-paper menu-icon"></i>*@
-                <span class="menu-title">Тур</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="tour">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="/Tour/Index">Переглянути</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="/Tour/Create">Створити</a></li>
-@*                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Редагувати</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Видалити</a></li>*@
-                </ul>
-            </div>
-        </li>
+        }
+        @if (User.IsInRole("admin") || User.IsInRole("seller"))
+        {
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#roles" aria-expanded="false" aria-controls="charts">
+                    <span class="menu-title">Запит на роль</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="roles">
+                    <ul class="nav flex-column sub-menu">
+                        @if (User.IsInRole("admin"))
+                        {
+                            <li class="nav-item"> <a class="nav-link" href="/TourManagerRequest/Index">Переглянути</a></li>
+                        }
+                        @if (User.IsInRole("seller"))
+                        {
+                            <li class="nav-item"> <a class="nav-link" href="/TourManagerRequest/Create">Створити</a></li>
+                        }
+                    </ul>
+                </div>
+            </li>
+        }
+        @if (User.IsInRole("admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#category" aria-expanded="false" aria-controls="tables">
+                    <span class="menu-title">Категорії</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="category">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="/Category/Index">Переглянути</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/Category/Create">Створити</a></li>
+                    </ul>
+                </div>
+            </li>
+        }
+        @if (User.IsInRole("admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#users" aria-expanded="false" aria-controls="icons">
+                    <span class="menu-title">Користувачі</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="users">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="/AppUser/Index">Переглянути</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/AppUser/Create">Створити</a></li>
+                    </ul>
+                </div>
+            </li>
+        }
+        @if (User.IsInRole("admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#bookingstatus" aria-expanded="false" aria-controls="auth">
+                    <span class="menu-title">Статус бронювання</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="bookingstatus">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="/BookingStatus/Index">Переглянути</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/BookingStatus/Create">Створити</a></li>
+                    </ul>
+                </div>
+            </li>
+        }
+        @if (User.IsInRole("admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#status" aria-expanded="false" aria-controls="error">
+                    <span class="menu-title">Статус турів</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="status">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="/Status/Index">Переглянути</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/Status/Create">Створити</a></li>
+                    </ul>
+                </div>
+            </li>
+        }
+        @if (User.IsInRole("admin") || User.IsInRole("seller"))
+        {
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#tour" aria-expanded="false" aria-controls="auth">
+                    <span class="menu-title">Тур</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="tour">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="/Tour/Index">Переглянути</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/Tour/Create">Створити</a></li>
+                    </ul>
+                </div>
+            </li>
+        }
     </ul>
 </nav>

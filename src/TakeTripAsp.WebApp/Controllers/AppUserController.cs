@@ -7,6 +7,7 @@ using TakeTripAsp.Repository;
 using TakeTripAsp.Repository.DTOsUser;
 using TakeTripAsp.Repository.Interfaces;
 
+
 namespace TakeTripAsp.WebApp.Controllers
 {
     [Authorize(Roles = "admin")]
@@ -92,9 +93,26 @@ namespace TakeTripAsp.WebApp.Controllers
                     model.CoverFile.CopyTo(fileStream);
                 }
             }
+            if (roles != null && roles.Any())
+            {
+
+
+                var user = await _userManager.FindByIdAsync(model.Id);
+                var userRoles = await _userManager.GetRolesAsync(user);
+
+
+
+                // Видалення користувача зі старих ролей
+                await _userManager.RemoveFromRolesAsync(user, userRoles);
+
+                // Додавання користувача до вибраних нових ролей
+                await _userManager.AddToRolesAsync(user, roles);
+
+            }
             await userRepository.UpdateAsync(model, roles);
             return RedirectToAction("Index");
- 
+
+
         }
 
         [HttpGet]
@@ -123,7 +141,7 @@ namespace TakeTripAsp.WebApp.Controllers
 
             if (user == null)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
             return View("Home", user);

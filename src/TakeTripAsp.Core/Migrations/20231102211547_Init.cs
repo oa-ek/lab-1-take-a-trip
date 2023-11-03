@@ -375,9 +375,9 @@ namespace TakeTripAsp.Core.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2f30d8a7-b9e6-4496-808a-91c96af5155f", null, "seller", "SELLER" },
-                    { "b9e01eba-1217-4546-ac7b-2cc5a68e1d90", null, "client", "CLIENT" },
-                    { "fe0f9a25-7a9d-4378-a4d6-726699b12c7a", null, "admin", "ADMIN" }
+                    { "645674c3-8927-4122-a933-59f5b2a8d64a", null, "admin", "ADMIN" },
+                    { "772ee40e-abaa-4e99-9101-b9b73b321dde", null, "client", "CLIENT" },
+                    { "ab290f07-59d3-469a-b55d-d4f545b306e9", null, "seller", "SELLER" }
                 });
 
             migrationBuilder.InsertData(
@@ -385,9 +385,9 @@ namespace TakeTripAsp.Core.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CoverPath", "DateOfBirth", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "b52b6c2f-ea65-465b-b08d-189cbd2e80f7", 0, "5110f5c4-e550-4085-9dc1-64eb018c993b", "\\img\\user\\user.jpg", new DateTime(1998, 11, 1, 23, 14, 19, 246, DateTimeKind.Local).AddTicks(6938), "seller@taketrip.com", true, "Ivan", "Petrovych", false, null, "SELLER@TAKETRIP.COM", "SELLER@TAKETRIP.COM", "AQAAAAIAAYagAAAAENrJHek+SOiGy+YmBoEpd3VWPWd1MHpjPwJtLf4CBA3azQrkyVdb3qX6pjRpEn2heA==", null, false, "dd9fbdbf-6a65-44af-a8be-bbfa1e54e1cf", false, "seller@taketrip.com" },
-                    { "c537908e-79b8-424a-91c3-4289d8e597d9", 0, "2ef3dc40-3da2-4f9d-af54-e455718ff483", "\\img\\user\\user.jpg", new DateTime(1998, 11, 1, 23, 14, 19, 188, DateTimeKind.Local).AddTicks(1114), "admin@taketrip.com", true, "Mariia", "Kovalchuk", false, null, "ADMIN@TAKETRIP.COM", "ADMIN@TAKETRIP.COM", "AQAAAAIAAYagAAAAEOyDXc6QksnsJluwDgfA9I0agxjcabIovYYRjDAaLqiHGqmdULswJlwnz1fR6fIp9w==", null, false, "8c6836ed-142c-4253-bca2-d72d3ffa07de", false, "admin@taketrip.com" },
-                    { "d438575b-5917-4f73-9d26-47bb51d1d971", 0, "fe3127b1-3370-4dd9-a1b6-c5a3cceb4623", "\\img\\user\\user.jpg", new DateTime(1998, 11, 1, 23, 14, 19, 305, DateTimeKind.Local).AddTicks(5481), "client@taketrip.com", true, "Oleksandr", "Shevchenko", false, null, "CLIENT@TAKETRIP.COM", "CLIENT@TAKETRIP.COM", "AQAAAAIAAYagAAAAELJnaTzjTSLWjZr6rjkORfzqgDj9IefG6u2ZO9idnrEvB9KeY3uMT0/pO738ptXXPg==", null, false, "25640219-4c38-421a-a7ea-621932c24d91", false, "client@taketrip.com" }
+                    { "b8b20129-3749-486e-8caa-77a4f1342210", 0, "026be406-5507-4de2-b528-80e90427b6d9", "\\img\\user\\user.jpg", new DateTime(1998, 11, 2, 23, 15, 46, 779, DateTimeKind.Local).AddTicks(6626), "admin@taketrip.com", true, "Mariia", "Kovalchuk", false, null, "ADMIN@TAKETRIP.COM", "ADMIN@TAKETRIP.COM", "AQAAAAIAAYagAAAAEMVoI9eOjIcLz4ze4CbAmpkKHPll6XD4pHc9rw2UOaxAIicg6GH2ScGrIcDebRjnbg==", null, false, "a7ec6c11-b03c-4305-8db6-2a98214e9fac", false, "admin@taketrip.com" },
+                    { "d0cc5d2a-c43b-4244-80ca-eddf47755098", 0, "649d6b78-7abc-4198-9a5b-bec8590017e5", "\\img\\user\\user.jpg", new DateTime(1998, 11, 2, 23, 15, 46, 941, DateTimeKind.Local).AddTicks(9351), "seller@taketrip.com", true, "Ivan", "Petrovych", false, null, "SELLER@TAKETRIP.COM", "SELLER@TAKETRIP.COM", "AQAAAAIAAYagAAAAEKKyV6OGL7hVza9AtzllyZjsFS3nkuSAXBPj7q3yTZ3PTVxRo4GW4bw4lpalXVQUEw==", null, false, "12567386-efc1-4628-90d8-d0fc9f8fcaff", false, "seller@taketrip.com" },
+                    { "ea211e2a-5c4e-4867-8e58-28415c541c8b", 0, "91391cef-1aa8-449e-8583-1d745f7411d1", "\\img\\user\\user.jpg", new DateTime(1998, 11, 2, 23, 15, 47, 139, DateTimeKind.Local).AddTicks(8521), "client@taketrip.com", true, "Oleksandr", "Shevchenko", false, null, "CLIENT@TAKETRIP.COM", "CLIENT@TAKETRIP.COM", "AQAAAAIAAYagAAAAEFAdHx+rKAsHy/pj4OVIlHDDDojMKPLPQkK3RKppXBz++lMvQLsh/5LRBOpYdX1Pbg==", null, false, "b9d36630-1a21-478e-8e7f-52d8afcbd0b0", false, "client@taketrip.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -433,9 +433,9 @@ namespace TakeTripAsp.Core.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "2f30d8a7-b9e6-4496-808a-91c96af5155f", "b52b6c2f-ea65-465b-b08d-189cbd2e80f7" },
-                    { "fe0f9a25-7a9d-4378-a4d6-726699b12c7a", "c537908e-79b8-424a-91c3-4289d8e597d9" },
-                    { "b9e01eba-1217-4546-ac7b-2cc5a68e1d90", "d438575b-5917-4f73-9d26-47bb51d1d971" }
+                    { "645674c3-8927-4122-a933-59f5b2a8d64a", "b8b20129-3749-486e-8caa-77a4f1342210" },
+                    { "ab290f07-59d3-469a-b55d-d4f545b306e9", "d0cc5d2a-c43b-4244-80ca-eddf47755098" },
+                    { "772ee40e-abaa-4e99-9101-b9b73b321dde", "ea211e2a-5c4e-4867-8e58-28415c541c8b" }
                 });
 
             migrationBuilder.CreateIndex(

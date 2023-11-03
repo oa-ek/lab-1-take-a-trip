@@ -12,46 +12,34 @@
     <h4>Запит на роль</h4>
     <hr />
     <dl class="row ml-3 mb-3">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ClientId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ClientId)
-        </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.RequestDate)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.RequestDate)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.IsApproved)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.IsApproved)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.IsCompanyMember)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.IsCompanyMember)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.IsSeller)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.IsSeller)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
     </dl>
-    
+
     <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger btn-rounded btn-fw" />
-        <a asp-action="Index" class="btn btn-inverse-info btn-fw">Повернутись до списку</a>
+        <input type="submit" value=" Видалити " class="btn btn-outline-danger btn-fw" />
+        <a asp-action="Index" class="btn btn-outline-info btn-fw">Повернутись до списку</a>
     </form>
 </div>
