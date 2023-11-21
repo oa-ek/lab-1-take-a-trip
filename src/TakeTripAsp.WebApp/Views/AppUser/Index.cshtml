@@ -1,20 +1,23 @@
-﻿@model IEnumerable<TakeTripAsp.Repository.DTOsUser.UserDto>
+﻿﻿@using Microsoft.AspNetCore.Identity;
+@using TakeTripAsp.Core.Entity;
+@model IEnumerable<TakeTripAsp.Repository.DTOsUser.UserDto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Користувачі";
     Layout = "_TakeATripAdminLayout";
+    var userManager = Context.RequestServices.GetService(typeof(UserManager<TakeTripAsp.Core.Entity.AppUser>)) as UserManager<AppUser>;
 }
 
-<h1>Index</h1>
+<h1>Користувачі</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-controller="AppUser" asp-action="Create" class="btn btn-inverse-primary btn-fw">Створити</a>
 </p>
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Photo
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
@@ -28,9 +31,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Role)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsConfirmed)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -39,7 +39,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                    @if (item != null)
+                    {
+                        <img src="@item.CoverPath" alt="@item.FirstName" style="display: block; height: 50px; width: 50px; border-radius: 50%; object-fit: cover; border: 5px solid #D0CCFB;">
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
@@ -54,12 +57,8 @@
                     @Html.DisplayFor(modelItem => item.Role)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IsConfirmed)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new {  id=item.Id  }) |
-                    @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
-                    @Html.ActionLink("Details", "Details", new {  id=item.Id })
+                    <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "AppUser", new { id = item.Id })">Редагувати</a>
+                    <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "AppUser", new { id = item.Id })">Видалити</a>
                 </td>
             </tr>
         }
