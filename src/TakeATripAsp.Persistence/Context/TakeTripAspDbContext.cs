@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TakeTripAsp.Core.Entity;
+using TakeTripAsp.Domain.Entity;
 
-namespace TakeTripAsp.Core.Context
+
+namespace TakeTripAsp.Persistence.Context
 {
-    public class TakeTripAspDbContext  : IdentityDbContext<AppUser>
+    public class TakeTripAspDbContext : IdentityDbContext<AppUser>
     {
         public TakeTripAspDbContext(DbContextOptions<TakeTripAspDbContext> options)
             : base(options)
         {
         }
-       
+
         public DbSet<Tour> Tours { get; set; }
         public DbSet<Bookings> Bookings { get; set; }
         public DbSet<BookingStatus> BookingsStatus { get; set; }

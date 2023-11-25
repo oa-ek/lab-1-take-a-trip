@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TakeTripAsp.Core.Entity
+namespace TakeTripAsp.Domain.Entity
 {
     public class AppUser : IdentityUser
     {

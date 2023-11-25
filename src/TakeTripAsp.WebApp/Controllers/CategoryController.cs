@@ -1,61 +1,83 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using TakeTripAsp.Core.Entity;
-using TakeTripAsp.Repository;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using TakeTripAsp.Application.Features.CategoryFeatures.CategoryDtos;
+using TakeTripAsp.Application.Features.CategoryFeatures.Commands.CreateCategory;
+using TakeTripAsp.Application.Features.CategoryFeatures.Commands.DeleteCategory;
+using TakeTripAsp.Application.Features.CategoryFeatures.Commands.UpdateCategory;
+using TakeTripAsp.Application.Features.CategoryFeatures.Queries.GetAllCategory;
 
 namespace TakeTripAsp.WebApp.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly IRepository<Category, int> repository;
+        private readonly IMediator _mediator;
 
-        public CategoryController(IRepository<Category, int> repository)
+        public CategoryController(IMediator mediator)
         {
-            this.repository = repository;
-        }
-        public IActionResult Index()
-        {
-            return View(repository.GetAll());
+            _mediator = mediator;
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Index()
+        {
+            return View(await _mediator.Send(new GetAllCatagoryQueries()));
+        }
+
+        public async Task<IActionResult> Create()
         {
             return View("Create");
         }
-
         [HttpPost]
-        public IActionResult Create(Category model)
+        public async Task<IActionResult> Create(CreateCategoryDto dto)
         {
-            if (ModelState.IsValid)
+            await _mediator.Send(new CreateCategoryCommand
             {
-                var category = new Category { Name = model.Name };
-                repository.Create(category);
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
-
-        public IActionResult Delete(int id)
-        {
-            return View(repository.Get(id));
-        }
-
-        [HttpPost]
-        public IActionResult Delete(Category category)
-        {
-            repository.Delete(category);
+                Name = dto.Name
+            });
 
             return RedirectToAction("Index");
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Delete(int id, string name)
         {
-            return View(repository.Get(id));
+            var category = new ReadCategoryDto
+            {
+                Id = id,
+                Name = name
+            };
+
+            return View(category);
         }
 
         [HttpPost]
-        public IActionResult Edit(Category category)
+        public async Task<IActionResult> Delete(ReadCategoryDto dto)
         {
-            repository.Update(category);
+            await _mediator.Send(new DeleteCategoryCommand
+            {
+                Id = dto.Id
+            });
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Edit(int id, string name)
+        {
+            var category = new ReadCategoryDto
+            {
+                Id = id,
+                Name = name
+            };
+
+            return View(category);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ReadCategoryDto dto)
+        {
+            await _mediator.Send(new UpdateCategoryCommand
+            {
+                Id = dto.Id,
+                Name = dto.Name
+            });
 
             return RedirectToAction("Index");
         }

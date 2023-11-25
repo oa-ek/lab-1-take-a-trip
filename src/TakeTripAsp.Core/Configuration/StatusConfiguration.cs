@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TakeTripAsp.Core.Entity;
+using TakeTripAsp.Domain.Entity;
 
-namespace TakeTripAsp.Core.Configuration
+namespace TakeTripAsp.Domain.Configuration
 {
     public class StatusConfiguration : IEntityTypeConfiguration<Status>
     {

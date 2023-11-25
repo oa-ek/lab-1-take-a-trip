@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using TakeTripAsp.Core.Entity;
+using TakeTripAsp.Domain.Entity;
 
 namespace TakeTripAsp.WebApp.Areas.Identity.Pages.Account
 {

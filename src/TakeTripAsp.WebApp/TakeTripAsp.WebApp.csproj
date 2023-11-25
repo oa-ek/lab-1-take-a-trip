@@ -25,14 +25,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TakeTripAsp.Core\TakeTripAsp.Core.csproj" />
-    <ProjectReference Include="..\TakeTripAsp.Repository\TakeTripAsp.Repository.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="wwwroot\img\user\" />
     <Folder Include="wwwroot\img\profile\" />
     <Folder Include="wwwroot\img\tour\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TakeATripAsp.Persistence\TakeTripAsp.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

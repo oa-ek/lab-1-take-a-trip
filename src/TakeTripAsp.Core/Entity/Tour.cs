@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations.Schema;
+using TakeTripAsp.Domain.Common;
 
-namespace TakeTripAsp.Core.Entity
+namespace TakeTripAsp.Domain.Entity
 {
-    public class Tour : BaseEntity
+    public class Tour : BaseEntity<int>
     {
         public required string Name { get; set; }
 

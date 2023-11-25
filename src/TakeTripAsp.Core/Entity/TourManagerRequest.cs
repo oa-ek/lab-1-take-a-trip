@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TakeTripAsp.Domain.Common;
 
-namespace TakeTripAsp.Core.Entity
+namespace TakeTripAsp.Domain.Entity
 {
-    public class TourManagerRequest: BaseEntity
+    public class TourManagerRequest : BaseEntity<int>
     {
         public virtual AppUser? Client { get; set; }
 

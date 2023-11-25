@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TakeTripAsp.Domain.Common;
 
-namespace TakeTripAsp.Core.Entity
+namespace TakeTripAsp.Domain.Entity
 {
-    public class SelectedTour: BaseEntity
+    public class SelectedTour : BaseEntity<int>
     {
         public int TourId { get; set; }
 

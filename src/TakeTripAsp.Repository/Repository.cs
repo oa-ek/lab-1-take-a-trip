@@ -1,5 +1,5 @@
-﻿using TakeTripAsp.Core.Context;
-using TakeTripAsp.Core.Entity;
+﻿using TakeATripAsp.Persistence.Context;
+using TakeTripAsp.Domain.Common;
 
 namespace TakeTripAsp.Repository
 {

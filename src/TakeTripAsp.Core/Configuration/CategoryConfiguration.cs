@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TakeTripAsp.Core.Entity;
+using TakeTripAsp.Domain.Entity;
 
-namespace TakeTripAsp.Core.Configuration
+namespace TakeTripAsp.Domain.Configuration
 {
     public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
@@ -43,17 +43,17 @@ namespace TakeTripAsp.Core.Configuration
                 {
                     Id = 7,
                     Name = "Шопінг"
-                }, 
+                },
                 new Category
                 {
                     Id = 8,
                     Name = "Лікувально-оздоровчий"
-                }, 
+                },
                 new Category
                 {
                     Id = 9,
                     Name = "Гастрономічний"
-                }, 
+                },
                 new Category
                 {
                     Id = 10,

@@ -1,6 +1,8 @@
-namespace TakeTripAsp.Core.Entity
+using TakeTripAsp.Domain.Common;
+
+namespace TakeTripAsp.Domain.Entity
 {
-    public class Category : BaseEntity
+    public class Category : BaseEntity<int>
     {
         public required string Name { get; set; }
 

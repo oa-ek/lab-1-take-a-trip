@@ -1,20 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TakeTripAsp.Core.Entity;
+using TakeTripAsp.Domain.Entity;
 
-namespace TakeTripAsp.Core.Context
+namespace TakeTripAsp.Persistence.Context
 {
     public static class TakeTripAspDbInitializerExtension
     {
         public static void Seed(this ModelBuilder builder)
         {
             (string adminId, string sellerId, string clientId) = seedUsersAndRoles(builder);
-          
+
         }
 
         static (string, string, string) seedUsersAndRoles(ModelBuilder builder)

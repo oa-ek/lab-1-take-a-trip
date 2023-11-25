@@ -1,18 +1,22 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
-using TakeTripAsp.Core.Context;
-using TakeTripAsp.Core.Entity;
-using TakeTripAsp.Repository;
-using TakeTripAsp.Repository.Interfaces;
-using TakeTripAsp.Repository.Repos;
+using TakeTripAsp.Domain.Entity;
+using TakeTripAsp.Application;
+using TakeTripAsp.Persistence.Context;
+using TakeTripAsp.Persistence;
+using TakeTripAsp.Application.Repository;
+using TakeTripAsp.Persistence.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddApplication();
+builder.Services.AddPersistence(builder.Configuration);
+
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("TripConnectionString") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<TakeTripAspDbContext>(options =>
-    options.UseSqlServer(connectionString));
+//var connectionString = builder.Configuration.GetConnectionString("TakeTripAspDbContextConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+//builder.Services.AddDbContext<TakeTripAspDbContext>(options =>
+//    options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 //builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -29,15 +33,15 @@ builder.Services.AddDefaultIdentity<AppUser>(options =>
 }).AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<TakeTripAspDbContext>();
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IRepository<Status, int>, Repository< Status, int>>();
-builder.Services.AddScoped<IRepository<BookingStatus, int>, Repository< BookingStatus, int>>();
-builder.Services.AddScoped<IRepository<Category, int>, Repository< Category, int>>(); 
-builder.Services.AddScoped<IRepository<Tour, int>, Repository<Tour, int>>();
-builder.Services.AddScoped<IRepository<Bookings, int>, Repository<Bookings, int>>();
-builder.Services.AddScoped<IRepository<Reviews, int>, Repository<Reviews, int>>();
-builder.Services.AddScoped<IRepository<TourManagerRequest, int>, Repository<TourManagerRequest, int>>();
-builder.Services.AddScoped<IRepository<SelectedTour, int>, Repository<SelectedTour, int>>();
+//builder.Services.AddScoped<IUserRepository, UserRepository>();
+//builder.Services.AddScoped<IRepository<Status, int>, Repository< Status, int>>();
+//builder.Services.AddScoped<IRepository<BookingStatus, int>, Repository< BookingStatus, int>>();
+//builder.Services.AddScoped<IRepository<Category, int>, Repository< Category, int>>(); 
+//builder.Services.AddScoped<IRepository<Tour, int>, Repository<Tour, int>>();
+//builder.Services.AddScoped<IRepository<Bookings, int>, Repository<Bookings, int>>();
+//builder.Services.AddScoped<IRepository<Reviews, int>, Repository<Reviews, int>>();
+//builder.Services.AddScoped<IRepository<TourManagerRequest, int>, Repository<TourManagerRequest, int>>();
+//builder.Services.AddScoped<IRepository<SelectedTour, int>, Repository<SelectedTour, int>>();
 
 
 builder.Services.AddControllersWithViews();

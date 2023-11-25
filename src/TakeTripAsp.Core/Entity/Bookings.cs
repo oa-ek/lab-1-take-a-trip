@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using TakeTripAsp.Domain.Common;
 
-namespace TakeTripAsp.Core.Entity
+namespace TakeTripAsp.Domain.Entity
 {
-    public class Bookings : BaseEntity
+    public class Bookings : BaseEntity<int>
     {
         public bool IsFullPayment { get; set; }
 

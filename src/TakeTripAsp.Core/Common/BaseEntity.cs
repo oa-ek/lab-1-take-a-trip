@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TakeTripAsp.Core.Entity
+namespace TakeTripAsp.Domain.Common
 {
-    public class BaseEntity
+    public abstract class BaseEntity<TKey>
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
+        public TKey Id { get; set; }
     }
 }

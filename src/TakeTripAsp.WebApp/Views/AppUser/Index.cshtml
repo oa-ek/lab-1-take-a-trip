@@ -1,11 +1,11 @@
-﻿﻿@using Microsoft.AspNetCore.Identity;
-@using TakeTripAsp.Core.Entity;
+﻿@*﻿@using Microsoft.AspNetCore.Identity;
+@using TakeTripAsp.Domain.Entity;
 @model IEnumerable<TakeTripAsp.Repository.DTOsUser.UserDto>
 
 @{
     ViewData["Title"] = "Користувачі";
     Layout = "_TakeATripAdminLayout";
-    var userManager = Context.RequestServices.GetService(typeof(UserManager<TakeTripAsp.Core.Entity.AppUser>)) as UserManager<AppUser>;
+    var userManager = Context.RequestServices.GetService(typeof(UserManager<TakeTripAsp.Domain.Entity.AppUser>)) as UserManager<AppUser>;
 }
 
 <h1>Користувачі</h1>
@@ -63,4 +63,4 @@
             </tr>
         }
     </tbody>
-</table>
+</table>*@

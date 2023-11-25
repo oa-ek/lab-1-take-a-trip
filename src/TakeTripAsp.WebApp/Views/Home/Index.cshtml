@@ -1,11 +1,11 @@
-﻿@using Microsoft.AspNetCore.Identity;
-@using TakeTripAsp.Core.Entity;
+﻿@*@using Microsoft.AspNetCore.Identity;
+@using TakeTripAsp.Domain.Entity;
 @model TakeTripAsp.Repository.DTOsUser.UserDto
 
 @{
     ViewData["Title"] = "Home Page";
     Layout = "_TakeATripAdminLayout";
-    var userManager = Context.RequestServices.GetService(typeof(UserManager<TakeTripAsp.Core.Entity.AppUser>)) as UserManager<AppUser>;
+    var userManager = Context.RequestServices.GetService(typeof(UserManager<TakeTripAsp.Domain.Entity.AppUser>)) as UserManager<AppUser>;
 }
 @{
     var userId = userManager.GetUserId(User);
@@ -45,8 +45,8 @@
             </dt>
             <dd class="col-sm-10 display-5">
                 @user.DateOfBirth.Value.ToString("dd.MM.yyyy")
-            </dd>*@
+            </dd>
         </dl>
     </div>
 </div>
-
+*@

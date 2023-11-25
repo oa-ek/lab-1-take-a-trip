@@ -1,6 +1,8 @@
-﻿namespace TakeTripAsp.Core.Entity
+﻿using TakeTripAsp.Domain.Common;
+
+namespace TakeTripAsp.Domain.Entity
 {
-    public class Status : BaseEntity
+    public class Status : BaseEntity<int>
     {
         public required string StatusName { get; set; }
 

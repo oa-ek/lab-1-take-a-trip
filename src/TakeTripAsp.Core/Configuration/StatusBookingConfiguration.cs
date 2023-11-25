@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TakeTripAsp.Core.Entity;
+using TakeTripAsp.Domain.Entity;
 
-namespace TakeTripAsp.Core.Configuration
+namespace TakeTripAsp.Domain.Configuration
 {
     public class StatusBookingConfiguration : IEntityTypeConfiguration<BookingStatus>
     {
@@ -9,7 +9,7 @@ namespace TakeTripAsp.Core.Configuration
         {
             builder.HasData
                 (
-                    new BookingStatus 
+                    new BookingStatus
                     {
                         Id = 1,
                         BookingStatusName = "Не заброньовано",

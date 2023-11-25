@@ -1,4 +1,4 @@
-﻿using TakeTripAsp.Core.Entity;
+﻿using TakeTripAsp.Domain.Common;
 
 namespace TakeTripAsp.Repository
 {

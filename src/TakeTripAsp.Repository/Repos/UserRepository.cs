@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TakeTripAsp.Core.Context;
-using TakeTripAsp.Core.Entity;
+using TakeATripAsp.Persistence.Context;
+using TakeTripAsp.Domain.Entity;
 using TakeTripAsp.Repository.DTOsUser;
 using TakeTripAsp.Repository.Interfaces;
 
