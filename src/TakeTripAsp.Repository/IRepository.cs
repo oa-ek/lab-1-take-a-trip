@@ -1,15 +1,15 @@
 ﻿using TakeTripAsp.Domain.Common;
 
-namespace TakeTripAsp.Repository
+namespace TakeTripAsp.Application.Repository
 {
-    public interface IRepository<TEntity, TKey>
-         where TEntity : BaseEntity
+    public interface IBaseRepository<TEntity, TKey>
+        where TEntity : BaseEntity<TKey>
     {
-        IEnumerable<TEntity> GetAll();
-        TEntity Get(TKey key);
-        void Create(TEntity entity);
-        void Update(TEntity entity);
-        void Delete(TEntity entity);
-        void Save();
+        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<TEntity> GetAsync(TKey key);
+        Task<TEntity> CreateAsync(TEntity entity);
+        Task UpdateAsync(TEntity entity);
+        Task DeleteAsync(TEntity entity);
+        Task SaveAsync();
     }
 }

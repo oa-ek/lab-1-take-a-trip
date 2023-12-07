@@ -1,5 +1,5 @@
-﻿@model Status
-@using TakeTripAsp.Domain.Entity;
+﻿@using TakeTripAsp.Application.Features.StatusFeatures.StatusDtos;
+@model ReadStatusDto
 
 @{
     ViewData["Title"] = "Видалення";
@@ -14,10 +14,10 @@
     <hr />
     <dl class="row ml-3 mb-3">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StatusName)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StatusName)
+            @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Id)

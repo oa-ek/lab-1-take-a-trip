@@ -17,6 +17,7 @@ namespace TakeTripAsp.Persistence
             option.UseSqlServer(connectionString));
 
             services.AddScoped<IBaseRepository<Category, int>, BaseRepository<Category, int>>();
+            services.AddScoped<IBaseRepository<Status, int>, BaseRepository<Status, int>>();
 
         }
     }

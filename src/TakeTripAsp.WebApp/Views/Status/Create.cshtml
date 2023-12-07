@@ -1,6 +1,5 @@
-﻿@model Status
-@using TakeTripAsp.Domain.Entity;
-
+﻿@using TakeTripAsp.Application.Features.StatusFeatures.StatusDtos;
+@model CreateStatusDto
 @{
     ViewData["Title"] = "Створити";
     Layout = "_TakeATripAdminLayout";
@@ -15,9 +14,9 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="StatusName" class="control-label"></label>
-                <input asp-for="StatusName" class="form-control" style="width: 500px;" />
-                <span asp-validation-for="StatusName" class="text-danger"></span>
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" style="width: 500px;" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-outline-success btn-fw" />
