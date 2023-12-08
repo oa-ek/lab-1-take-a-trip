@@ -1,5 +1,5 @@
-﻿@model IEnumerable<BookingStatus>
-@using TakeTripAsp.Domain.Entity;
+﻿@using TakeTripAsp.Application.Features.BookingStatusFeatures.BookingStatusDtos;
+@model IEnumerable<ReadBookingStatusDto>
 
 @{
     ViewData["Title"] = "Статус бронювання";
@@ -15,7 +15,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BookingStatusName)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -28,7 +28,7 @@
         {
            <tr>
               <td>
-                @Html.DisplayFor(modelItem => item.BookingStatusName)
+                    @Html.DisplayFor(modelItem => item.Name)
               </td>
               <td>
                 @Html.DisplayFor(modelItem => item.Id)

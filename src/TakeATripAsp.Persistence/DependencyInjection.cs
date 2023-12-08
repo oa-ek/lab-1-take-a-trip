@@ -18,6 +18,7 @@ namespace TakeTripAsp.Persistence
 
             services.AddScoped<IBaseRepository<Category, int>, BaseRepository<Category, int>>();
             services.AddScoped<IBaseRepository<Status, int>, BaseRepository<Status, int>>();
+            services.AddScoped<IBaseRepository<BookingStatus, int>, BaseRepository<BookingStatus, int>>();
 
         }
     }

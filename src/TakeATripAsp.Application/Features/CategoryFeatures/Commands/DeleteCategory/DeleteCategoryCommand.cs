@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using TakeTripAsp.Application.Features.CategoryFeatures.CategoryDtos;
 
 namespace TakeTripAsp.Application.Features.CategoryFeatures.Commands.DeleteCategory
 {
