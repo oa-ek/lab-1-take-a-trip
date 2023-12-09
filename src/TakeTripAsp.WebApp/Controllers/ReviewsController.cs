@@ -1,84 +1,91 @@
-﻿//using Microsoft.AspNetCore.Identity;
-//using Microsoft.AspNetCore.Mvc;
-//using TakeTripAsp.Domain.Entity;
-//using TakeTripAsp.Repository;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
+using TakeTripAsp.Application.Features.ReviewsFeatures.Commands.CreateReviews;
+using TakeTripAsp.Application.Features.ReviewsFeatures.Commands.DeleteReviews;
+using TakeTripAsp.Application.Features.ReviewsFeatures.Commands.UpdateReviews;
+using TakeTripAsp.Application.Features.ReviewsFeatures.Queries.GetAllReviews;
+using TakeTripAsp.Application.Features.ReviewsFeatures.ReviewsDtos;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-//namespace TakeTripAsp.WebApp.Controllers
-//{
-//    public class ReviewsController : Controller
-//    {
-//        private readonly IRepository<Reviews, int> repository;
-//        private readonly IRepository<Tour, int> tourrepository;
-//        private readonly UserManager<AppUser> _userManager;
+namespace TakeTripAsp.WebApp.Controllers
+{
+    public class ReviewsController : Controller
+    {
+        private readonly IMediator _mediator;
 
-//        public ReviewsController(IRepository<Reviews, int> repository,
-//            IRepository<Tour, int> tourrepository,
-//            UserManager<AppUser> userManager)
-//        {
-//            this.repository = repository;
-//            this.tourrepository = tourrepository;
-//            this._userManager = userManager;
-//        }
-//        public IActionResult Index()
-//        {
-//            return View(repository.GetAll());
-//        }
+        public ReviewsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
 
-//        public IActionResult Create()
-//        {
-//            ViewBag.Tours = tourrepository.GetAll();
-//            return View("Create");
-//        }
+        public async Task<IActionResult> Index()
+        {
+            return View(await _mediator.Send(new GetAllReviewsQueries()));
+        }
 
-//        [HttpPost]
-//        public IActionResult Create(Reviews model, int tourId)
-//        {
-//            var userId = _userManager.GetUserId(User);
+        public async Task<IActionResult> Create()
+        {
+            return View("Create");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateReviewsDto dto)
+        {
+            await _mediator.Send(new CreateReviewsCommand
+            {
+                ClientId = dto.ClientId,
+                Comment = dto.Comment,
+                TourId = dto.TourId,
+            });
 
-//            var reviews = new Reviews
-//            {
-//                Comment = model.Comment,
-//                ClientId = userId,
-//                TourId = tourId
-//            };
-//            repository.Create(reviews);
-//            return RedirectToAction("Index");
+            return RedirectToAction("Index");
+        }
 
-//        }
+        public async Task<IActionResult> Delete(int id, string comment)
+        {
+            var category = new ReadReviewsDto
+            {
+                Id = id,
+                Comment = comment
+            };
 
-//        public IActionResult Delete(int id)
-//        {
-//            return View(repository.Get(id));
-//        }
+            return View(category);
+        }
 
-//        [HttpPost]
-//        public IActionResult Delete(Reviews reviews)
-//        {
-//            repository.Delete(reviews);
+        [HttpPost]
+        public async Task<IActionResult> Delete(ReadReviewsDto dto)
+        {
+            await _mediator.Send(new DeleteReviewsCommand
+            {
+                Id = dto.Id
+            });
 
-//            return RedirectToAction("Index");
-//        }
+            return RedirectToAction("Index");
+        }
 
-//        public IActionResult Edit(int id)
-//        {
-//            ViewBag.Tours = tourrepository.GetAll();
-//            return View(repository.Get(id));
-//        }
+        public async Task<IActionResult> Edit(int id, string comment)
+        {
+            var category = new ReadReviewsDto
+            {
+                Id = id,
+                Comment = comment
+            };
 
-//        [HttpPost]
-//        public IActionResult Edit(Reviews model, int tourId)
-//        {
-//            var existingReviews = repository.Get(model.Id);
+            return View(category);
+        }
 
-//            if (existingReviews == null)
-//            {
-//                return NotFound();
-//            }
-//            existingReviews.Comment = model.Comment;
-//            existingReviews.TourId = tourId;
-//            repository.Update(existingReviews);
+        [HttpPost]
+        public async Task<IActionResult> Edit(ReadReviewsDto dto)
+        {
+            await _mediator.Send(new UpdateReviewsCommand
+            {
+                Id = dto.Id,
+                ClientId = dto.ClientId,
+                Comment = dto.Comment,
+                TourId = dto.TourId,
+            });
 
-//            return RedirectToAction("Index");
-//        }
-//    }
-//}
+            return RedirectToAction("Index");
+        }
+    }
+}

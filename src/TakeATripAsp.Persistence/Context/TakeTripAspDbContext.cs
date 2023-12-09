@@ -20,6 +20,8 @@ namespace TakeTripAsp.Persistence.Context
         public DbSet<Reviews> Reviews { get; set; }
         public DbSet<TourManagerRequest> TourManagerRequest { get; set; }
         public DbSet<SelectedTour> SelectedTours { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<City> Cities { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

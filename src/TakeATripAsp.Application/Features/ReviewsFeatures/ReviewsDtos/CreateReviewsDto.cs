@@ -3,6 +3,9 @@
     public class CreateReviewsDto
     {
         public required string Comment { get; set; }
-        public required int TourId { get; set; }
+
+        public string ClientId { get; set; }
+
+        public int TourId { get; set; }
     }
 }

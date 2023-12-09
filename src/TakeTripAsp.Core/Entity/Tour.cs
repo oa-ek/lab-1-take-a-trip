@@ -12,8 +12,6 @@ namespace TakeTripAsp.Domain.Entity
 
         public required string Continent { get; set; }
 
-        public required string City { get; set; }
-
         public DateTime Start { get; set; }
 
         public DateTime End { get; set; }
@@ -43,5 +41,9 @@ namespace TakeTripAsp.Domain.Entity
         public virtual ICollection<Reviews>? Reviews { get; set; }
 
         public virtual ICollection<SelectedTour> SelectedTours { get; set; }
+
+        public int CityId { get; set; }
+        public virtual City? City { get; set; }
+
     }
 }

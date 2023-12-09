@@ -4,7 +4,7 @@ using TakeTripAsp.Application.Features.ReviewsFeatures.ReviewsDtos;
 using TakeTripAsp.Application.Repository;
 using TakeTripAsp.Domain.Entity;
 
-namespace TakeTripAsp.Application.Features.ReviewsFeatures.CreateReviews
+namespace TakeTripAsp.Application.Features.ReviewsFeatures.Commands.CreateReviews
 {
     public class CreateReviewsCommandHandler
        : IRequestHandler<CreateReviewsCommand, CreateReviewsDto>
@@ -20,11 +20,11 @@ namespace TakeTripAsp.Application.Features.ReviewsFeatures.CreateReviews
         }
 
         public async Task<CreateReviewsDto> Handle(
-            CreateReviewsCommand request, 
+            CreateReviewsCommand request,
             CancellationToken cancellationToken)
         {
             var reviews = await _reviewsRepository.CreateAsync(
-                new Reviews { Comment = request.Name, TourId = request.TourId });
+                new Reviews { Comment = request.Comment, TourId = request.TourId, ClientId = request.ClientId });
 
             return _mapper.Map<Reviews, CreateReviewsDto>(reviews);
         }
