@@ -1,10 +1,99 @@
-﻿//using Microsoft.AspNetCore.Identity;
-//using Microsoft.AspNetCore.Mvc;
-//using TakeTripAsp.Domain.Entity;
-//using TakeTripAsp.Repository;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using TakeTripAsp.Application.Features.BookingFeatures.BookingsDtos;
+using TakeTripAsp.Application.Features.BookingFeatures.Commands.CreateBookings;
+using TakeTripAsp.Application.Features.BookingFeatures.Commands.DeleteBookings;
+using TakeTripAsp.Application.Features.BookingFeatures.Commands.UpdateBookings;
+using TakeTripAsp.Application.Features.BookingFeatures.Queries.GetAllBookings;
 
-//namespace TakeTripAsp.WebApp.Controllers
-//{
+
+namespace TakeTripAsp.WebApp.Controllers
+{
+
+    public class BookingsController : Controller
+    {
+        private readonly IMediator _mediator;
+
+        public BookingsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var bookings = await _mediator.Send(new GetAllBookingsQueries());
+            return View(bookings);
+        }
+
+        public IActionResult Create()
+        {
+            return View("Create");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateBookingsDto dto)
+        {
+            await _mediator.Send(new CreateBookingsCommand
+            {
+                IsFullPayment = dto.IsFullPayment,
+                Payment = dto.Payment,
+                ClientId = dto.ClientId,
+                TourId = dto.TourId,
+                BookingStatusId = dto.BookingStatusId
+            });
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var booking = new ReadBookingsDto
+            {
+                Id = id
+            };
+
+            return View(booking);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(ReadBookingsDto dto)
+        {
+            await _mediator.Send(new DeleteBookingsCommand
+            {
+                Id = dto.Id
+            });
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var booking = new ReadBookingsDto
+            {
+                Id = id
+            };
+
+            return View(booking);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ReadBookingsDto dto)
+        {
+            await _mediator.Send(new UpdateBookingsCommand
+            {
+                Id = dto.Id,
+                IsFullPayment = dto.IsFullPayment,
+                Payment = dto.Payment,
+                ClientId = dto.ClientId,
+                TourId = dto.TourId,
+                BookingStatusId = dto.BookingStatusId
+            });
+
+            return RedirectToAction("Index");
+        }
+    }
+}
+
 //    public class BookingsController : Controller
 //    {
 //        private readonly IRepository<Bookings, int> bookingsrepository;
