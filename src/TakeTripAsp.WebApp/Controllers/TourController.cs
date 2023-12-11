@@ -1,11 +1,147 @@
-﻿//using Microsoft.AspNetCore.Identity;
-//using Microsoft.AspNetCore.Mvc;
-//using TakeTripAsp.Domain.Entity;
-//using TakeTripAsp.Repository;
-//using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿
 
-//namespace TakeTripAsp.WebApp.Controllers
-//{
+using MediatR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using TakeTripAsp.Application.Features.Tourfeatures.Commands.CreateTour;
+using TakeTripAsp.Application.Features.Tourfeatures.Commands.DeleteTour;
+using TakeTripAsp.Application.Features.Tourfeatures.Commands.UpdateTour;
+using TakeTripAsp.Application.Features.Tourfeatures.Queries.GetAllTour;
+using TakeTripAsp.Application.Features.Tourfeatures.TourDtos;
+using TakeTripAsp.Domain.Entity;
+
+namespace TakeTripAsp.WebApp.Controllers
+{
+    public class TourController : Controller
+    {
+        private readonly IMediator _mediator;
+        //private readonly IRepository<Category, int> _categoryRepository;
+        //private readonly IRepository<Status, int> _statusRepository;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        public TourController(
+            IMediator mediator,
+            //IRepository<Category, int> categoryRepository,
+            //IRepository<Status, int> statusRepository,
+            IWebHostEnvironment webHostEnvironment,
+            UserManager<AppUser> userManager)
+        {
+            _mediator = mediator;
+            //_categoryRepository = categoryRepository;
+            //_statusRepository = statusRepository;
+            _webHostEnvironment = webHostEnvironment;
+            _userManager = userManager;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            return View(await _mediator.Send(new GetAllTourQueries()));
+        }
+
+        public IActionResult Create()
+        {
+            //ViewBag.Categories = _categoryRepository.GetAll();
+            //ViewBag.Statuses = _statusRepository.GetAll();
+            return View("Create");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateTourDto model, List<int> selectedCategories)
+        {
+            var userId = _userManager.GetUserId(User);
+
+            model.ManagerId = userId;
+
+            await _mediator.Send(new CreateTourCommand
+            {
+                Name = model.Name,
+                Description = model.Description,
+                Continent = model.Continent,
+                Start = model.Start,
+                End = model.End,
+                FullPrice = model.FullPrice,
+                BookingPrice = model.BookingPrice,
+                StatusId = model.StatusId,
+                ManagerId = model.ManagerId,
+                CoverFile = model.CoverFile,
+                CityId = model.CityId
+            });
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            //return View(await _mediator.Send(new GetTourByIdQuery { Id = id }));
+            return View("tour");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(ReadTourDto model)
+        {
+            await _mediator.Send(new DeleteTourCommand { Id = model.Id });
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            //var tour = await _mediator.Send(new GetTourByIdQuery { Id = id });
+            //ViewBag.Categories = _categoryRepository.GetAll();
+            //ViewBag.Statuses = _statusRepository.GetAll();
+            return View("tour");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ReadTourDto model, List<int> selectedCategories)
+        {
+            var userId = _userManager.GetUserId(User);
+
+            await _mediator.Send(new UpdateTourCommand
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Description = model.Description,
+                Continent = model.Continent,
+                Start = model.Start,
+                End = model.End,
+                FullPrice = model.FullPrice,
+                BookingPrice = model.BookingPrice,
+                StatusId = model.StatusId,
+                ManagerId = userId,
+                CoverFile = model.CoverFile,
+                CityId = model.CityId
+            });
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToSelectedTours(int id)
+        {
+            var userId = _userManager.GetUserId(User);
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user.SelectedTours == null)
+            {
+                user.SelectedTours = new List<SelectedTour>();
+            }
+
+            if (user.SelectedTours.All(st => st.TourId != id))
+            {
+                var selectedTour = new SelectedTour
+                {
+                    TourId = id
+                };
+
+                user.SelectedTours.Add(selectedTour);
+            }
+
+            return RedirectToAction("Index", "Tour");
+        }
+    }
+}
 //    public class TourController : Controller
 //    {
 //        private readonly IRepository<Tour, int> repository;

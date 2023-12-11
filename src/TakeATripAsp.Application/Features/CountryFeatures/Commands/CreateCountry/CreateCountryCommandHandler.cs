@@ -24,7 +24,7 @@ namespace TakeTripAsp.Application.Features.CountryFeatures.Commands.CreateCountr
             CancellationToken cancellationToken)
         {
             var country = await _countyRepository.CreateAsync(
-                new Category { Name = request.Name });
+                new Country { CountryName = request.Name });
 
             return _mapper.Map<Country, CreateCountryDto>(country);
         }

@@ -12,7 +12,7 @@ namespace TakeTripAsp.Application.Features.CountryFeatures.Queries.GetAllCountry
         protected readonly IBaseRepository<Country, int>? _countryRepository;
         protected readonly IMapper _mapper;
 
-        public GetAllCatagoryQueriesHandler(
+        public GetAllCountryQueriesHandler(
             IBaseRepository<Country, int> countryRepository,
             IMapper mapper)
         {

@@ -1,5 +1,4 @@
 ﻿using MediatR;
-
 using TakeTripAsp.Application.Features.StatusFeatures.StatusDtos;
 
 namespace TakeTripAsp.Application.Features.StatusFeatures.Commands.UpdateStatus
