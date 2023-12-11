@@ -1,8 +1,5 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using TakeTripAsp.Application.Features.TourManagerRequestFeatures.TourManagerRequestDtos;
-using TakeTripAsp.Application.Repository;
-using TakeTripAsp.Domain.Entity;
 
 namespace TakeTripAsp.Application.Features.TourManagerRequestFeatures.Commands.UpdateTourManagerRequest
 {
