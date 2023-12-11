@@ -11,7 +11,7 @@
 <p>
     <a asp-controller="BookingStatus" asp-action="Create" class="btn btn-inverse-primary btn-fw">Створити</a>
 </p>
-<table class="table-bordered ml-3 mb-3">
+<table class="table table-bordered ml-3 mb-3">
     <thead>
         <tr>
             <th>
@@ -24,20 +24,20 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model) 
+        @foreach (var item in Model)
         {
-           <tr>
-              <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-              </td>
-              <td>
-                @Html.DisplayFor(modelItem => item.Id)
-              </td>
-              <td>
-                    <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "BookingStatus", new { id = item.Id })">Редагувати</a>
-                    <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "BookingStatus", new { id = item.Id })">Видалити</a>
-              </td>
-           </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name) 
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "BookingStatus", new { id = item.Id, Name = item.Name })">Редагувати</a>
+                    <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "BookingStatus", new { id = item.Id, Name = item.Name })">Видалити</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

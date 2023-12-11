@@ -6,7 +6,6 @@ using TakeTripAsp.Application.Features.BookingStatusFeatures.Commands.DeleteBook
 using TakeTripAsp.Application.Features.BookingStatusFeatures.Commands.UpdateBookingStatus;
 using TakeTripAsp.Application.Features.BookingStatusFeatures.Queries.GetAllBookingStatus;
 
-
 namespace TakeTripAsp.WebApp.Controllers
 {
     public class BookingStatusController : Controller
@@ -16,6 +15,13 @@ namespace TakeTripAsp.WebApp.Controllers
         public BookingStatusController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetBookingStatus()
+        {
+            var bookingStatusList = await _mediator.Send(new GetAllBookingStatusQueries());
+            return Json(bookingStatusList);
         }
 
         public async Task<IActionResult> Index()

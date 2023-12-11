@@ -11,7 +11,7 @@ namespace TakeTripAsp.Application.Features.StatusFeatures
             CreateMap<Status, CreateStatusDto>();
             CreateMap<CreateStatusDto, Status>();
 
-            CreateMap<Status, ReadStatusDto>();
+            CreateMap<Status, ReadStatusDto>().ForMember(dest => dest.Name, act => act.MapFrom(src => src.StatusName));
             CreateMap<ReadStatusDto, Status>();
         }
     }
