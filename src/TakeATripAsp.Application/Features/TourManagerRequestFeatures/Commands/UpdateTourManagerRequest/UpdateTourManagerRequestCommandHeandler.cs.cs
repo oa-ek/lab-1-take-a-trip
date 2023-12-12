@@ -6,7 +6,8 @@ using TakeTripAsp.Domain.Entity;
 
 namespace TakeTripAsp.Application.Features.TourManagerRequestFeatures.Commands.UpdateTourManagerRequest
 {
-    public class UpdateTourManagerRequestCommandHandler : IRequestHandler<UpdateTourManagerRequestCommand, ReadTourManagerRequestDto>
+    public class UpdateTourManagerRequestCommandHandler 
+        : IRequestHandler<UpdateTourManagerRequestCommand, ReadTourManagerRequestDto>
     {
         protected readonly IBaseRepository<TourManagerRequest, int> _tourManagerRequestRepository;
         protected readonly IMapper _mapper;
@@ -24,12 +25,10 @@ namespace TakeTripAsp.Application.Features.TourManagerRequestFeatures.Commands.U
         {
             var tourManagerRequest = await _tourManagerRequestRepository.GetAsync(request.Id);
 
-
-            tourManagerRequest.ClientId = request.ClientId;
-            tourManagerRequest.RequestDate = request.RequestDate;
-            tourManagerRequest.IsApproved = request.IsApproved;
+            tourManagerRequest.Id = request.Id;
             tourManagerRequest.IsCompanyMember = request.IsCompanyMember;
             tourManagerRequest.IsSeller = request.IsSeller;
+
 
             await _tourManagerRequestRepository.UpdateAsync(tourManagerRequest);
 

@@ -1,5 +1,6 @@
-﻿@model IEnumerable<TourManagerRequest>
-@using TakeTripAsp.Domain.Entity;
+﻿@model IEnumerable<ReadTourManagerRequestDto>
+@using TakeTripAsp.Application.Features.TourManagerRequestFeatures.TourManagerRequestDtos;
+
 
 @{
     ViewData["Title"] = "Запит на роль";
@@ -9,13 +10,13 @@
 <h1>Запит на роль</h1>
 
 <p>
-    <a asp-controller="Category" asp-action="Create" class="btn btn-inverse-primary btn-fw">Створити</a>
+    <a asp-controller="TourManagerRequest" asp-action="Create" class="btn btn-inverse-primary btn-fw">Створити</a>
 </p>
 <table class="table table-bordered ml-3 mb-3">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Client.FirstName)
+                @Html.DisplayNameFor(model => model.ClientId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.RequestDate)
@@ -37,7 +38,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Client.FirstName)
+                    @Html.DisplayFor(modelItem => item.ClientId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.RequestDate)
@@ -53,7 +54,7 @@
                 </td>
                
                 <td>
-                    <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "TourManagerRequest", new { id = item.Id })">Редагувати</a>
+                    <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "TourManagerRequest", new { id = item.Id, IsCompanyMember = item.IsCompanyMember, IsSeller  = item.IsSeller})">Редагувати</a>
                     <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "TourManagerRequest", new { id = item.Id })">Видалити</a>
                 </td>
             </tr>

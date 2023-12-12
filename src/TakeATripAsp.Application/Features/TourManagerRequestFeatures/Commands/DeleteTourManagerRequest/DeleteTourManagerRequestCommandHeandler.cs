@@ -17,7 +17,7 @@ namespace TakeTripAsp.Application.Features.TourManagerRequestFeatures.Commands.D
             DeleteTourManagerRequestCommand request,
             CancellationToken cancellationToken)
         {
-            var tourManagerRequest = await _tourManagerRequestRepository.GetAsync(request.ClientId);
+            var tourManagerRequest = await _tourManagerRequestRepository.GetAsync(request.Id);
 
             await _tourManagerRequestRepository.DeleteAsync(tourManagerRequest);
 

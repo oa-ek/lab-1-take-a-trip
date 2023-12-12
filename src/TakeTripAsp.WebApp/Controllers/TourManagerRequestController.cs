@@ -15,7 +15,9 @@ namespace TakeTripAsp.WebApp.Controllers
         private readonly IMediator _mediator;
         private readonly UserManager<AppUser> _userManager;
 
-        public TourManagerRequestController(IMediator mediator, UserManager<AppUser> userManager)
+        public TourManagerRequestController(
+            IMediator mediator, 
+            UserManager<AppUser> userManager)
         {
             _mediator = mediator;
             _userManager = userManager;
@@ -48,35 +50,46 @@ namespace TakeTripAsp.WebApp.Controllers
             return RedirectToAction("Index");
         }
 
-        //public async Task<IActionResult> Delete(string id)
-        //{
-        //    var request = await _mediator.Send(new GetAllTourManagerRequestQueries { ClientId = id });
-        //    return View(request);
-        //}
+        public async Task<IActionResult> Delete(int id)
+        {
+            var request = new ReadTourManagerRequestDto //await _mediator.Send(new DeleteTourManagerRequest
+            {
+                Id = id
+            };
+            return View(request);
+        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Delete(ReadTourManagerRequestDto dto)
-        //{
-        //    await _mediator.Send(new DeleteTourManagerRequestCommand { ClientId = dto.ClientId });
+        [HttpPost]
+        public async Task<IActionResult> Delete(ReadTourManagerRequestDto dto)
+        {
+            await _mediator.Send(new DeleteTourManagerRequestCommand
+            {
+                Id = dto.Id
+            });
 
-        //    return RedirectToAction("Index");
-        //}
+            return RedirectToAction("Index");
+        }
 
-        //public async Task<IActionResult> Edit(int id)
-        //{
-        //    var request = await _mediator.Send(new GetAllTourManagerRequestQueries { Id = id });
-        //    return View(request);
-        //}
+        public async Task<IActionResult> Edit(int Id, bool IsSeller, bool IsCompanyMember)
+        {
+            var request = new ReadTourManagerRequestDto//await _mediator.Send(new GetAllTourManagerRequestQueries 
+            {
+                Id = Id,
+                IsSeller = IsSeller,
+                IsCompanyMember = IsCompanyMember
+
+            };
+            return View(request);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Edit(ReadTourManagerRequestDto dto)
         {
             await _mediator.Send(new UpdateTourManagerRequestCommand
             {
-                ClientId = dto.ClientId,  // Змінено з Id = dto.Id на Id = dto.ClientId
-                IsApproved = dto.IsApproved,
+                Id = dto.Id,
                 IsCompanyMember = dto.IsCompanyMember,
-                IsSeller = dto.IsSeller
+                IsSeller = dto.IsSeller,  
             });
 
             return RedirectToAction("Index");

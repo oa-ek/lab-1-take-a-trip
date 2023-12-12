@@ -11,5 +11,7 @@
         public bool IsCompanyMember { get; set; }
 
         public bool IsSeller { get; set; }
+
+
     }
 }
