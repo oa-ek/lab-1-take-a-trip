@@ -24,7 +24,9 @@ namespace TakeTripAsp.Persistence
             services.AddScoped<IBaseRepository<Country, int>, BaseRepository<Country, int>>();
             services.AddScoped<IBaseRepository<Tour, int>, BaseRepository<Tour, int>>();
             services.AddScoped<IBaseRepository<Bookings, int>, BaseRepository<Bookings, int>>();
-
+            services.AddScoped<IBaseRepository<City, int>, BaseRepository<City, int>>();
+            services.AddScoped<IBaseRepository<TourManagerRequest, int>, BaseRepository<TourManagerRequest, int>>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }

@@ -16,12 +16,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Comment)
             </th>
-           @* <th>
+            <th>
                 @Html.DisplayNameFor(model => model.Client)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Tour)
-            </th>*@
+            </th>
 
         </tr>
     </thead>
@@ -33,12 +33,12 @@
                     @Html.DisplayFor(modelItem => item.Comment)
                 </td>
 
-              @*  <td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Client.FirstName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Tour.Name)
-                </td>*@
+                </td>
                 <td>
                     <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "Reviews", new { id = item.Id })">Редагувати</a>
                     <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "Reviews", new { id = item.Id })">Видалити</a>

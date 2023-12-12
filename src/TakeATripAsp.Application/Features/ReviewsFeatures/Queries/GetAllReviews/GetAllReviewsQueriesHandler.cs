@@ -1,11 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TakeTripAsp.Application.Features.CategoryFeatures.CategoryDtos;
 using TakeTripAsp.Application.Features.ReviewsFeatures.ReviewsDtos;
 using TakeTripAsp.Application.Repository;
 using TakeTripAsp.Domain.Entity;

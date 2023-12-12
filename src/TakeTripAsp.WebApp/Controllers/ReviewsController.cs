@@ -1,12 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
 using TakeTripAsp.Application.Features.ReviewsFeatures.Commands.CreateReviews;
 using TakeTripAsp.Application.Features.ReviewsFeatures.Commands.DeleteReviews;
 using TakeTripAsp.Application.Features.ReviewsFeatures.Commands.UpdateReviews;
 using TakeTripAsp.Application.Features.ReviewsFeatures.Queries.GetAllReviews;
 using TakeTripAsp.Application.Features.ReviewsFeatures.ReviewsDtos;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace TakeTripAsp.WebApp.Controllers
 {
@@ -33,7 +31,7 @@ namespace TakeTripAsp.WebApp.Controllers
         {
             await _mediator.Send(new CreateReviewsCommand
             {
-                ClientId = dto.ClientId,
+                //ClientId = dto.ClientId,
                 Comment = dto.Comment,
                 TourId = dto.TourId,
             });

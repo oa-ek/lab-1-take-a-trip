@@ -1,15 +1,99 @@
-﻿//using Microsoft.AspNetCore.Authorization;
-//using Microsoft.AspNetCore.Hosting;
-//using Microsoft.AspNetCore.Identity;
-//using Microsoft.AspNetCore.Mvc;
-//using TakeTripAsp.Domain.Entity;
-//using TakeTripAsp.Repository;
-//using TakeTripAsp.Repository.DTOsUser;
-//using TakeTripAsp.Repository.Interfaces;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using TakeTripAsp.Application.Features.AppUserFeatures.AppUserDto;
+using TakeTripAsp.Application.Features.AppUserFeatures.Commands.CreateAppUser;
+using TakeTripAsp.Application.Features.AppUserFeatures.Commands.DeleteAppUser;
+using TakeTripAsp.Application.Features.AppUserFeatures.Commands.UpdateAppUser;
+using TakeTripAsp.Application.Features.AppUserFeatures.Queries.GetAllAppUser;
 
-//namespace TakeTripAsp.WebApp.Controllers
-//{
-//    [Authorize(Roles = "admin")]
+
+namespace TakeTripAsp.WebApp.Controllers
+{
+    [Authorize(Roles = "admin")]
+
+    public class AppUserController : Controller
+    {
+        private readonly IMediator _mediator;
+
+        public AppUserController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            return View(await _mediator.Send(new GetAllAppUserQueries()));
+        }
+
+        public async Task<IActionResult> Create()
+        {
+            return View("Create");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateAppUserDto dto)
+        {
+            await _mediator.Send(new CreateAppUserCommand
+            {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Email = dto.Email,
+                Password = dto.Password,
+                CoverPath = dto.CoverPath,
+                Role = dto.Role
+            });
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            var appUser = new ReadAppUserDto
+            {
+                Id = id
+            };
+
+            return View(appUser);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(ReadAppUserDto dto)
+        {
+            await _mediator.Send(new DeleteAppUserCommand
+            {
+                Id = dto.Id
+            });
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            var appUser = new ReadAppUserDto
+            {
+                Id = id
+            };
+
+            return View(appUser);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ReadAppUserDto dto)
+        {
+            await _mediator.Send(new UpdateAppUserCommand
+            {
+                Id = dto.Id,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Email = dto.Email,
+                CoverPath = dto.CoverPath,
+            });
+
+            return RedirectToAction("Index");
+        }
+    }
+}
 //    public class AppUserController : Controller
 //    {
 //        private readonly IUserRepository userRepository;
@@ -94,7 +178,7 @@
 //            }
 //            await userRepository.UpdateAsync(model, roles);
 //            return RedirectToAction("Index");
- 
+
 //        }
 
 //        [HttpGet]

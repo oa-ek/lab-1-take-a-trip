@@ -31,7 +31,7 @@ namespace TakeTripAsp.Application.Features.ReviewsFeatures.Commands.UpdateReview
 
             await _reviewsRepository.UpdateAsync(reviews);
 
-            return _mapper.Map<Reviews,ReadReviewsDto >(reviews);
+            return _mapper.Map<Reviews, ReadReviewsDto>(reviews);
         }
     }
 }
