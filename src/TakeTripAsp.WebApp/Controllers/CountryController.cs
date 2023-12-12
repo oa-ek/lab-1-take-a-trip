@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TakeTripAsp.Application.Features.CountryFeatures.Commands.CreateCountry;
 using TakeTripAsp.Application.Features.CountryFeatures.Commands.DeleteCountry;
 using TakeTripAsp.Application.Features.CountryFeatures.Commands.UpdateCountry;
 using TakeTripAsp.Application.Features.CountryFeatures.CountryDtos;
 using TakeTripAsp.Application.Features.CountryFeatures.Queries.GetAllCountry;
-using TakeTripAsp.Application.Features.CountryFeatures.Commands.CreateCountry;
 
 namespace TakeTripAsp.WebApp.Controllers
 {
@@ -29,7 +29,7 @@ namespace TakeTripAsp.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateCountryDto dto)
         {
-            await _mediator.Send(new CreateCountryDto
+            await _mediator.Send(new CreateCountryCommand
             {
                 Name = dto.Name
             });

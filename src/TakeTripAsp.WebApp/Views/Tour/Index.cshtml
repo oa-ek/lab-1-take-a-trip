@@ -1,5 +1,6 @@
-﻿@model IEnumerable<Tour>
+﻿@model IEnumerable<ReadTourDto>
 @using Microsoft.AspNetCore.Identity
+@using TakeTripAsp.Application.Features.Tourfeatures.TourDtos;
 @using TakeTripAsp.Domain.Entity;
 
 @{
@@ -23,17 +24,17 @@
                     <div>
                         <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "Tour", new { id = item.Id })">Редагувати</a>
                         <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "Tour", new { id = item.Id })">Видалити</a>
-                    </div>
+                    </div>C
                 </div>
                 <div class="wrapper d-flex mb-3">
                     <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
                         <p class="text-muted mr-2 ml-2">Континент</p>
                         <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.Continent)</p>
                     </div>
-                    <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
-                        <p class="text-muted mr-2 ml-2">Країна</p>
-                        <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.City)</p>
-                    </div>
+                    @* <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
+                <p class="text-muted mr-2 ml-2">Країна</p>
+                <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.City)</p>
+                </div> *@
                     <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
                         <p class="text-muted mr-2 ml-2">Тривалість</p>
                         <p class="lead mr-2 ml-2">
@@ -48,22 +49,22 @@
                         <p class="text-muted mr-2 ml-2">Ціна броні</p>
                         <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.BookingPrice)</p>
                     </div>
-                    <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
-                        <p class="text-muted mr-2 ml-2">Статус</p>
-                        <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.Status.StatusName)</p>
-                    </div>
-                    <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
-                        <p class="text-muted mr-2 ml-2">Категорії</p>
-                        <p class="lead mr-2 ml-2">
-                            @if (item.Categories != null)
-                            {
-                                foreach (var category in item.Categories)
-                                {
-                                    <span>@category.Name,</span>
-                                }
-                            }
-                        </p>
-                    </div>
+                    @* <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
+                <p class="text-muted mr-2 ml-2">Статус</p>
+                <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.Status.StatusName)</p>
+                </div> *@
+                    @* <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
+                <p class="text-muted mr-2 ml-2">Категорії</p>
+                <p class="lead mr-2 ml-2">
+                @if (item.Categories != null)
+                {
+                foreach (var category in item.Categories)
+                {
+                <span>@category.Name,</span>
+                }
+                }
+                </p>
+                </div> *@
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
                     <img src="@item.CoverPath" alt="@item.Name" style="display: block; height: 250px; width: 500px;">
@@ -105,4 +106,3 @@
         </div>
     }
 </div>
-

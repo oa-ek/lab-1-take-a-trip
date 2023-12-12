@@ -1,5 +1,5 @@
-﻿@model Tour
-@using TakeTripAsp.Domain.Entity;
+﻿@using TakeTripAsp.Application.Features.Tourfeatures.TourDtos;
+@model CreateTourDto
 
 @{
     ViewData["Title"] = "Create";
@@ -31,9 +31,13 @@
                 <span asp-validation-for="Continent" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" style="width: 500px;" />
-                <span asp-validation-for="City" class="text-danger"></span>
+                <label asp-for="CityId">Оберіть місто:</label>
+                <select class="form-control" id="CityId" style="width: 500px;" name="CityId">
+                    @foreach (var city in ViewBag.Cities)
+                    {
+                        <option value="@city.Id">@city.CityName</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Start" class="control-label"></label>
@@ -56,8 +60,8 @@
                 <span asp-validation-for="BookingPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label for="selectedCategories">Оберіть категорії:</label>
-                <select class="form-control" id="selectedCategories" style="width: 500px;" name="selectedCategories" multiple>
+                <label asp-for="CategoryIds">Оберіть категорії:</label>
+                <select class="form-control" id="CategoryIds" style="width: 500px;" name="CategoryIds" multiple>
                     @foreach (var category in ViewBag.Categories)
                     {
                         <option value="@category.Id">@category.Name</option>
@@ -65,7 +69,7 @@
                 </select>
             </div>
             <div class="form-group">
-                @Html.DisplayNameFor(model => model.CoverFile)
+                <label asp-for="CoverFile" class="control-label">Завантажити зображення:</label>
                 <input asp-for="CoverFile" accept="image/*" />
                 <span asp-validation-for="CoverFile" class="text-danger"></span>
             </div>

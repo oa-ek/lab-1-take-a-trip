@@ -1,0 +1,48 @@
+﻿@using TakeTripAsp.Application.Features.CityFeatures.CityDtos;
+@model IEnumerable<ReadCityDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_TakeATripAdminLayout";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-controller="City" asp-action="Create" class="btn btn-inverse-primary btn-fw">Створити</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CountryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "City", new { id = item.Id })">Редагувати</a>
+                <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "City", new { id = item.Id })">Видалити</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,52 @@
+﻿@using TakeTripAsp.Application.Features.CityFeatures.CityDtos;
+@model CreateCityDto
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_TakeATripAdminLayout";
+}
+
+<h1>Create</h1>
+
+<h4>City</h4>
+<hr />
+<div class="row ml-3">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CityName" class="control-label"></label>
+                <input asp-for="CityName" class="form-control" />
+                <span asp-validation-for="CityName" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="CountryId" class="control-label"></label>
+                <input asp-for="CountryId" class="form-control" />
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label for="selectedCountryId">Select Country:</label>
+                <select class="form-control" asp-for="CountryId" id="selectedCountryId">
+                    @if (Model != null && ViewBag.Countries != null)
+                    {
+                        foreach (var country in ViewBag.Countries)
+                        {
+                            <option value="@country.Id" selected="@(Model.CountryId != null && country.Id == Model.CountryId ? "selected" : null)">@country.CountryName</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

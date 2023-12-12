@@ -83,6 +83,19 @@ namespace TakeTripAsp.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Countries",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CountryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Countries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Statuses",
                 columns: table => new
                 {
@@ -225,6 +238,26 @@ namespace TakeTripAsp.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CityName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CountryId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cities_Countries_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Countries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tours",
                 columns: table => new
                 {
@@ -233,14 +266,14 @@ namespace TakeTripAsp.Persistence.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Continent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Start = table.Column<DateTime>(type: "datetime2", nullable: false),
                     End = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FullPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     BookingPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     StatusId = table.Column<int>(type: "int", nullable: false),
                     ManagerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CoverPath = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CoverPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CityId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -250,6 +283,12 @@ namespace TakeTripAsp.Persistence.Migrations
                         column: x => x.ManagerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Tours_Cities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "Cities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tours_Statuses_StatusId",
                         column: x => x.StatusId,
@@ -375,9 +414,9 @@ namespace TakeTripAsp.Persistence.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3a64fa86-1add-44c1-9f25-03be6d9d334c", null, "client", "CLIENT" },
-                    { "b6f61222-bde0-43b5-8f85-9e7986de3424", null, "seller", "SELLER" },
-                    { "d98258b1-922d-4e44-8ed8-8f092d6a83f3", null, "admin", "ADMIN" }
+                    { "091ba093-f22d-48af-80a2-561bf20e3918", null, "admin", "ADMIN" },
+                    { "5cebe684-e444-4d05-8173-6ff1d11af971", null, "seller", "SELLER" },
+                    { "ee663a22-1eb2-45e7-9181-f76a9ea30c96", null, "client", "CLIENT" }
                 });
 
             migrationBuilder.InsertData(
@@ -385,9 +424,9 @@ namespace TakeTripAsp.Persistence.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CoverPath", "DateOfBirth", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "023b6693-56f6-41d6-9c9f-3e029826c699", 0, "fb3500e3-4d23-4755-bae3-637433dd65e8", "\\img\\user\\user.jpg", new DateTime(1998, 11, 25, 15, 39, 59, 683, DateTimeKind.Local).AddTicks(5545), "seller@taketrip.com", true, "Ivan", "Petrovych", false, null, "SELLER@TAKETRIP.COM", "SELLER@TAKETRIP.COM", "AQAAAAIAAYagAAAAEMhUTiCu+PPEr0UjlRXiDBadK4HeVFTpcXQot/le97n9LVMpov0ESXCz7jHx3W1BrQ==", null, false, "3fe7083a-4c46-4b44-9dca-c4da7940d9d1", false, "seller@taketrip.com" },
-                    { "58117ba5-3034-408d-8bfd-f0eb38fec95b", 0, "c68dc552-48ab-4ca2-b891-14916fb781fb", "\\img\\user\\user.jpg", new DateTime(1998, 11, 25, 15, 39, 59, 561, DateTimeKind.Local).AddTicks(1386), "admin@taketrip.com", true, "Mariia", "Kovalchuk", false, null, "ADMIN@TAKETRIP.COM", "ADMIN@TAKETRIP.COM", "AQAAAAIAAYagAAAAEP5ZUcvOLH8Xcd15fBFMI2XCI+EfwNIQCMELO1+ej4gA/AgTAvB9NE4EIJ+lASEugQ==", null, false, "52fc35a7-b44a-437c-9a30-0a8e44b85a17", false, "admin@taketrip.com" },
-                    { "a02f6d42-e04b-4259-a196-2e48357d2db9", 0, "b67a1182-4e60-422e-9832-280375a5ce4c", "\\img\\user\\user.jpg", new DateTime(1998, 11, 25, 15, 39, 59, 808, DateTimeKind.Local).AddTicks(191), "client@taketrip.com", true, "Oleksandr", "Shevchenko", false, null, "CLIENT@TAKETRIP.COM", "CLIENT@TAKETRIP.COM", "AQAAAAIAAYagAAAAEOr8Z5KuT8hVGCaQbaZ3Uv0U6oawAFm9iv2FAMkwxKwERdj64jloE4YuNq3cCcUteQ==", null, false, "9d506d86-682e-456f-8437-206ed4ccdd20", false, "client@taketrip.com" }
+                    { "2062b8b4-49b2-4614-be53-6b6c448e91c1", 0, "cb7989d3-5bdc-4fd6-a28b-234d4113d064", "\\img\\user\\user.jpg", new DateTime(1998, 12, 12, 16, 10, 39, 361, DateTimeKind.Local).AddTicks(6911), "seller@taketrip.com", true, "Ivan", "Petrovych", false, null, "SELLER@TAKETRIP.COM", "SELLER@TAKETRIP.COM", "AQAAAAIAAYagAAAAECjcghpAVmJ1AaxePM0ewx+ahX2CAKVuedYWYXhObRQEGOjO+xnUZyaRxgbfEOBohQ==", null, false, "c88fa068-bb57-4d33-900b-e4d706503f59", false, "seller@taketrip.com" },
+                    { "2709e9b1-3e19-4e06-bb57-8b1569142d73", 0, "ea4b00d9-f28f-4502-b7a8-571b1be9dde6", "\\img\\user\\user.jpg", new DateTime(1998, 12, 12, 16, 10, 39, 296, DateTimeKind.Local).AddTicks(7641), "admin@taketrip.com", true, "Mariia", "Kovalchuk", false, null, "ADMIN@TAKETRIP.COM", "ADMIN@TAKETRIP.COM", "AQAAAAIAAYagAAAAEKYqJIeDC/KLOj5ty4TkZ4Mo2w43TcGZCV0YXMoRZlfdHO0SJufJkUKg37fjY57L9A==", null, false, "8bbde9f3-796c-4f0f-8607-fb2129df29e7", false, "admin@taketrip.com" },
+                    { "59efe771-43d9-44a5-8c91-9316c7feb1dc", 0, "810bbbfb-b100-4284-949c-6a34cfdaa4fd", "\\img\\user\\user.jpg", new DateTime(1998, 12, 12, 16, 10, 39, 426, DateTimeKind.Local).AddTicks(6495), "client@taketrip.com", true, "Oleksandr", "Shevchenko", false, null, "CLIENT@TAKETRIP.COM", "CLIENT@TAKETRIP.COM", "AQAAAAIAAYagAAAAEHvaUaqmX8EkxuA7L4WMgJZFj9EJMO4jQ+LqiYIj9m/tNaHsMPGYm6zGgzZPrdI44g==", null, false, "3bf9face-40c9-4d22-a538-e1e7b998d77c", false, "client@taketrip.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -433,9 +472,9 @@ namespace TakeTripAsp.Persistence.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "b6f61222-bde0-43b5-8f85-9e7986de3424", "023b6693-56f6-41d6-9c9f-3e029826c699" },
-                    { "d98258b1-922d-4e44-8ed8-8f092d6a83f3", "58117ba5-3034-408d-8bfd-f0eb38fec95b" },
-                    { "3a64fa86-1add-44c1-9f25-03be6d9d334c", "a02f6d42-e04b-4259-a196-2e48357d2db9" }
+                    { "5cebe684-e444-4d05-8173-6ff1d11af971", "2062b8b4-49b2-4614-be53-6b6c448e91c1" },
+                    { "091ba093-f22d-48af-80a2-561bf20e3918", "2709e9b1-3e19-4e06-bb57-8b1569142d73" },
+                    { "ee663a22-1eb2-45e7-9181-f76a9ea30c96", "59efe771-43d9-44a5-8c91-9316c7feb1dc" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -498,6 +537,11 @@ namespace TakeTripAsp.Persistence.Migrations
                 column: "ToursId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cities_CountryId",
+                table: "Cities",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reviews_ClientId",
                 table: "Reviews",
                 column: "ClientId");
@@ -521,6 +565,11 @@ namespace TakeTripAsp.Persistence.Migrations
                 name: "IX_TourManagerRequest_ClientId",
                 table: "TourManagerRequest",
                 column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tours_CityId",
+                table: "Tours",
+                column: "CityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tours_ManagerId",
@@ -582,7 +631,13 @@ namespace TakeTripAsp.Persistence.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "Cities");
+
+            migrationBuilder.DropTable(
                 name: "Statuses");
+
+            migrationBuilder.DropTable(
+                name: "Countries");
         }
     }
 }

@@ -5,6 +5,7 @@ using TakeTripAsp.Application.Features.CityFeatures.Commands.CreateCity;
 using TakeTripAsp.Application.Features.CityFeatures.Commands.DeleteCity;
 using TakeTripAsp.Application.Features.CityFeatures.Commands.UpdateCity;
 using TakeTripAsp.Application.Features.CityFeatures.Queries.GetAllCity;
+using TakeTripAsp.Application.Features.CountryFeatures.Queries.GetAllCountry;
 
 namespace TakeTripAsp.WebApp.Controllers
 {
@@ -22,8 +23,9 @@ namespace TakeTripAsp.WebApp.Controllers
             return View(await _mediator.Send(new GetAllCityQueries()));
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.Countries = await _mediator.Send(new GetAllCountryQueries());
             return View("Create");
         }
 

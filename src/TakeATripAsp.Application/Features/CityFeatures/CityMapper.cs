@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using TakeTripAsp.Application.Features.CityFeatures.CityDtos;
+using TakeTripAsp.Domain.Entity;
 
 namespace TakeTripAsp.Application.Features.CityFeatures
 {
-    internal class CityMapper
+    public class CityMapper : Profile
     {
+        public CityMapper() {
+            CreateMap<City, CreateCityDto>();
+            CreateMap<CreateCityDto, City>();
+
+            CreateMap<City, ReadCityDto>();
+            CreateMap<ReadCityDto, City>();
+        }
     }
 }
