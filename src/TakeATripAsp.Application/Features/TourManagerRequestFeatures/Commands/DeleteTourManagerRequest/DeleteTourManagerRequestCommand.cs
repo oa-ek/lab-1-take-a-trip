@@ -4,7 +4,7 @@ namespace TakeTripAsp.Application.Features.TourManagerRequestFeatures.Commands.D
 {
     public class DeleteTourManagerRequestCommand : IRequest<int>
     {
-        public int ClientId { get; set; }
+        public int Id { get; set; }
     }
 }
 
