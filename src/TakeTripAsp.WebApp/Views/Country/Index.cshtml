@@ -1,0 +1,41 @@
+﻿@using TakeTripAsp.Application.Features.CountryFeatures.CountryDtos;
+@model IEnumerable<ReadCountryDto>
+@{
+    ViewData["Title"] = "Країни";
+    Layout = "_TakeATripAdminLayout";
+}
+
+<h1>Країни</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-inverse-primary btn-fw">Створити</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "Country", new { id = item.Id, Name = item.Name })">Редагувати</a>
+                <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "Country", new { id = item.Id, Name = item.Name })">Видалити</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

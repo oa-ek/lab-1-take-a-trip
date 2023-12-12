@@ -11,7 +11,7 @@ namespace TakeTripAsp.Application.Features.CountryFeatures
             CreateMap<Country, CreateCountryDto>();
             CreateMap<CreateCountryDto, Country>();
 
-            CreateMap<Country, ReadCountryDto>();
+            CreateMap<Country, ReadCountryDto>().ForMember(dest => dest.Name, act => act.MapFrom(src => src.CountryName));
             CreateMap<ReadCountryDto, Country>();
         }
     }
