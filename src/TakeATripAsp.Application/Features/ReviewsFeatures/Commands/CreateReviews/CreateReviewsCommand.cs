@@ -10,7 +10,7 @@ namespace TakeTripAsp.Application.Features.ReviewsFeatures.Commands.CreateReview
 
         public string ClientId { get; set; }
 
-        public required int TourId { get; set; }
+        public int TourId { get; set; }
 
     }
 }

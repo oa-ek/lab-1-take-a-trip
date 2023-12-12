@@ -14,28 +14,25 @@ namespace TakeTripAsp.Application.Features.ReviewsFeatures.Commands.CreateReview
         protected readonly IUserRepository _appUserRepository;
         protected readonly IBaseRepository<Tour, int> _tourRepository;
         protected readonly IMapper _mapper;
-        private readonly UserManager<AppUser> _userManager;
 
         public CreateReviewsCommandHandler(
             IBaseRepository<Reviews, int> reviewsRepository,
             IUserRepository appUserRepository,
             IBaseRepository<Tour, int> tourRepository,
-            IMapper mapper,
-            UserManager<AppUser> userManager)
+            IMapper mapper)
         {
-            (_reviewsRepository, _appUserRepository, _tourRepository, _mapper, _userManager) =
-                (reviewsRepository, appUserRepository, tourRepository, mapper, userManager);
+            (_reviewsRepository, _appUserRepository, _tourRepository, _mapper) =
+                (reviewsRepository, appUserRepository, tourRepository, mapper);
         }
 
         public async Task<CreateReviewsDto> Handle(CreateReviewsCommand request, CancellationToken cancellationToken)
         {
-            var client = await _appUserRepository.GetAsync(request.ClientId);
             var tour = await _tourRepository.GetAsync(request.TourId);
 
             var reviews = await _reviewsRepository.CreateAsync(new Reviews
             {
                 Comment = request.Comment,
-                //Client = client,
+                ClientId = request.ClientId,    
                 Tour = tour
             });
 

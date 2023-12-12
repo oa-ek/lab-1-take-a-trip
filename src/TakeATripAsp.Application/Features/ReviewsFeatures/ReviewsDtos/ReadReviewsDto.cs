@@ -9,11 +9,7 @@ namespace TakeTripAsp.Application.Features.ReviewsFeatures.ReviewsDtos
 
         public string Comment { get; set; }
 
-        public ReadAppUserDto Client { get; set; }
-
         public string ClientId { get; set; }
-
-        public ReadTourDto Tour { get; set; }
 
         public int TourId { get; set; }
     }

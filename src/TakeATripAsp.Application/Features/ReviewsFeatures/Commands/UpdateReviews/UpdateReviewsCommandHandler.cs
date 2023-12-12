@@ -26,7 +26,7 @@ namespace TakeTripAsp.Application.Features.ReviewsFeatures.Commands.UpdateReview
             var reviews = await _reviewsRepository.GetAsync(request.Id);
 
             reviews.Comment = request.Comment;
-            reviews.ClientId = request.ClientId;
+            //reviews.ClientId = request.ClientId;
             reviews.TourId = request.TourId;
 
             await _reviewsRepository.UpdateAsync(reviews);
