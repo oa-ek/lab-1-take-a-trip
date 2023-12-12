@@ -1,8 +1,10 @@
 ﻿@using TakeTripAsp.Application.Features.CityFeatures.CityDtos;
+@using TakeTripAsp.Application.Features.CountryFeatures.Queries.GetAllCountry;
 @model ReadCityDto
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "_TakeATripAdminLayout";
 }
 
 <h1>Edit</h1>
@@ -10,23 +12,20 @@
 <h4>City</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="row ml-3 mb-3">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="CityName" class="control-label"></label>
-                <input asp-for="CityName" class="form-control" />
+                <input asp-for="CityName" class="form-control" style="width: 500px;" />
                 <span asp-validation-for="CityName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CountryId" class="control-label"></label>
-                <input asp-for="CountryId" class="form-control" />
+                <select asp-for="CountryId" asp-items="@(new SelectList(ViewBag.Countries ?? new List<SelectListItem>(), "Value", "Text"))" class="form-control">
+                    <option value="">Select Country</option>
+                </select>
                 <span asp-validation-for="CountryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -36,9 +35,12 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-inverse-info btn-fw">Повернутись до списку</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
+

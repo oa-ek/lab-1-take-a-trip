@@ -11,7 +11,7 @@
 <p>
     <a asp-controller="City" asp-action="Create" class="btn btn-inverse-primary btn-fw">Створити</a>
 </p>
-<table class="table">
+<table class="table table-bordered ml-3 mb-3">
     <thead>
         <tr>
             <th>
@@ -19,9 +19,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CountryId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th></th>
         </tr>
@@ -36,11 +33,8 @@
                 @Html.DisplayFor(modelItem => item.CountryId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "City", new { id = item.Id })">Редагувати</a>
-                <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "City", new { id = item.Id })">Видалити</a>
+                    <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "City", new { id = item.Id, CityName = item.CityName  })">Редагувати</a>
+                    <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "City", new { id = item.Id, CityName = item.CityName })">Видалити</a>
             </td>
         </tr>
 }
