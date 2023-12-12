@@ -1,13 +1,16 @@
-﻿
-
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using TakeTripAsp.Application.Features.CategoryFeatures.Queries.GetAllCategory;
+using TakeTripAsp.Application.Features.CityFeatures.Queries.GetAllCity;
+using TakeTripAsp.Application.Features.StatusFeatures.Queries.GetAllStatus;
 using TakeTripAsp.Application.Features.Tourfeatures.Commands.CreateTour;
 using TakeTripAsp.Application.Features.Tourfeatures.Commands.DeleteTour;
 using TakeTripAsp.Application.Features.Tourfeatures.Commands.UpdateTour;
 using TakeTripAsp.Application.Features.Tourfeatures.Queries.GetAllTour;
 using TakeTripAsp.Application.Features.Tourfeatures.TourDtos;
+using TakeTripAsp.Application.Features.TourFeatures.Queries.GetTour;
+using TakeTripAsp.Application.Features.TourFeatures.TourDtos;
 using TakeTripAsp.Domain.Entity;
 
 namespace TakeTripAsp.WebApp.Controllers
@@ -15,21 +18,15 @@ namespace TakeTripAsp.WebApp.Controllers
     public class TourController : Controller
     {
         private readonly IMediator _mediator;
-        //private readonly IRepository<Category, int> _categoryRepository;
-        //private readonly IRepository<Status, int> _statusRepository;
         private readonly UserManager<AppUser> _userManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
         public TourController(
             IMediator mediator,
-            //IRepository<Category, int> categoryRepository,
-            //IRepository<Status, int> statusRepository,
             IWebHostEnvironment webHostEnvironment,
             UserManager<AppUser> userManager)
         {
             _mediator = mediator;
-            //_categoryRepository = categoryRepository;
-            //_statusRepository = statusRepository;
             _webHostEnvironment = webHostEnvironment;
             _userManager = userManager;
         }
@@ -39,19 +36,21 @@ namespace TakeTripAsp.WebApp.Controllers
             return View(await _mediator.Send(new GetAllTourQueries()));
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            //ViewBag.Categories = _categoryRepository.GetAll();
-            //ViewBag.Statuses = _statusRepository.GetAll();
+            ViewBag.Categories = await _mediator.Send(new GetAllCatagoryQueries());
+            ViewBag.Cities = await _mediator.Send(new GetAllCityQueries());
+            ViewBag.Statuses = await _mediator.Send(new GetAllStatusQueries());
+
             return View("Create");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateTourDto model, List<int> selectedCategories)
+        public async Task<IActionResult> Create(CreateTourDto model)
         {
             var userId = _userManager.GetUserId(User);
 
-            model.ManagerId = userId;
+            string wwwRootPath = _webHostEnvironment.WebRootPath;
 
             await _mediator.Send(new CreateTourCommand
             {
@@ -63,7 +62,9 @@ namespace TakeTripAsp.WebApp.Controllers
                 FullPrice = model.FullPrice,
                 BookingPrice = model.BookingPrice,
                 StatusId = model.StatusId,
-                ManagerId = model.ManagerId,
+                ManagerId = userId,
+                CategoryIds = model.CategoryIds,
+                wwwRootPath = wwwRootPath,
                 CoverFile = model.CoverFile,
                 CityId = model.CityId
             });
@@ -73,8 +74,7 @@ namespace TakeTripAsp.WebApp.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            //return View(await _mediator.Send(new GetTourByIdQuery { Id = id }));
-            return View("tour");
+            return View(await _mediator.Send(new GetTourQueries { Id = id }));
         }
 
         [HttpPost]
@@ -86,16 +86,19 @@ namespace TakeTripAsp.WebApp.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            //var tour = await _mediator.Send(new GetTourByIdQuery { Id = id });
-            //ViewBag.Categories = _categoryRepository.GetAll();
-            //ViewBag.Statuses = _statusRepository.GetAll();
-            return View("tour");
+            ViewBag.Categories = await _mediator.Send(new GetAllCatagoryQueries());
+            ViewBag.Cities = await _mediator.Send(new GetAllCityQueries());
+            ViewBag.Statuses = await _mediator.Send(new GetAllStatusQueries());
+
+            return View(await _mediator.Send(new GetTourQueries { Id = id }));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(ReadTourDto model, List<int> selectedCategories)
+        public async Task<IActionResult> Edit(UpdateTourDto model, List<int> selectedCategories)
         {
             var userId = _userManager.GetUserId(User);
+
+            string wwwRootPath = _webHostEnvironment.WebRootPath;
 
             await _mediator.Send(new UpdateTourCommand
             {
@@ -108,7 +111,8 @@ namespace TakeTripAsp.WebApp.Controllers
                 FullPrice = model.FullPrice,
                 BookingPrice = model.BookingPrice,
                 StatusId = model.StatusId,
-                ManagerId = userId,
+                CategoryIds = model.CategoryIds,
+                wwwRootPath = wwwRootPath,
                 CoverFile = model.CoverFile,
                 CityId = model.CityId
             });
