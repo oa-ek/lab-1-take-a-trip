@@ -1,0 +1,110 @@
+﻿@page "/tour/add"
+@page "/tour/edit/{tourId:int}"
+@using TakeATripBlazorApp.IServices
+@using TakeATripBlazorApp.Model;
+@inject ITourService tourService
+<PageTitle>@Title</PageTitle>
+
+<h3>@Title</h3>
+<a href="/tours" class="btn btn-outline-dark">Show All</a>
+<div class="row">
+    <div class="col-md-6">
+        <EditForm Model="@tour" OnValidSubmit="Save">
+            <DataAnnotationsValidator />
+
+            <div class="form-group">
+                <label for="Name">Tour Name</label>
+                <InputText class="form-control" @bind-Value="tour.Name" />
+                <ValidationMessage For="@(()=>tour.Name)" />
+            </div>
+
+            <div class="form-group">
+                <label for="Description">Description</label>
+                <InputText class="form-control" @bind-Value="tour.Description" />
+            </div>
+
+            <div class="form-group">
+                <label for="Continent">Continent</label>
+                <InputText class="form-control" @bind-Value="tour.Continent" />
+                <ValidationMessage For="@(()=>tour.Continent)" />
+            </div>
+
+            <div class="form-group">
+                <label for="Start">Start Date</label>
+                <InputDate class="form-control" @bind-Value="tour.Start" />
+                <ValidationMessage For="@(()=>tour.Start)" />
+            </div>
+
+            <div class="form-group">
+                <label for="End">End Date</label>
+                <InputDate class="form-control" @bind-Value="tour.End" />
+                <ValidationMessage For="@(()=>tour.End)" />
+            </div>
+
+            <div class="form-group">
+                <label for="FullPrice">Full Price</label>
+                <InputNumber class="form-control" @bind-Value="tour.FullPrice" />
+                <ValidationMessage For="@(()=>tour.FullPrice)" />
+            </div>
+
+            <div class="form-group">
+                <label for="BookingPrice">Booking Price</label>
+                <InputNumber class="form-control" @bind-Value="tour.BookingPrice" />
+                <ValidationMessage For="@(()=>tour.BookingPrice)" />
+            </div>
+
+            <div class="form-group">
+                <label for="Status">Status</label>
+                <InputSelect class="form-control" @bind-Value="tour.Status.Id">
+                    @foreach (var status in statuses)
+                    {
+                        <option value="@status.Id">@status.StatusName</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <div class="my-2">
+                @message
+            </div>
+
+            <div class="my-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int TourId { get; set; }
+    private string message = string.Empty;
+    private Tour tour = new();
+    private List<Status> statuses = new List<Status>();
+    private string Title = "Add Tour";
+
+    private void Save()
+    {
+        message = "wait...";
+        if (tourService.AddUpdate(tour))
+        {
+            message = "Successfully added";
+            tour = new();
+        }
+        else
+        {
+            message = "Could not be saved";
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        statuses = statusService.GetAll();
+
+        if (TourId > 0)
+        {
+            Title = "Update Tour";
+            tour = tourService.FindById(TourId);
+        }
+        base.OnInitialized();
+    }
+}

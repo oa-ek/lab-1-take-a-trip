@@ -1,0 +1,62 @@
+﻿@page "/country/add"
+@page "/country/edit/{countryId:int}"
+@using TakeATripBlazorApp.IServices
+@using TakeATripBlazorApp.Model;
+@inject ICountryService countryService
+<PageTitle>@Title</PageTitle>
+
+<h3>@Title</h3>
+<a href="/countries" class="btn btn-outline-dark">Show All</a>
+<div class="row">
+    <div class="col-md-6">
+        <EditForm Model="@country" OnValidSubmit="Save">
+            <DataAnnotationsValidator />
+
+            <div class="form-group">
+                <label for="CountryName">Country Name</label>
+                <InputText class="form-control" @bind-Value="country.CountryName" />
+                <ValidationMessage For="@(()=>country.CountryName)" />
+            </div>
+
+            <div class="my-2">
+                @message
+            </div>
+
+            <div class="my-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int CountryId { get; set; }
+    private string message = string.Empty;
+    private Country country = new();
+    private string Title = "Add Country";
+
+    private void Save()
+    {
+        message = "wait...";
+        if (countryService.AddUpdate(country))
+        {
+            message = "Successfully added";
+            country = new();
+        }
+        else
+        {
+            message = "Could not be saved";
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        if (CountryId > 0)
+        {
+            Title = "Update Country";
+            country = countryService.FindById(CountryId);
+        }
+        base.OnInitialized();
+    }
+}

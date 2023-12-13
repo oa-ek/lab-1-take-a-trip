@@ -1,0 +1,54 @@
+﻿@page "/statuses"
+@using TakeATripBlazorApp.IServices
+@using TakeATripBlazorApp.Model;
+@inject IStatusService statusService
+@inject IJSRuntime jsRuntime
+
+<h3>Statuses</h3>
+<a href="/status/add" class="btn btn-outline-dark my-2">Add more</a>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Status Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var status in statuses)
+                {
+                    <tr>
+                        <td>@status.StatusName</td>
+                        <td>
+                            <a href="/status/edit/@status.Id" class="btn btn-success">Edit</a>
+                            <a class="btn btn-danger" @onclick="async () => await Delete(status)">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    private List<Status> statuses = new();
+
+    private async Task Delete(Status status)
+    {
+        bool confirmed = await jsRuntime.InvokeAsync<bool>("confirm", "Are you sure?");
+        if (confirmed)
+        {
+            if (statusService.Delete(status.Id))
+            {
+                statuses.Remove(status);
+            }
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        statuses = statusService.GetAll();
+        base.OnInitialized();
+    }
+}

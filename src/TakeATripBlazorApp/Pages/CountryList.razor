@@ -1,0 +1,54 @@
+﻿@page "/countries"
+@using TakeATripBlazorApp.IServices
+@using TakeATripBlazorApp.Model;
+@inject ICountryService countryService
+@inject IJSRuntime jsRuntime
+
+<h3>Countries</h3>
+<a href="/country/add" class="btn btn-outline-dark my-2">Add more</a>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Country Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var country in countries)
+                {
+                    <tr>
+                        <td>@country.CountryName</td>
+                        <td>
+                            <a href="/country/edit/@country.Id" class="btn btn-success">Edit</a>
+                            <a class="btn btn-danger" @onclick="async ()=> await Delete(country)">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    private List<Country> countries = new();
+
+    private async Task Delete(Country country)
+    {
+        bool confirmed = await jsRuntime.InvokeAsync<bool>("confirm", "Are you sure?");
+        if (confirmed)
+        {
+            if (countryService.Delete(country.Id))
+            {
+                countries.Remove(country);
+            }
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        countries = countryService.GetAll();
+        base.OnInitialized();
+    }
+}

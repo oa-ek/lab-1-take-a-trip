@@ -1,0 +1,60 @@
+﻿@page "/tours"
+@using TakeATripBlazorApp.IServices;
+@using TakeATripBlazorApp.Model;
+@inject ITourService tourService
+@inject IJSRuntime jsRuntime
+
+<h3>Tours</h3>
+<a href="/tour/add" class="btn btn-outline-dark my-2">Add more</a>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tour Name</th>
+                    <th>Continent</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var tour in tours)
+                {
+                    <tr>
+                        <td>@tour.Name</td>
+                        <td>@tour.Continent</td>
+                        <td>@tour.Start.ToShortDateString()</td>
+                        <td>@tour.End.ToShortDateString()</td>
+                        <td>
+                            <a href="/tour/edit/@tour.Id" class="btn btn-success">Edit</a>
+                            <a class="btn btn-danger" @onclick="async ()=> await Delete(tour)">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    private List<Tour> tours = new();
+
+    private async Task Delete(Tour tour)
+    {
+        bool confirmed = await jsRuntime.InvokeAsync<bool>("confirm", "Are you sure?");
+        if (confirmed)
+        {
+            if (tourService.Delete(tour.Id))
+            {
+                tours.Remove(tour);
+            }
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        tours = tourService.GetAll();
+        base.OnInitialized();
+    }
+}
