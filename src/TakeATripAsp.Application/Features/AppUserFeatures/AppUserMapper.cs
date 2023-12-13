@@ -14,7 +14,7 @@ namespace TakeTripAsp.Application.Features.AppUserFeatures
         public AppUserMapper()
         {
             CreateMap<AppUser, ReadAppUserDto>()
-                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => new List<string>()))
+                //.ForMember(dest => dest.Role, opt => opt.MapFrom(src => new List<string>()))
                 .ForMember(dest => dest.IsConfirmed, opt => opt.MapFrom(src => src.EmailConfirmed));
 
             CreateMap<CreateAppUserDto, AppUser>()

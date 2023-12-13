@@ -1,5 +1,6 @@
-﻿@*@using TakeTripAsp.Domain.Entity
-@model TakeTripAsp.Repository.DTOsUser.UserCreateDto
+﻿@using TakeTripAsp.Application.Features.AppUserFeatures.AppUserDto;
+@*@using TakeTripAsp.Domain.Entity*@
+@model CreateAppUserDto
 
 @{
     ViewData["Title"] = "Створити";
@@ -10,45 +11,51 @@
 
 <h4>Користувач</h4>
 <hr />
-<div class="row">
+<div class="row ml-3 mb-3">
     <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
+        
+        <form asp-controller="AppUser" asp-action="Create" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" style="width: 500px;   />
+                <input asp-for="FirstName" class="form-control" style="width: 500px;" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" style="width: 500px;   />
+                <input asp-for="LastName" class="form-control" style="width: 500px;" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" style="width: 500px;   />
+                <input asp-for="Email" class="form-control" style="width: 500px;" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" style="width: 500px;   />
+                <input asp-for="Password" class="form-control" style="width: 500px;" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="Role">Role:</label>
-                <select asp-for="Role">
+
+
+                <select asp-for="Role" asp-items="@(new SelectList(Model.RoleList))"></select>
+
+
+                @*<select asp-for="Role">
                     @foreach (var role in ViewBag.RoleList)
                     {
                         <option value="@role">@role</option>
                     }
                 </select>
-            </div>
-            <div class="form-group">
+            @*</div>*@
+           @* <div class="form-group">
                 @Html.DisplayNameFor(model => model.CoverFile)
                 <input asp-for="CoverFile" accept="image/*" />
                 <span asp-validation-for="CoverFile" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <input type="submit" value=" Створити" class="btn btn-outline-success btn-fw" />
             </div>
@@ -57,6 +64,12 @@
 </div>
 
 <div class="mb-3">
-    <a asp-action="Index" class="btn btn-outline-info btn-fw">Повернутись до списку</a>
+    <a asp-action="Index" class="btn btn-inverse-info btn-fw">Повернутись до списку</a>
 </div>
-*@
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

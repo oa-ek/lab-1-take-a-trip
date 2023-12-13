@@ -16,7 +16,7 @@ namespace TakeTripAsp.Application.Features.AppUserFeatures.AppUserDto
 
         public IFormFile? CoverFile { get; set; }
 
-        public string Role { get; set; }
+       // public string Role { get; set; }
 
     }
 }
