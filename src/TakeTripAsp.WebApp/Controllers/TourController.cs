@@ -33,7 +33,13 @@ namespace TakeTripAsp.WebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _mediator.Send(new GetAllTourQueries()));
+            ViewBag.Categories = await _mediator.Send(new GetAllCatagoryQueries());
+            ViewBag.Cities = await _mediator.Send(new GetAllCityQueries());
+            ViewBag.Statuses = await _mediator.Send(new GetAllStatusQueries());
+
+            var tours = await _mediator.Send(new GetAllTourQueries());
+
+            return View(tours);
         }
 
         public async Task<IActionResult> Create()
@@ -94,10 +100,8 @@ namespace TakeTripAsp.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UpdateTourDto model, List<int> selectedCategories)
+        public async Task<IActionResult> Edit(UpdateTourDto model)
         {
-            var userId = _userManager.GetUserId(User);
-
             string wwwRootPath = _webHostEnvironment.WebRootPath;
 
             await _mediator.Send(new UpdateTourCommand

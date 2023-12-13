@@ -24,6 +24,8 @@ namespace TakeTripAsp.Application.Features.Tourfeatures.TourDtos
 
         public string? ManagerId { get; set; }
 
+        public List<int> CategoryIds { get; set; }
+
         public string? CoverPath { get; set; }
 
         public IFormFile? CoverFile { get; set; }

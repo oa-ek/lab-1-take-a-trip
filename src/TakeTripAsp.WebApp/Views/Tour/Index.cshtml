@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<ReadTourDto>
 @using Microsoft.AspNetCore.Identity
+@using TakeTripAsp.Application.Features.CategoryFeatures.CategoryDtos;
 @using TakeTripAsp.Application.Features.Tourfeatures.TourDtos;
 @using TakeTripAsp.Domain.Entity;
 
@@ -24,16 +25,16 @@
                     <div>
                         <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "Tour", new { id = item.Id })">Редагувати</a>
                         <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "Tour", new { id = item.Id })">Видалити</a>
-                    </div>C
+                    </div>
                 </div>
                 <div class="wrapper d-flex mb-3">
-                    @*<div class="mr-2 mt-2 border border-top-0 border-bottom-0">
-                        <p class="text-muted mr-2 ml-2">Країна</p>
-                        <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.CityId)</p>
-                    </div>*@
+                    <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
+                        <p class="text-muted mr-2 ml-2">Континент</p>
+                        <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.Continent)</p>
+                    </div>
                      <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
                 <p class="text-muted mr-2 ml-2">Країна</p>
-                <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.CityId)</p>
+                        <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.CityId)</p>
                 </div> 
                     <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
                         <p class="text-muted mr-2 ml-2">Тривалість</p>
@@ -53,15 +54,14 @@
                         <p class="text-muted mr-2 ml-2">Статус</p>
                         <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.StatusId)</p>
                     </div>
-                    @*<div class="mr-2 mt-2 border border-top-0 border-bottom-0">
+                   @* <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
                         <p class="text-muted mr-2 ml-2">Категорії</p>
                         <p class="lead mr-2 ml-2">
-                            @if (item.Cate != null)
+                            @if (item.CategoryIds != null)
                             {
-                                foreach (var category in item.Categories)
-                                {
-                                    <span>@category.Name,</span>
-                                }
+                                var categories = ViewBag.Categories as List<ReadCategoryDto>; 
+                                var categoryNames = item.CategoryIds.Select(id => categories.FirstOrDefault(c => c.Id == id)?.Name);
+                                <span>@string.Join(", ", categoryNames)</span>
                             }
                         </p>
                     </div>*@
