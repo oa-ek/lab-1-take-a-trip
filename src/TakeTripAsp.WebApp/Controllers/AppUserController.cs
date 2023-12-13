@@ -27,6 +27,7 @@ namespace TakeTripAsp.WebApp.Controllers
         }
 
         public async Task<IActionResult> Create()
+
         {
             return View("Create");
         }
@@ -41,7 +42,7 @@ namespace TakeTripAsp.WebApp.Controllers
                 Email = dto.Email,
                 Password = dto.Password,
                 CoverPath = dto.CoverPath,
-                Role = dto.Role
+                //Role = dto.Role
             });
 
             return RedirectToAction("Index");

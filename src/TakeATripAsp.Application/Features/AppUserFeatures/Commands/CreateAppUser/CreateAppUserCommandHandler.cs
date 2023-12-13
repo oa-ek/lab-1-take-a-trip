@@ -7,7 +7,8 @@ using TakeTripAsp.Domain.Entity;
 
 namespace TakeTripAsp.Application.Features.AppUserFeatures.Commands.CreateAppUser
 {
-    public class CreateAppUserCommandHandler : IRequestHandler<CreateAppUserCommand, CreateAppUserDto>
+    public class CreateAppUserCommandHandler 
+        : IRequestHandler<CreateAppUserCommand, CreateAppUserDto>
     {
         private readonly IUserRepository _appUserRepository;
         private readonly UserManager<AppUser> _userManager;
@@ -21,6 +22,24 @@ namespace TakeTripAsp.Application.Features.AppUserFeatures.Commands.CreateAppUse
             (_appUserRepository, _userManager, _mapper) = (appUserRepository, userManager, mapper);
         }
 
+        //public async Task<CreateAppUserDto> Handle(CreateAppUserCommand request, CancellationToken cancellationToken)
+        //{
+        //    var newUser = new AppUser
+        //    {
+        //        FirstName = request.FirstName,
+        //        LastName = request.LastName,
+        //        Email = request.Email,
+        //        CoverPath = request.CoverPath,
+        //    };
+
+        //    //_userManager.CreateAsync(newUser, request.Password);
+
+        //    await _userManager.CreateAsync(newUser, request.Password);
+
+        //    return _mapper.Map<AppUser, CreateAppUserDto>(newUser);
+
+        //}
+
         public async Task<CreateAppUserDto> Handle(CreateAppUserCommand request, CancellationToken cancellationToken)
         {
             var newUser = new AppUser
@@ -28,13 +47,18 @@ namespace TakeTripAsp.Application.Features.AppUserFeatures.Commands.CreateAppUse
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Email = request.Email,
-                CoverPath = request.CoverPath,
+                //CoverPath = request.CoverPath,
             };
 
-            _userManager.CreateAsync(newUser, request.Password);
+           
+            
+                await _userManager.CreateAsync(newUser, request.Password);
+            
+            
+         
 
             return _mapper.Map<AppUser, CreateAppUserDto>(newUser);
-
         }
+
     }
 }
