@@ -52,7 +52,19 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger btn-rounded btn-fw" />
-        <a asp-action="Index" class="btn btn-inverse-info btn-fw">Повернутись до списку</a>
+        @*<input type="submit" value="Видалити" class="btn btn-danger btn-rounded btn-fw" />*@
+       @* <a asp-action="Index" class="btn btn-inverse-info btn-fw">Повернутись до списку</a>*@
+        @*<button type="button" class="btn btn-outline-danger btn-fw">Danger</button>*@
+
+        <input type="submit" value="Видалити" class="btn btn-outline-danger btn-fw" />
     </form>
+
+    @*<div class="mb-3">
+        <a asp-action="Index" class="btn btn-outline-info btn-fw">Повернутись до списку</a>
+    </div>*@
+
+</div>
+
+<div class="mb-3">
+    <a asp-action="Index" class="btn btn-outline-info btn-fw">Повернутись до списку</a>
 </div>
