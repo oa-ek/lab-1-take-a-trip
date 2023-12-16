@@ -36,7 +36,7 @@ namespace TakeTripAsp.Persistence.Repository
             };
 
             await userManager.CreateAsync(newUser, obj.Password);
-            await userManager.AddToRoleAsync(newUser, obj.Role); 
+           // await userManager.AddToRoleAsync(newUser, obj.Role); 
             return _context.Users.First(x => x.Email == obj.Email).Id;
         }
 

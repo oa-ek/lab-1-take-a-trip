@@ -7,9 +7,9 @@
     Layout = "_TakeATripAdminLayout";
 }
 
-<h1>Edit</h1>
+<h1>Редагування </h1>
 
-<h4>City</h4>
+<h4>Міста</h4>
 <hr />
 <div class="row">
     <div class="row ml-3 mb-3">
@@ -28,14 +28,14 @@
                 <span asp-validation-for="CountryId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value=" Редагувати " class="btn btn-outline-primary btn-fw" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index" class="btn btn-inverse-info btn-fw">Повернутись до списку</a>
+<div class="mb-3">
+    <a asp-action="Index" class="btn btn-outline-info btn-fw">Повернутись до списку</a>
 </div>
 
 @section Scripts {

@@ -10,7 +10,7 @@
 
 <h3>Дійсно хочете видалити цей елемент?</h3>
 <div>
-    <h4>Статус</h4>
+    <h4>Статус туру</h4>
     <hr />
     <dl class="row ml-3 mb-3">
         <dt class = "col-sm-2">
@@ -28,7 +28,9 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger btn-rounded btn-fw"/>
-        <a asp-action="Index" class="btn btn-inverse-info btn-fw">Повернутись до списку</a>
+        <input type="submit" value="Видалити" class="btn btn-outline-danger btn-fw" />
     </form>
+</div>
+<div class="mb-3">
+    <a asp-action="Index" class="btn btn-outline-info btn-fw">Повернутись до списку</a>
 </div>
