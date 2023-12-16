@@ -32,8 +32,7 @@ namespace TakeTripAsp.Persistence.Repository
                 UserName = obj.Email,
                 NormalizedEmail = obj.Email.ToUpper(),
                 NormalizedUserName = obj.Email.ToUpper(),
-                EmailConfirmed = true,
-                CoverFile = obj.CoverFile,
+                EmailConfirmed = true
             };
 
             await userManager.CreateAsync(newUser, obj.PasswordHash);
