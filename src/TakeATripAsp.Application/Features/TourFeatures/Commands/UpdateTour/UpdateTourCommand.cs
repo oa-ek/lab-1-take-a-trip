@@ -35,6 +35,6 @@ namespace TakeTripAsp.Application.Features.Tourfeatures.Commands.UpdateTour
 
         public IFormFile? CoverFile { get; set; }
 
-        public int CityId { get; set; }
+        public List<int> CityIds { get; set; }
     }
 }

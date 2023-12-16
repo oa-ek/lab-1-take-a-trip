@@ -1,6 +1,9 @@
 ﻿@model IEnumerable<ReadTourDto>
+@using Microsoft.AspNetCore.Html;
 @using Microsoft.AspNetCore.Identity
 @using TakeTripAsp.Application.Features.CategoryFeatures.CategoryDtos;
+@using TakeTripAsp.Application.Features.CityFeatures.CityDtos;
+@using TakeTripAsp.Application.Features.StatusFeatures.StatusDtos;
 @using TakeTripAsp.Application.Features.Tourfeatures.TourDtos;
 @using TakeTripAsp.Domain.Entity;
 
@@ -8,6 +11,12 @@
     ViewData["Title"] = "Index";
     Layout = "_TakeATripAdminLayout";
     var userManager = Context.RequestServices.GetService(typeof(UserManager<AppUser>)) as UserManager<AppUser>;
+
+    Func<List<int>, List<ReadCityDto>, IHtmlContent> getCityNames = (cityIds, cities) =>
+    {
+        var cityNames = cities?.Where(c => cityIds?.Contains(c.Id) ?? false).Select(c => c.CityName);
+        return Html.Raw(string.Join(", ", cityNames) ?? "Немає інформації");
+    };
 }
 
 <h1>Наші тури</h1>
@@ -32,10 +41,19 @@
                         <p class="text-muted mr-2 ml-2">Континент</p>
                         <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.Continent)</p>
                     </div>
-                     <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
-                <p class="text-muted mr-2 ml-2">Країна</p>
-                        <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.CityId)</p>
-                </div> 
+                    <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
+                        <p class="text-muted mr-2 ml-2">Країна</p>
+                        <p class="lead mr-2 ml-2">
+                            @if (item.CityIds != null && ViewBag.Cities != null)
+                            {
+                                @getCityNames(item.CityIds, ViewBag.Cities as List<ReadCityDto>)
+                            }
+                            else
+                            {
+                                <span>Немає інформації</span>
+                            }
+                        </p>
+                    </div>
                     <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
                         <p class="text-muted mr-2 ml-2">Тривалість</p>
                         <p class="lead mr-2 ml-2">
@@ -52,19 +70,45 @@
                     </div>
                     <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
                         <p class="text-muted mr-2 ml-2">Статус</p>
-                        <p class="lead mr-2 ml-2">@Html.DisplayFor(modelItem => item.StatusId)</p>
-                    </div>
-                   @* <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
-                        <p class="text-muted mr-2 ml-2">Категорії</p>
                         <p class="lead mr-2 ml-2">
-                            @if (item.CategoryIds != null)
-                            {
-                                var categories = ViewBag.Categories as List<ReadCategoryDto>; 
-                                var categoryNames = item.CategoryIds.Select(id => categories.FirstOrDefault(c => c.Id == id)?.Name);
-                                <span>@string.Join(", ", categoryNames)</span>
+                            @{
+                                var statuses = ViewBag.Statuses as List<ReadStatusDto>;
+                                if (item.StatusId != null)
+                                {
+                                    var statusName = statuses.FirstOrDefault(s => s.Id == item.StatusId)?.Name;
+                                    <span>@statusName</span>
+                                }
+                                else
+                                {
+                                    <span>Немає інформації</span>
+                                }
                             }
                         </p>
-                    </div>*@
+                    </div>
+                    <div class="mr-2 mt-2 border border-top-0 border-bottom-0">
+                        <p class="text-muted mr-2 ml-2">Категорії</p>
+                        <p class="lead mr-2 ml-2">
+                            @{
+                                var categories = ViewBag.Categories as List<ReadCategoryDto>;
+                                if (item.CategoryIds != null)
+                                {
+                                    foreach (var categoryId in item.CategoryIds)
+                                    {
+                                        var category = categories.FirstOrDefault(c => c.Id == categoryId);
+                                        <span>@category?.Name</span>
+                                        if (categoryId != item.CategoryIds.Last())
+                                        {
+                                            <span>, </span>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <span>Немає інформації</span>
+                                }
+                            }
+                        </p>
+                    </div>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
                     <img src="@item.CoverPath" alt="@item.Name" style="display: block; height: 250px; width: 500px;">
@@ -106,3 +150,6 @@
         </div>
     }
 </div>
+
+
+

@@ -24,10 +24,10 @@ namespace TakeTripAsp.Application.Features.Tourfeatures.TourDtos
 
         public List<int> CategoryIds { get; set; }
 
+        public List<int> CityIds { get; set; }
+
         public string wwwRootPath { get; set; }
 
         public IFormFile? CoverFile { get; set; }
-
-        public int CityId { get; set; }
     }
 }

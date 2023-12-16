@@ -22,7 +22,7 @@ namespace TakeTripAsp.Persistence.Repository
             _context = context;
         }
 
-        public async Task<string> CreateAsync(CreateAppUserDto obj)
+        public async Task<string> CreateAsync(AppUser obj)
         {
             var newUser = new AppUser
             {
@@ -32,11 +32,12 @@ namespace TakeTripAsp.Persistence.Repository
                 UserName = obj.Email,
                 NormalizedEmail = obj.Email.ToUpper(),
                 NormalizedUserName = obj.Email.ToUpper(),
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                CoverFile = obj.CoverFile,
             };
 
-            await userManager.CreateAsync(newUser, obj.Password);
-            await userManager.AddToRoleAsync(newUser, obj.Role); 
+            await userManager.CreateAsync(newUser, obj.PasswordHash);
+            //await userManager.AddToRoleAsync(newUser, obj.Role); 
             return _context.Users.First(x => x.Email == obj.Email).Id;
         }
 

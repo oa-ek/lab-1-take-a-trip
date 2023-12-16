@@ -58,7 +58,7 @@
                     @Html.DisplayFor(modelItem => item.Role)
                 </td>
                 <td>
-                    <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "AppUser", new { id = item.Id })">Редагувати</a>
+                    <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "AppUser", new { id = item.Id,  })">Редагувати</a>
                     <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "AppUser", new { id = item.Id })">Видалити</a>
                 </td>
             </tr>

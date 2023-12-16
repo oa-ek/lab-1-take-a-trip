@@ -72,7 +72,7 @@ namespace TakeTripAsp.WebApp.Controllers
                 CategoryIds = model.CategoryIds,
                 wwwRootPath = wwwRootPath,
                 CoverFile = model.CoverFile,
-                CityId = model.CityId
+                CityIds = model.CityIds,
             });
 
             return RedirectToAction("Index");
@@ -118,7 +118,7 @@ namespace TakeTripAsp.WebApp.Controllers
                 CategoryIds = model.CategoryIds,
                 wwwRootPath = wwwRootPath,
                 CoverFile = model.CoverFile,
-                CityId = model.CityId
+                CityIds = model.CityIds
             });
 
             return RedirectToAction("Index");

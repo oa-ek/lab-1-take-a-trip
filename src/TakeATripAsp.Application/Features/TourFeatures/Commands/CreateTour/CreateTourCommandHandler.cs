@@ -9,6 +9,7 @@ namespace TakeTripAsp.Application.Features.Tourfeatures.Commands.CreateTour
     public class CreateTourCommandHandler : IRequestHandler<CreateTourCommand, CreateTourDto>
     {
         protected readonly IBaseRepository<Category, int>? _categoryRepository;
+        protected readonly IBaseRepository<City, int>? _cityRepository;
         protected readonly IBaseRepository<Tour, int>? _tourRepository;
         protected readonly IBaseRepository<Status, int>? _statusRepository;
         protected readonly IMapper _mapper;
@@ -17,11 +18,13 @@ namespace TakeTripAsp.Application.Features.Tourfeatures.Commands.CreateTour
             IBaseRepository<Category, int> categoryRepository,
             IBaseRepository<Tour, int> tourRepository,
             IBaseRepository<Status, int> statusRepository,
+            IBaseRepository<City, int> cityRepository,
             IMapper mapper)
         {
             _categoryRepository = categoryRepository;
             _tourRepository = tourRepository;
             _statusRepository = statusRepository;
+            _cityRepository = cityRepository;   
             _mapper = mapper;
         }
 
@@ -37,7 +40,6 @@ namespace TakeTripAsp.Application.Features.Tourfeatures.Commands.CreateTour
                 FullPrice = request.FullPrice,
                 BookingPrice = request.BookingPrice,
                 ManagerId = request.ManagerId,
-                CityId = request.CityId
             };
 
             var status = await _statusRepository.GetAllAsync();
@@ -63,7 +65,15 @@ namespace TakeTripAsp.Application.Features.Tourfeatures.Commands.CreateTour
                 categories.Add(await _categoryRepository.GetAsync(categoryId));
             }
 
+            List<City> cities = new List<City>();
+
+            foreach (var cityId in request.CityIds)
+            {
+                cities.Add(await _cityRepository.GetAsync(cityId));
+            }
+
             tour.Categories = categories;
+            tour.Cities = cities;
 
             await _tourRepository.CreateAsync(tour);
 

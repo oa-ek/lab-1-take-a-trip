@@ -12,11 +12,11 @@ namespace TakeTripAsp.Application.Features.AppUserFeatures.AppUserDto
 
         public string Password { get; set; }
 
-        public string? CoverPath { get; set; } = "\\img\\user\\user.jpg";
+        public string wwwRootPath { get; set; }
 
         public IFormFile? CoverFile { get; set; }
 
-       // public string Role { get; set; }
+        public string Role { get; set; }
 
     }
 }
