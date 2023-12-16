@@ -6,7 +6,7 @@ using TakeTripAsp.Application.Features.ReviewsFeatures.Commands.DeleteReviews;
 using TakeTripAsp.Application.Features.ReviewsFeatures.Commands.UpdateReviews;
 using TakeTripAsp.Application.Features.ReviewsFeatures.Queries.GetAllReviews;
 using TakeTripAsp.Application.Features.ReviewsFeatures.ReviewsDtos;
-using TakeTripAsp.Application.Features.Tourfeatures.Queries.GetAllTour;
+using TakeTripAsp.Application.Features.TourFeatures.Queries.GetAllTour;
 using TakeTripAsp.Domain.Entity;
 
 namespace TakeTripAsp.WebApp.Controllers

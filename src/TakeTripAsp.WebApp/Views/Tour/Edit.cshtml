@@ -1,5 +1,5 @@
-﻿@using TakeTripAsp.Application.Features.Tourfeatures.TourDtos;
-@model ReadTourDto
+﻿@using TakeTripAsp.Application.Features.TourFeatures.TourDtos;
+@model UpdateTourDto
 
 @{
     ViewData["Title"] = "Edit";
@@ -31,7 +31,7 @@
                 <span asp-validation-for="Continent" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CityIds">Select Cities:</label>
+                <label asp-for="CityIds">Оберіть міста:</label>
                 <select class="form-control" id="CityIds" style="width: 500px;" name="CityIds" multiple>
                     @foreach (var city in ViewBag.Cities)
                     {
@@ -62,7 +62,7 @@
                 <span asp-validation-for="BookingPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label for="selectedStatusId">Select Status:</label>
+                <label for="selectedStatusId">Оберіть статус:</label>
                 <select class="form-control" asp-for="StatusId" id="selectedStatusId">
                     @foreach (var status in ViewBag.Statuses)
                     {

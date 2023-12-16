@@ -4,13 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using TakeTripAsp.Application.Features.CategoryFeatures.Queries.GetAllCategory;
 using TakeTripAsp.Application.Features.CityFeatures.Queries.GetAllCity;
 using TakeTripAsp.Application.Features.StatusFeatures.Queries.GetAllStatus;
-using TakeTripAsp.Application.Features.Tourfeatures.Commands.CreateTour;
-using TakeTripAsp.Application.Features.Tourfeatures.Commands.DeleteTour;
-using TakeTripAsp.Application.Features.Tourfeatures.Commands.UpdateTour;
-using TakeTripAsp.Application.Features.Tourfeatures.Queries.GetAllTour;
-using TakeTripAsp.Application.Features.Tourfeatures.TourDtos;
-using TakeTripAsp.Application.Features.TourFeatures.Queries.GetTour;
+using TakeTripAsp.Application.Features.TourFeatures.Commands.CreateTour;
+using TakeTripAsp.Application.Features.TourFeatures.Commands.DeleteTour;
+using TakeTripAsp.Application.Features.TourFeatures.Commands.UpdateTour;
+using TakeTripAsp.Application.Features.TourFeatures.Queries.GetAllTour;
 using TakeTripAsp.Application.Features.TourFeatures.TourDtos;
+using TakeTripAsp.Application.Features.TourFeatures.Queries.GetTour;
 using TakeTripAsp.Domain.Entity;
 
 namespace TakeTripAsp.WebApp.Controllers

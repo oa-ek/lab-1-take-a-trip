@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TakeTripAsp.Application.Features.Tourfeatures.TourDtos;
+using TakeTripAsp.Application.Features.TourFeatures.TourDtos;
 using TakeTripAsp.Application.Repository;
 using TakeTripAsp.Domain.Entity;
 
 namespace TakeTripAsp.Application.Features.TourFeatures.Queries.GetTour
 {
     public class GetTourQueriesHandler
-       : IRequestHandler<GetTourQueries, ReadTourDto>
+       : IRequestHandler<GetTourQueries, UpdateTourDto>
     {
         protected readonly IBaseRepository<Tour, int>? _tourRepository;
         protected readonly IMapper _mapper;
@@ -24,9 +24,9 @@ namespace TakeTripAsp.Application.Features.TourFeatures.Queries.GetTour
             _mapper = mapper;
         }
 
-        public async Task<ReadTourDto> Handle(GetTourQueries request, CancellationToken cancellationToken)
+        public async Task<UpdateTourDto> Handle(GetTourQueries request, CancellationToken cancellationToken)
         {
-            return _mapper.Map<Tour, ReadTourDto>(await _tourRepository.GetAsync(request.Id));
+            return _mapper.Map<Tour, UpdateTourDto>(await _tourRepository.GetAsync(request.Id));
         }
     }
 }

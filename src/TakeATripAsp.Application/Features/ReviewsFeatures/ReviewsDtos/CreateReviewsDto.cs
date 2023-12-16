@@ -1,5 +1,5 @@
 ﻿using TakeTripAsp.Application.Features.AppUserFeatures.AppUserDto;
-using TakeTripAsp.Application.Features.Tourfeatures.TourDtos;
+using TakeTripAsp.Application.Features.TourFeatures.TourDtos;
 
 namespace TakeTripAsp.Application.Features.ReviewsFeatures.ReviewsDtos
 {

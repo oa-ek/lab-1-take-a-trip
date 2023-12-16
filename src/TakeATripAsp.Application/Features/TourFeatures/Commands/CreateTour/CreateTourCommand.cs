@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
-using TakeTripAsp.Application.Features.Tourfeatures.TourDtos;
+using TakeTripAsp.Application.Features.TourFeatures.TourDtos;
 
-namespace TakeTripAsp.Application.Features.Tourfeatures.Commands.CreateTour
+namespace TakeTripAsp.Application.Features.TourFeatures.Commands.CreateTour
 {
     public class CreateTourCommand : IRequest<CreateTourDto>
     {

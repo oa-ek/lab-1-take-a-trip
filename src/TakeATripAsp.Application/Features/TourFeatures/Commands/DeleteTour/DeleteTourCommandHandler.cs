@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TakeTripAsp.Application.Repository;
 using TakeTripAsp.Domain.Entity;
 
-namespace TakeTripAsp.Application.Features.Tourfeatures.Commands.DeleteTour
+namespace TakeTripAsp.Application.Features.TourFeatures.Commands.DeleteTour
 {
     public class DeleteTourCommandHandler : IRequestHandler<DeleteTourCommand, int>
     {

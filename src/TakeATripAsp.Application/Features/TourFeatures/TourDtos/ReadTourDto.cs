@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace TakeTripAsp.Application.Features.Tourfeatures.TourDtos
+namespace TakeTripAsp.Application.Features.TourFeatures.TourDtos
 {
     public class ReadTourDto
     {
@@ -9,8 +9,6 @@ namespace TakeTripAsp.Application.Features.Tourfeatures.TourDtos
         public required string Name { get; set; }
 
         public string? Description { get; set; }
-
-        public required string Continent { get; set; }
 
         public DateTime Start { get; set; }
 
@@ -24,9 +22,11 @@ namespace TakeTripAsp.Application.Features.Tourfeatures.TourDtos
 
         public string? ManagerId { get; set; }
 
-        public List<int> CategoryIds { get; set; }
+        public List<string>? CategoryNames { get; set; } = new List<string>();  
 
-        public List<int> CityIds { get; set; }
+        public List<string>? CityNames { get; set; } = new List<string>();
+
+        public required string Country { get; set; }
 
         public string? CoverPath { get; set; }
 

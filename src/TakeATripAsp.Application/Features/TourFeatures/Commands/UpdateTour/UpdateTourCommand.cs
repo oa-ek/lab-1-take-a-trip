@@ -1,15 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TakeTripAsp.Application.Features.Tourfeatures.TourDtos;
+using TakeTripAsp.Application.Features.TourFeatures.TourDtos;
 
-namespace TakeTripAsp.Application.Features.Tourfeatures.Commands.UpdateTour
+namespace TakeTripAsp.Application.Features.TourFeatures.Commands.UpdateTour
 {
-    public class UpdateTourCommand : IRequest<ReadTourDto>
+    public class UpdateTourCommand : IRequest<UpdateTourDto>
     {
         public int Id { get; set; }
 

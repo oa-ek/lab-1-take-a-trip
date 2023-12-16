@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
-using TakeTripAsp.Application.Features.Tourfeatures.TourDtos;
+using TakeTripAsp.Application.Features.TourFeatures.TourDtos;
 using TakeTripAsp.Application.Repository;
 using TakeTripAsp.Domain.Entity;
 
-namespace TakeTripAsp.Application.Features.Tourfeatures.Commands.CreateTour
+namespace TakeTripAsp.Application.Features.TourFeatures.Commands.CreateTour
 {
     public class CreateTourCommandHandler : IRequestHandler<CreateTourCommand, CreateTourDto>
     {

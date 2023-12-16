@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using MediatR;
-using TakeTripAsp.Application.Features.Tourfeatures.TourDtos;
+using TakeTripAsp.Application.Features.TourFeatures.TourDtos;
 using TakeTripAsp.Application.Repository;
 using TakeTripAsp.Domain.Entity;
 
-namespace TakeTripAsp.Application.Features.Tourfeatures.Commands.UpdateTour
+namespace TakeTripAsp.Application.Features.TourFeatures.Commands.UpdateTour
 {
-    public class UpdateTourCommandHandler : IRequestHandler<UpdateTourCommand, ReadTourDto>
+    public class UpdateTourCommandHandler : IRequestHandler<UpdateTourCommand, UpdateTourDto>
     {
         protected readonly IBaseRepository<Category, int>? _categoryRepository;
         protected readonly IBaseRepository<City, int>? _cityRepository;
@@ -26,7 +26,7 @@ namespace TakeTripAsp.Application.Features.Tourfeatures.Commands.UpdateTour
             _mapper = mapper;
         }
 
-        public async Task<ReadTourDto> Handle(UpdateTourCommand request, CancellationToken cancellationToken)
+        public async Task<UpdateTourDto> Handle(UpdateTourCommand request, CancellationToken cancellationToken)
         {
             var tour = await _tourRepository.GetAsync(request.Id);
 
@@ -76,7 +76,7 @@ namespace TakeTripAsp.Application.Features.Tourfeatures.Commands.UpdateTour
 
             await _tourRepository.UpdateAsync(tour);
 
-            return _mapper.Map<Tour, ReadTourDto>(tour);
+            return _mapper.Map<Tour, UpdateTourDto>(tour);
         }
     }
 }

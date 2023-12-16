@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TakeTripAsp.Application.Features.Tourfeatures.Commands.DeleteTour
+namespace TakeTripAsp.Application.Features.TourFeatures.Commands.DeleteTour
 {
     public class DeleteTourCommand : IRequest<int>
     {

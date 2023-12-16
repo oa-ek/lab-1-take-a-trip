@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace TakeTripAsp.Application.Features.Tourfeatures.TourDtos
+namespace TakeTripAsp.Application.Features.TourFeatures.TourDtos
 {
     public class CreateTourDto
     {
