@@ -6,7 +6,9 @@ using TakeTripAsp.Application.Features.AppUserFeatures.Commands.CreateAppUser;
 using TakeTripAsp.Application.Features.AppUserFeatures.Commands.DeleteAppUser;
 using TakeTripAsp.Application.Features.AppUserFeatures.Commands.UpdateAppUser;
 using TakeTripAsp.Application.Features.AppUserFeatures.Queries.GetAllAppUser;
-
+using TakeTripAsp.Application.Features.AppUserFeatures.Queries.GetAllRole;
+using TakeTripAsp.Application.Features.AppUserFeatures.Queries.GetAppUser;
+using TakeTripAsp.Application.Features.TourFeatures.Queries.GetTour;
 
 namespace TakeTripAsp.WebApp.Controllers
 {
@@ -29,8 +31,8 @@ namespace TakeTripAsp.WebApp.Controllers
         }
 
         public async Task<IActionResult> Create()
-
         {
+            ViewBag.RoleList = await _mediator.Send(new GetAllRoleQueries());
             return View("Create");
         }
 
@@ -47,7 +49,7 @@ namespace TakeTripAsp.WebApp.Controllers
                 Password = dto.Password,
                 wwwRootPath = wwwRootPath,
                 CoverFile = dto.CoverFile,
-                //Role = dto.Role
+                Role = dto.Role
             });
 
             return RedirectToAction("Index");
@@ -55,12 +57,7 @@ namespace TakeTripAsp.WebApp.Controllers
 
         public async Task<IActionResult> Delete(string id)
         {
-            var appUser = new ReadAppUserDto
-            {
-                Id = id
-            };
-
-            return View(appUser);
+            return View(await _mediator.Send(new GetAppUserQueries { Id = id }));
         }
 
         [HttpPost]
@@ -76,12 +73,10 @@ namespace TakeTripAsp.WebApp.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
-            var appUser = new ReadAppUserDto
-            {
-                Id = id
-            };
 
-            return View(appUser);
+            ViewBag.RoleList = await _mediator.Send(new GetAllRoleQueries());
+
+            return View(await _mediator.Send(new GetAppUserQueries { Id = id }));
         }
 
         [HttpPost]
@@ -93,7 +88,7 @@ namespace TakeTripAsp.WebApp.Controllers
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Email = dto.Email,
-                CoverPath = dto.CoverPath,
+                Role = dto.Role
             });
 
             return RedirectToAction("Index");

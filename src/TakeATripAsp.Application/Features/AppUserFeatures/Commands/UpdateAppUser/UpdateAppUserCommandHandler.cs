@@ -11,7 +11,7 @@ using TakeTripAsp.Domain.Entity;
 
 namespace TakeTripAsp.Application.Features.AppUserFeatures.Commands.UpdateAppUser
 {
-    public class UpdateAppUserCommandHandler : IRequestHandler<UpdateAppUserCommand, ReadAppUserDto>
+    public class UpdateAppUserCommandHandler : IRequestHandler<UpdateAppUserCommand, string>
     {
         private readonly IUserRepository _appUserRepository;
         private readonly IMapper _mapper;
@@ -23,21 +23,17 @@ namespace TakeTripAsp.Application.Features.AppUserFeatures.Commands.UpdateAppUse
             (_appUserRepository, _mapper) = (appUserRepository, mapper);
         }
 
-        public async Task<ReadAppUserDto> Handle(UpdateAppUserCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(UpdateAppUserCommand request, CancellationToken cancellationToken)
         {
             var appUser = await _appUserRepository.GetAsync(request.Id);
 
-            //appUser.FirstName = request.FirstName;
-            //appUser.LastName = request.LastName;
-            //appUser.Email = request.Email;
-            //appUser.Password = request.Password;
-            //appUser.CoverPath = request.CoverPath;
-            //appUser.Role = request.Role;
+            appUser.FirstName = request.FirstName;
+            appUser.LastName = request.LastName;
+            appUser.Email = request.Email;
 
-            //await _appUserRepository.UpdateAsync(appUser);
+            await _appUserRepository.UpdateAsync(appUser, request.Role);
 
-            //return _mapper.Map<AppUser, ReadAppUserDto>(appUser);
-            return  _mapper.Map<ReadAppUserDto>(appUser);
+            return appUser.Id;
         }
     }
 }

@@ -6,7 +6,7 @@ using TakeTripAsp.Domain.Entity;
 
 namespace TakeTripAsp.Application.Features.AppUserFeatures.Commands.CreateAppUser
 {
-    public class CreateAppUserCommandHandler 
+    public class CreateAppUserCommandHandler
         : IRequestHandler<CreateAppUserCommand, CreateAppUserDto>
     {
         private readonly IUserRepository _appUserRepository;
@@ -26,8 +26,11 @@ namespace TakeTripAsp.Application.Features.AppUserFeatures.Commands.CreateAppUse
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Email = request.Email,
+                UserName = request.Email,
+                NormalizedEmail = request.Email.ToUpper(),
+                NormalizedUserName = request.Email.ToLower(),
+                EmailConfirmed = true,
                 PasswordHash = request.Password,
-
             };
 
             string fileName = Path.GetFileNameWithoutExtension(request.CoverFile.FileName);
@@ -38,11 +41,9 @@ namespace TakeTripAsp.Application.Features.AppUserFeatures.Commands.CreateAppUse
             string path = Path.Combine(request.wwwRootPath + "/img/user/", fileName);
 
             using (var fileStream = new FileStream(path, FileMode.Create))
-            {
                 request.CoverFile.CopyTo(fileStream);
-            }
 
-            await _appUserRepository.CreateAsync(newUser);
+            await _appUserRepository.CreateAsync(newUser, request.Role);
 
             return _mapper.Map<AppUser, CreateAppUserDto>(newUser);
 

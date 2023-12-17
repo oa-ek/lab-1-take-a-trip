@@ -1,5 +1,5 @@
-﻿@model Bookings
-@using TakeTripAsp.Domain.Entity;
+﻿@using TakeTripAsp.Application.Features.BookingFeatures.BookingsDtos;
+@model ReadBookingsDto
 
 @{
     ViewData["Title"] = "Видалити";
@@ -14,33 +14,27 @@
     <hr />
     <dl class="row ml-3 mb-3">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsFullPayment)
+            Оплата
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.IsFullPayment)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Client)
+            Клієнт
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Client.FirstName)
+            @Html.DisplayFor(model => model.ClientId)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Tour)
+            Тур
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Tour.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BookingStatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BookingStatus.BookingStatusName)
+            @Html.DisplayFor(model => model.TourId)
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger btn-rounded btn-fw"/>
+        <input type="submit" value="Видалити" class="btn btn-outline-danger btn-fw" />
         <a asp-action="Index" class="btn btn-inverse-info btn-fw">Повернутись до списку</a>
     </form>
 </div>

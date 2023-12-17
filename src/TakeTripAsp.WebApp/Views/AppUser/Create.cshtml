@@ -12,7 +12,7 @@
 <hr />
 <div class="row ml-3 mb-3">
     <div class="col-md-4">
-        
+
         <form asp-controller="AppUser" asp-action="Create" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -36,20 +36,15 @@
                 <input asp-for="Password" class="form-control" style="width: 500px;" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="Role">Role:</label>
-
-
-                <select asp-for="Role" asp-items="@(new SelectList(Model.RoleList))"></select>
-
-
-                @*<select asp-for="Role">
-                    @foreach (var role in ViewBag.RoleList)
+            <div class="form-group">
+                <label asp-for="Role">Роль користувача:</label>
+                <select class="form-control" id="Role" style="width: 500px;" name="Role">
+                    @foreach (var category in ViewBag.RoleList)
                     {
-                        <option value="@role">@role</option>
+                        <option value="@category">@category</option>
                     }
                 </select>
-            @*</div>*@
+            </div>
             <div class="form-group">
                 <label asp-for="CoverFile" class="control-label">Завантажити зображення:</label>
                 <input asp-for="CoverFile" accept="image/*" />

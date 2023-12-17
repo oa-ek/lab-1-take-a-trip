@@ -14,23 +14,29 @@ namespace TakeTripAsp.Application.Features.BookingFeatures.Commands.CreateBookin
     public class CreateBookingsCommandHandler : IRequestHandler<CreateBookingsCommand, CreateBookingsDto>
     {
         protected readonly IBaseRepository<Bookings, int>? _bookingsRepository;
+        protected readonly IBaseRepository<Tour, int>? _tourRepository;
         protected readonly IMapper _mapper;
 
         public CreateBookingsCommandHandler(
             IBaseRepository<Bookings, int> bookingsRepository,
-            IMapper mapper)
+            IBaseRepository<Tour, int> tourRepository,
+        IMapper mapper)
         {
-            (_bookingsRepository, _mapper) = (bookingsRepository, mapper);
+            (_bookingsRepository, _mapper, _tourRepository) = (bookingsRepository, mapper, tourRepository);
         }
 
         public async Task<CreateBookingsDto> Handle(
             CreateBookingsCommand request,
             CancellationToken cancellationToken)
         {
+            var tour = await _tourRepository.GetAsync(request.TourId);
+
+                   decimal paymentAmount = request.IsFullPayment ? tour.FullPrice : tour.BookingPrice;
+
             var booking = await _bookingsRepository.CreateAsync(new Bookings
             {
                 IsFullPayment = request.IsFullPayment,
-                Payment = request.Payment,
+                Payment = paymentAmount,
                 ClientId = request.ClientId,
                 TourId = request.TourId,
                 BookingStatusId = request.BookingStatusId

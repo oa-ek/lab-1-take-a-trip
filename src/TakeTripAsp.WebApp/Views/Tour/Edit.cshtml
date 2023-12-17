@@ -35,7 +35,7 @@
                 <select class="form-control" id="CityIds" style="width: 500px;" name="CityIds" multiple>
                     @foreach (var city in ViewBag.Cities)
                     {
-                        <option value="@city.Id">@city.CityName</option>
+                        <option value="@city.Id" selected="@(Model.CityIds.Any(x => x.Equals(city.Id)) ? "selected" : null)">@city.CityName</option>
                     }
                 </select>
             </div>
@@ -75,7 +75,7 @@
                 <select class="form-control" id="CategoryIds" style="width: 500px;" name="CategoryIds" multiple>
                     @foreach (var category in ViewBag.Categories)
                     {
-                        <option value="@category.Id">@category.Name</option>
+                        <option value="@category.Id" selected="@(Model.CategoryIds.Any(x => x.Equals(category.Id)) ? "selected" : null)">@category.Name</option>
                     }
                 </select>
             </div>

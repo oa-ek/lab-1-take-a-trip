@@ -7,8 +7,8 @@ namespace TakeTripAsp.Application.Repository
     {
         Task<ReadAppUserDto> GetAsync(string id);
         Task<IEnumerable<ReadAppUserDto>> GetAllAsync();
-        Task<string> CreateAsync(AppUser obj);
-        Task UpdateAsync(ReadAppUserDto obj, string[] roles);
+        Task<string> CreateAsync(AppUser obj, string roleName);
+        Task UpdateAsync(ReadAppUserDto obj, string roleName);
         Task<IEnumerable<string>> GetRolesAsync();
         Task DeleteAsync(string id);
     }

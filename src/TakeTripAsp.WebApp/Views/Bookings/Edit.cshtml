@@ -1,5 +1,5 @@
-﻿@model Bookings
-@using TakeTripAsp.Domain.Entity;
+﻿@model ReadBookingsDto
+@using TakeTripAsp.Application.Features.BookingFeatures.BookingsDtos;
 
 @{
     ViewData["Title"] = "Редагування";
@@ -12,7 +12,7 @@
 <hr />
 <div class="row ml-3 mb-3">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-controller="Bookings" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group form-check">
                 <label class="form-check-label">
@@ -21,31 +21,37 @@
             </div>
             <div class="form-group">
                 <label for="tour">Оберіть тур:</label>
-                <select class="form-control" style="width: 500px; id="tour" name="TourId">
-                    @foreach (var tour in ViewBag.Tours)
+                <select class="form-control" id="tour" name="tourId" style="width: 500px;">
+                    @if (ViewBag.Tours != null)
                     {
-                        <option value="@tour.Id">@tour.Name</option>
+                        foreach (var tour in ViewBag.Tours)
+                        {
+                            <option value="@tour.Id">@tour.Name</option>
+                        }
                     }
                 </select>
             </div>
             <div class="form-group">
-                <label for="status">Оберіть статус:</label>
-                <select class="form-control" style="width: 500px;id="status" name="StatusId">
-                    @foreach (var status in ViewBag.Status)
+                <label for="bookingstatus">Оберіть тур:</label>
+                <select class="form-control" id="bookingstatus" name="BookingStatusId" style="width: 500px;">
+                    @if (ViewBag.Tours != null)
                     {
-                        <option value="@status.Id">@status.BookingStatusName</option>
+                        foreach (var status in ViewBag.BookingStatuses)
+                        {
+                            <option value="@status.Id">@status.Name</option>
+                        }
                     }
                 </select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-warning btn-rounded btn-fw" />
+                <input type="submit" value=" Редагувати " class="btn btn-outline-primary btn-fw" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index" class="btn btn-inverse-info btn-fw">Повернутись до списку</a>
+    <a asp-action="Index" class="btn btn-outline-info btn-fw">Повернутись до списку</a>
 </div>
 
 @section Scripts {

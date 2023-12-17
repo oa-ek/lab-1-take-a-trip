@@ -9,52 +9,39 @@ namespace TakeTripAsp.Persistence.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private TakeTripAspDbContext _context;
-        private readonly UserManager<AppUser> userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
+        private TakeTripAspDbContext _ctx;
+        private readonly UserManager<AppUser> _userManager;
 
-        public UserRepository(TakeTripAspDbContext context,
+        public UserRepository(TakeTripAspDbContext ctx,
             UserManager<AppUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
-            this.roleManager = roleManager;
-            this.userManager = userManager;
-            _context = context;
+            this._userManager = userManager;
+            _ctx = ctx;
         }
 
-        public async Task<string> CreateAsync(AppUser obj)
+        public async Task<string> CreateAsync(AppUser obj, string roleName)
         {
-            var newUser = new AppUser
-            {
-                FirstName = obj.FirstName,
-                LastName = obj.LastName,
-                Email = obj.Email,
-                UserName = obj.Email,
-                NormalizedEmail = obj.Email.ToUpper(),
-                NormalizedUserName = obj.Email.ToUpper(),
-                EmailConfirmed = true
-            };
-
-            await userManager.CreateAsync(newUser, obj.PasswordHash);
-            //await userManager.AddToRoleAsync(newUser, obj.Role); 
-            return _context.Users.First(x => x.Email == obj.Email).Id;
+            await _userManager.CreateAsync(obj, obj.PasswordHash);
+            await _userManager.AddToRoleAsync(obj, roleName);
+            return _ctx.Users.First(x => x.Email == obj.Email).Id;
         }
 
         public async Task DeleteAsync(string id)
         {
-            var user = _context.Users.Find(id);
+            var user = _ctx.Users.Find(id);
 
-            if ((await userManager.GetRolesAsync(user)).Any())
+            if ((await _userManager.GetRolesAsync(user)).Any())
             {
-                await userManager.RemoveFromRolesAsync(user, await userManager.GetRolesAsync(user));
+                await _userManager.RemoveFromRolesAsync(user, await _userManager.GetRolesAsync(user));
             }
-            await userManager.DeleteAsync(user);
+            await _userManager.DeleteAsync(user);
         }
 
         public async Task<ReadAppUserDto> GetAsync(string id)
         {
-            var user = await _context.Users.FindAsync(id);
-            var roles = await userManager.GetRolesAsync(user);
+            var user = await _ctx.Users.FindAsync(id);
+            var roles = await _userManager.GetRolesAsync(user);
             return
                 new ReadAppUserDto
                 {
@@ -63,25 +50,25 @@ namespace TakeTripAsp.Persistence.Repository
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     IsConfirmed = user.EmailConfirmed,
-                    Role = roles.ToList()
+                    CoverPath = user.CoverPath,
+                    Role = roles.First()
                 };
         }
 
         public async Task<IEnumerable<ReadAppUserDto>> GetAllAsync()
         {
-             var userIds = _context.Users.Select(x => x.Id).ToList();
+            var userIds = _ctx.Users.Select(x => x.Id).ToList();
             var usersDto = new List<ReadAppUserDto>();
 
             foreach (var id in userIds)
                 usersDto.Add(await GetAsync(id));
 
             return usersDto;
-
         }
 
-        public async Task UpdateAsync(ReadAppUserDto model, string[] roles)
+        public async Task UpdateAsync(ReadAppUserDto model, string roleName)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == model.Id);
+            var user = await _ctx.Users.FirstOrDefaultAsync(x => x.Id == model.Id);
 
             if (user.Email != model.Email)
             {
@@ -95,22 +82,19 @@ namespace TakeTripAsp.Persistence.Repository
             if (user.LastName != model.LastName) user.LastName = model.LastName;
             if (user.EmailConfirmed != model.IsConfirmed) user.EmailConfirmed = model.IsConfirmed;
 
-            if ((await userManager.GetRolesAsync(user)).Any())
+            if ((await _userManager.GetRolesAsync(user)).Any())
             {
-                await userManager.RemoveFromRolesAsync(user, await userManager.GetRolesAsync(user));
+                await _userManager.RemoveFromRolesAsync(user, await _userManager.GetRolesAsync(user));
             }
 
-            if (roles.Any())
-            {
-                await userManager.AddToRolesAsync(user, roles.ToList());
-            }
+            await _userManager.AddToRoleAsync(user, roleName);
 
-            await _context.SaveChangesAsync();
+            await _ctx.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<string?>> GetRolesAsync()
         {
-            return _context.Roles.Select(x => x.Name).ToList();
+            return _ctx.Roles.Select(x => x.Name).ToList();
         }
     }
 }

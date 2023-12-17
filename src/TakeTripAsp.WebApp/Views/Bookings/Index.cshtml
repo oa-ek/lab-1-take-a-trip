@@ -1,5 +1,9 @@
-﻿@model IEnumerable<Bookings>
-@using TakeTripAsp.Domain.Entity;
+﻿@using TakeTripAsp.Application.Features.AppUserFeatures.AppUserDto;
+@using TakeTripAsp.Application.Features.BookingFeatures.BookingsDtos;
+@using TakeTripAsp.Application.Features.BookingStatusFeatures.BookingStatusDtos;
+@using TakeTripAsp.Application.Features.TourFeatures.TourDtos;
+@model IEnumerable<ReadBookingsDto>
+
 @{
     ViewData["Title"] = "Бронювання";
     Layout = "_TakeATripAdminLayout";
@@ -17,13 +21,13 @@
                 @Html.DisplayNameFor(model => model.IsFullPayment)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Client.FirstName)
+                Власник
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tour.Name)
+                Typ
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingStatus.BookingStatusName)
+                Статус
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Payment)
@@ -39,20 +43,54 @@
                     @Html.DisplayFor(modelItem => item.IsFullPayment)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Client.FirstName)
+                    @{
+                        var user = ViewBag.Users as List<ReadAppUserDto>;
+                        if (item.TourId != null)
+                        {
+                            var tourName = user.FirstOrDefault(s => s.Id == item.ClientId)?.FirstName;
+                            <span>@tourName</span>
+                        }
+                        else
+                        {
+                            <span>Немає інформації</span>
+                        }
+                    }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Tour.Name)
+                    @{
+                        var tour = ViewBag.Tours as List<ReadTourDto>;
+                        if (item.TourId != null)
+                        {
+                            var tourName = tour.FirstOrDefault(s => s.Id == item.TourId)?.Name;
+                            <span>@tourName</span>
+                        }
+                        else
+                        {
+                            <span>Немає інформації</span>
+                        }
+                    }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BookingStatus.BookingStatusName)
+                    @{
+                        var statuses = ViewBag.BookingStatuses as List<ReadBookingStatusDto>;
+                        if (item.BookingStatusId != null)
+                        {
+                            var statusName = statuses.FirstOrDefault(s => s.Id == item.BookingStatusId)?.Name;
+                            <span>@statusName</span>
+                        }
+                        else
+                        {
+                            <span>Немає інформації</span>
+                        }
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(model => item.Payment)
                 </td>
                 <td>
                     <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "Bookings", new { id = item.Id })">Редагувати</a>
-                    <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "Bookings", new { id = item.Id })">Видалити</a>
+                    <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "Bookings", 
+                    new { id = item.Id, IsFullPayment = item.IsFullPayment, Payment = item.Payment, ClientId = item.ClientId, TourId = item.TourId })">Видалити</a>
                 </td>
             </tr>
         }

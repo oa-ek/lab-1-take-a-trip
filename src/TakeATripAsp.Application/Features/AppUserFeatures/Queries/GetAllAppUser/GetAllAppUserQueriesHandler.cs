@@ -8,13 +8,10 @@ namespace TakeTripAsp.Application.Features.AppUserFeatures.Queries.GetAllAppUser
     public class GetAllAppUserQueriesHandler : IRequestHandler<GetAllAppUserQueries, IEnumerable<ReadAppUserDto>>
     {
         private readonly IUserRepository _appUserRepository;
-        private readonly IMapper _mapper;
 
-        public GetAllAppUserQueriesHandler(
-            IUserRepository appUserRepository,
-            IMapper mapper)
+        public GetAllAppUserQueriesHandler(IUserRepository appUserRepository)
         {
-            (_appUserRepository, _mapper) = (appUserRepository, mapper);
+            _appUserRepository = appUserRepository;
         }
 
         public async Task<IEnumerable<ReadAppUserDto>> Handle(

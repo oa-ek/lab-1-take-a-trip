@@ -13,18 +13,11 @@ namespace TakeTripAsp.Application.Features.AppUserFeatures
     {
         public AppUserMapper()
         {
-            CreateMap<AppUser, ReadAppUserDto>()
-                //.ForMember(dest => dest.Role, opt => opt.MapFrom(src => new List<string>()))
-                .ForMember(dest => dest.IsConfirmed, opt => opt.MapFrom(src => src.EmailConfirmed));
+            CreateMap<ReadAppUserDto, AppUser>();
+            CreateMap<AppUser, ReadAppUserDto>();
 
-            CreateMap<CreateAppUserDto, AppUser>()
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
-                .ForMember(dest => dest.NormalizedUserName, opt => opt.MapFrom(src => src.Email.ToUpper()))
-                .ForMember(dest => dest.NormalizedEmail, opt => opt.MapFrom(src => src.Email.ToUpper()))
-                .ForMember(dest => dest.EmailConfirmed, opt => opt.MapFrom(src => true)); 
-
-            CreateMap<AppUser, CreateAppUserDto>()
-                .ForMember(dest => dest.Password, opt => opt.Ignore()); 
+            CreateMap<CreateAppUserDto, AppUser>();
+            CreateMap<AppUser, CreateAppUserDto>();
         }
     }
 }

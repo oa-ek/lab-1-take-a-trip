@@ -74,13 +74,13 @@ namespace TakeTripAsp.WebApp.Controllers
         {
             ViewBag.Tours = await _mediator.Send(new GetAllTourQueries());
 
-            var category = new ReadReviewsDto
+            var reviews = new ReadReviewsDto
             {
                 Id = id,
                 Comment = comment
             };
 
-            return View(category);
+            return View(reviews);
         }
 
 
