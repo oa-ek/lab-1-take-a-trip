@@ -7,6 +7,7 @@ using TakeTripAsp.Application.Features.ReviewsFeatures.Commands.UpdateReviews;
 using TakeTripAsp.Application.Features.ReviewsFeatures.Queries.GetAllReviews;
 using TakeTripAsp.Application.Features.ReviewsFeatures.ReviewsDtos;
 using TakeTripAsp.Application.Features.TourFeatures.Queries.GetAllTour;
+using TakeTripAsp.Application.Features.TourFeatures.Queries.GetTour;
 using TakeTripAsp.Domain.Entity;
 
 namespace TakeTripAsp.WebApp.Controllers
@@ -27,11 +28,21 @@ namespace TakeTripAsp.WebApp.Controllers
             return View(await _mediator.Send(new GetAllReviewsQueries()));
         }
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(int tourId)
         {
             ViewBag.Tours = await _mediator.Send(new GetAllTourQueries());
-            return View("Create");
+
+            var tour = await _mediator.Send(new GetTourQueries { Id = tourId });
+
+            var model = new CreateReviewsDto
+            {
+                TourId = tour.Id,
+
+            };
+
+            return View("Create", model);
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateReviewsDto dto)
         {
@@ -39,13 +50,14 @@ namespace TakeTripAsp.WebApp.Controllers
 
             await _mediator.Send(new CreateReviewsCommand
             {
-                ClientId = userId,
                 Comment = dto.Comment,
-                TourId = dto.TourId,
+                TourId = dto.TourId,  
+                ClientId = userId
             });
 
             return RedirectToAction("Index");
         }
+
 
         public async Task<IActionResult> Delete(int id, string comment)
         {

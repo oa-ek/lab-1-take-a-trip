@@ -11,41 +11,24 @@
 <h4>Бронювання</h4>
 <hr />
 <div class="row ml-3 mb-3">
-    <div class="col-md-4">
+    <div class="col-md-4" style="width: 500px;">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsFullPayment" /> @Html.DisplayNameFor(model => model.IsFullPayment)
-                </label>
-            </div>
-            <div class="form-group">
-                <label for="tour">Оберіть тур:</label>
-                <select class="form-control" id="tour" name="tourId" style="width: 500px;">
-                    @if (ViewBag.Tours != null)
-                    {
-                        foreach (var tour in ViewBag.Tours)
-                        {
-                            <option value="@tour.Id">@tour.Name</option>
-                        }
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="bookingstatus">Оберіть тур:</label>
-                <select class="form-control" id="bookingstatus" name="BookingStatusId" style="width: 500px;">
-                    @if (ViewBag.Tours != null)
-                    {
-                        foreach (var status in ViewBag.BookingStatuses)
-                        {
-                            <option value="@status.Id">@status.Name</option>
-                        }
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Створити" class="btn btn-outline-success btn-fw" />
-            </div>
+        <dt class="col-sm-2">
+            Назва туру
+        </dt>
+        <dd class="col-sm-10" >
+                @Html.DisplayFor(model => model.TourName)
+        </dd>
+        <input type="hidden" name="TourId" value="@Model.TourId" />
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="IsFullPayment" /> Оплатити повністю
+            </label>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Створити" class="btn btn-outline-success btn-fw" />
+        </div>
         </form>
     </div>
 </div>

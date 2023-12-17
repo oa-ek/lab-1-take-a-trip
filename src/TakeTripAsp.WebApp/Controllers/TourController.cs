@@ -11,6 +11,8 @@ using TakeTripAsp.Application.Features.TourFeatures.Queries.GetAllTour;
 using TakeTripAsp.Application.Features.TourFeatures.TourDtos;
 using TakeTripAsp.Application.Features.TourFeatures.Queries.GetTour;
 using TakeTripAsp.Domain.Entity;
+using TakeTripAsp.Application.Features.SelectedTourFeatures.Commands.CreateSelectedTour;
+using TakeTripAsp.Application.Features.SelectedTourFeatures.Commands.DeleteSelectedTour;
 
 namespace TakeTripAsp.WebApp.Controllers
 {
@@ -135,14 +137,15 @@ namespace TakeTripAsp.WebApp.Controllers
                 user.SelectedTours = new List<SelectedTour>();
             }
 
-            if (user.SelectedTours.All(st => st.TourId != id))
-            {
-                var selectedTour = new SelectedTour
-                {
-                    TourId = id
-                };
+            var existingSelectedTour = user.SelectedTours.FirstOrDefault(st => st.TourId == id);
 
-                user.SelectedTours.Add(selectedTour);
+            if (existingSelectedTour != null)
+            {
+                await _mediator.Send(new DeleteSelectedTourCommand { Id = existingSelectedTour.Id });
+            }
+            else
+            {
+                await _mediator.Send(new CreateSelectedTourCommand { TourId = id, UserId = userId });
             }
 
             return RedirectToAction("Index", "Tour");

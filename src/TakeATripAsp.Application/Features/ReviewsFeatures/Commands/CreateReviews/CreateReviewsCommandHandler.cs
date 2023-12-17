@@ -25,14 +25,16 @@ namespace TakeTripAsp.Application.Features.ReviewsFeatures.Commands.CreateReview
                 (reviewsRepository, appUserRepository, tourRepository, mapper);
         }
 
-        public async Task<CreateReviewsDto> Handle(CreateReviewsCommand request, CancellationToken cancellationToken)
+        public async Task<CreateReviewsDto> Handle(CreateReviewsCommand request, 
+            CancellationToken cancellationToken)
         {
             var tour = await _tourRepository.GetAsync(request.TourId);
 
             var reviews = await _reviewsRepository.CreateAsync(new Reviews
             {
                 Comment = request.Comment,
-                ClientId = request.ClientId,    
+                ClientId = request.ClientId,  
+                TourId = request.TourId,
                 Tour = tour
             });
 

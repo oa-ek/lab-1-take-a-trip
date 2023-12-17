@@ -9,6 +9,7 @@ using TakeTripAsp.Application.Features.BookingFeatures.Commands.UpdateBookings;
 using TakeTripAsp.Application.Features.BookingFeatures.Queries.GetAllBookings;
 using TakeTripAsp.Application.Features.BookingStatusFeatures.Queries.GetAllBookingStatus;
 using TakeTripAsp.Application.Features.TourFeatures.Queries.GetAllTour;
+using TakeTripAsp.Application.Features.TourFeatures.Queries.GetTour;
 using TakeTripAsp.Domain.Entity;
 
 namespace TakeTripAsp.WebApp.Controllers
@@ -34,28 +35,37 @@ namespace TakeTripAsp.WebApp.Controllers
             return View(bookings);
         }
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(int id)
         {
             ViewBag.Tours = await _mediator.Send(new GetAllTourQueries());
             ViewBag.BookingStatuses = await _mediator.Send(new GetAllBookingStatusQueries());
-            return View("Create");
+
+            var tour = await _mediator.Send(new GetTourQueries { Id = id });
+
+            var model = new CreateBookingsDto
+            {
+                TourId = tour.Id,
+                TourName = tour.Name,
+            };
+
+            return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateBookingsDto dto)
         {
             var userId = _userManager.GetUserId(User);
+
             await _mediator.Send(new CreateBookingsCommand
             {
                 IsFullPayment = dto.IsFullPayment,
-                //Payment = dto.Payment,
                 ClientId = userId,
                 TourId = dto.TourId,
-                BookingStatusId = dto.BookingStatusId
             });
 
             return RedirectToAction("Index");
         }
+
 
         public async Task<IActionResult> Delete(int id, int Payment, string ClientId, int TourId)
         {
