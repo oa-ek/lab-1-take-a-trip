@@ -14,8 +14,6 @@ namespace TakeTripAsp.Application.Features.ReviewsFeatures.Commands.UpdateReview
     {
         public int Id { get; set; }
 
-        public int TourId { get; set; }
-
         public required string Comment { get; set; }
 
     }

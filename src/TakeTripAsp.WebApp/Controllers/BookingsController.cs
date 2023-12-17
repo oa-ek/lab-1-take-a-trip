@@ -112,9 +112,6 @@ namespace TakeTripAsp.WebApp.Controllers
             {
                 Id = dto.Id,
                 IsFullPayment = dto.IsFullPayment,
-                Payment = dto.Payment,
-                ClientId = dto.ClientId,
-                TourId = dto.TourId,
                 BookingStatusId = dto.BookingStatusId
             });
 

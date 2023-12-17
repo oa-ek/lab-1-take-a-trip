@@ -1,4 +1,6 @@
-﻿@using TakeTripAsp.Application.Features.ReviewsFeatures.ReviewsDtos;
+﻿@using TakeTripAsp.Application.Features.AppUserFeatures.AppUserDto;
+@using TakeTripAsp.Application.Features.ReviewsFeatures.ReviewsDtos;
+@using TakeTripAsp.Application.Features.TourFeatures.TourDtos;
 @model IEnumerable<ReadReviewsDto>
 @{
     ViewData["Title"] = "Відгуки";
@@ -7,20 +9,18 @@
 
 <h1>Відгуки</h1>
 
-<p>
-    <a asp-controller="Reviews" asp-action="Create" class="btn btn-inverse-primary btn-fw">Створити</a>
-</p>
+
 <table class="table table-hover ml-3 mb-3">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Comment)
+                Коментар
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ClientId)
+                Власник
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TourId)
+                Назва туру
             </th>
 
         </tr>
@@ -34,10 +34,32 @@
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.ClientId)
+                    @{
+                        var user = ViewBag.Users as List<ReadAppUserDto>;
+                        if (item.ClientId != null)
+                        {
+                            var tourName = user.FirstOrDefault(s => s.Id == item.ClientId)?.FirstName;
+                            <span>@tourName</span>
+                        }
+                        else
+                        {
+                            <span>Немає інформації</span>
+                        }
+                    }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TourId)
+                    @{
+                        var tour = ViewBag.Tours as List<ReadTourDto>;
+                        if (item.TourId != null)
+                        {
+                            var tourName = tour.FirstOrDefault(s => s.Id == item.TourId)?.Name;
+                            <span>@tourName</span>
+                        }
+                        else
+                        {
+                            <span>Немає інформації</span>
+                        }
+                    }
                 </td>
                 <td>
                     <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "Reviews", new { id = item.Id, Comment = item.Comment })">Редагувати</a>

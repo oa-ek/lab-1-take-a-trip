@@ -123,35 +123,35 @@
                     </div>
                     <div class="ml-2">
                         <div>
-                           @if (User.Identity.IsAuthenticated)
-                                    {
-                                        var userId = userManager.GetUserId(User);
-                                        var user = userManager.FindByIdAsync(userId).Result;
-                                        if (user.SelectedTours != null && user.SelectedTours.Any(st => st.TourId == item.Id))
-                                        {
-                                            <form action="/Tour/AddToSelectedTours" method="post">
-                                                <input type="hidden" name="id" value="@item.Id" />
-                                                <button type="submit" class="btn btn-outline-secondary like-button">
-                                                    <i class="fa-solid fa-heart" style="color: #6610f2;"></i>
-                                                </button>
-                                            </form>
-                                        }
-                                        else
-                                        {
-                                            <form action="/Tour/AddToSelectedTours" method="post">
-                                                <input type="hidden" name="id" value="@item.Id" />
-                                                <button type="submit" class="btn btn-outline-secondary like-button">
-                                                    <i class="fa-regular fa-heart" style="color: #6610f2;"></i>
-                                                </button>
-                                            </form>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <a asp-area="" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Url.Action("Index")" class="btn btn-outline-secondary">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                var userId = userManager.GetUserId(User);
+                                var user = userManager.FindByIdAsync(userId).Result;
+                                if (user.SelectedTours != null && user.SelectedTours.Any(st => st.TourId == item.Id))
+                                {
+                                    <form action="/Tour/AddToSelectedTours" method="post">
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <button type="submit" class="btn btn-outline-secondary like-button">
+                                            <i class="fa-solid fa-heart" style="color: #6610f2;"></i>
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <form action="/Tour/AddToSelectedTours" method="post">
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <button type="submit" class="btn btn-outline-secondary like-button">
                                             <i class="fa-regular fa-heart" style="color: #6610f2;"></i>
-                                        </a>
-                                    }
+                                        </button>
+                                    </form>
+                                }
+                            }
+                            else
+                            {
+                                <a asp-area="" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Url.Action("Index")" class="btn btn-outline-secondary">
+                                    <i class="fa-regular fa-heart" style="color: #6610f2;"></i>
+                                </a>
+                            }
                         </div>
                         <div class="mt-2">
                             <a asp-controller="Bookings" asp-action="Create" asp-route-id="@item.Id" class="btn btn-outline-secondary">
@@ -159,7 +159,7 @@
                             </a>
                         </div>
                         <div class="mt-2">
-                            <a asp-controller="Reviews" asp-action="Create" class="btn btn-outline-secondary">
+                            <a asp-controller="Reviews" asp-action="Create" asp-route-id="@item.Id" class="btn btn-outline-secondary">
                                 <i class="fa-solid fa-marker" style="color: #6610f2;"></i>
                             </a>
                         </div>

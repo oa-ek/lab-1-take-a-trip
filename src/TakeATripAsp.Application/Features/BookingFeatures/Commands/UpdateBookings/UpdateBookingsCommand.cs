@@ -15,12 +15,6 @@ namespace TakeTripAsp.Application.Features.BookingFeatures.Commands.UpdateBookin
 
         public bool IsFullPayment { get; set; }
 
-        public decimal Payment { get; set; }
-
-        public string ClientId { get; set; }
-
-        public int TourId { get; set; }
-
         public int BookingStatusId { get; set; }
     }
 }

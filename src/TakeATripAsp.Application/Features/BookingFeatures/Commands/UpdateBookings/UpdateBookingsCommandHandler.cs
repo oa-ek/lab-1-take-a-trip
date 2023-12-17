@@ -26,9 +26,7 @@ namespace TakeTripAsp.Application.Features.BookingFeatures.Commands.UpdateBookin
             var booking = await _bookingsRepository.GetAsync(request.Id);
 
             booking.IsFullPayment = request.IsFullPayment;
-            booking.Payment = request.Payment;
-            booking.ClientId = request.ClientId;
-            booking.TourId = request.TourId;
+            booking.Payment = request.IsFullPayment ? booking.Tour.FullPrice : booking.Tour.BookingPrice;
             booking.BookingStatusId = request.BookingStatusId;
 
             await _bookingsRepository.UpdateAsync(booking);

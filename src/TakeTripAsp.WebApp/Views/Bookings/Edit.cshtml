@@ -16,20 +16,8 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input"  asp-for="IsFullPayment" /> @Html.DisplayNameFor(model => model.IsFullPayment)
+                    <input class="form-check-input" asp-for="IsFullPayment" /> @Html.DisplayNameFor(model => model.IsFullPayment)
                 </label>
-            </div>
-            <div class="form-group">
-                <label for="tour">Оберіть тур:</label>
-                <select class="form-control" id="tour" name="tourId" style="width: 500px;">
-                    @if (ViewBag.Tours != null)
-                    {
-                        foreach (var tour in ViewBag.Tours)
-                        {
-                            <option value="@tour.Id">@tour.Name</option>
-                        }
-                    }
-                </select>
             </div>
             <div class="form-group">
                 <label for="bookingstatus">Оберіть тур:</label>
@@ -44,7 +32,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="submit" value=" Редагувати " class="btn btn-outline-primary btn-fw" />
+                <input type="submit" value="Редагувати" class="btn btn-outline-primary btn-fw" />
             </div>
         </form>
     </div>

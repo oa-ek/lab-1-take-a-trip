@@ -10,5 +10,7 @@ namespace TakeTripAsp.Application.Features.ReviewsFeatures.ReviewsDtos
         public string ClientId { get; set; }
 
         public required int TourId { get; set; }
+
+        public string TourName { get; set; }
     }
 }

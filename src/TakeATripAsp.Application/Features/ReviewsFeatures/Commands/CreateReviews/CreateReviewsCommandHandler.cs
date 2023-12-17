@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using TakeTripAsp.Application.Features.ReviewsFeatures.ReviewsDtos;
 using TakeTripAsp.Application.Repository;
 using TakeTripAsp.Domain.Entity;
@@ -34,8 +33,7 @@ namespace TakeTripAsp.Application.Features.ReviewsFeatures.Commands.CreateReview
             {
                 Comment = request.Comment,
                 ClientId = request.ClientId,  
-                TourId = request.TourId,
-                Tour = tour
+                TourId = tour.Id
             });
 
             return _mapper.Map<Reviews, CreateReviewsDto>(reviews);

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using TakeTripAsp.Application.Features.AppUserFeatures.Queries.GetAllAppUser;
 using TakeTripAsp.Application.Features.ReviewsFeatures.Commands.CreateReviews;
 using TakeTripAsp.Application.Features.ReviewsFeatures.Commands.DeleteReviews;
 using TakeTripAsp.Application.Features.ReviewsFeatures.Commands.UpdateReviews;
@@ -11,7 +12,7 @@ using TakeTripAsp.Application.Features.TourFeatures.Queries.GetTour;
 using TakeTripAsp.Domain.Entity;
 
 namespace TakeTripAsp.WebApp.Controllers
-{
+{ 
     public class ReviewsController : Controller
     {
         private readonly IMediator _mediator;
@@ -25,22 +26,24 @@ namespace TakeTripAsp.WebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewBag.Tours = await _mediator.Send(new GetAllTourQueries());
+            ViewBag.Users = await _mediator.Send(new GetAllAppUserQueries());
             return View(await _mediator.Send(new GetAllReviewsQueries()));
         }
 
-        public async Task<IActionResult> Create(int tourId)
+        public async Task<IActionResult> Create(int id)
         {
             ViewBag.Tours = await _mediator.Send(new GetAllTourQueries());
 
-            var tour = await _mediator.Send(new GetTourQueries { Id = tourId });
+            var tour = await _mediator.Send(new GetTourQueries { Id = id });
 
             var model = new CreateReviewsDto
             {
                 TourId = tour.Id,
-
+                TourName = tour.Name,
             };
 
-            return View("Create", model);
+            return View(model);
         }
 
         [HttpPost]
@@ -51,7 +54,7 @@ namespace TakeTripAsp.WebApp.Controllers
             await _mediator.Send(new CreateReviewsCommand
             {
                 Comment = dto.Comment,
-                TourId = dto.TourId,  
+                TourId = dto.TourId,
                 ClientId = userId
             });
 
@@ -103,7 +106,6 @@ namespace TakeTripAsp.WebApp.Controllers
             {
                 Id = dto.Id,
                 Comment = dto.Comment,
-                TourId = dto.TourId,
             });
 
             return RedirectToAction("Index");
