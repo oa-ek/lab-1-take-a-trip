@@ -30,15 +30,17 @@ namespace TakeTripAsp.Application.Features.TourFeatures.Commands.UpdateTour
         {
             var tour = await _tourRepository.GetAsync(request.Id);
 
+            tour.Cities.Clear();
+            tour.Categories.Clear();
+
             tour.Name = request.Name;
             tour.Description = request.Description;
-            tour.Continent = request.Continent;
             tour.Start = request.Start;
             tour.End = request.End;
             tour.FullPrice = request.FullPrice;
             tour.BookingPrice = request.BookingPrice;
             tour.StatusId = request.StatusId;
-           
+
 
             string fileName = Path.GetFileNameWithoutExtension(request.CoverFile.FileName);
 
@@ -51,11 +53,6 @@ namespace TakeTripAsp.Application.Features.TourFeatures.Commands.UpdateTour
             {
                 request.CoverFile.CopyTo(fileStream);
             }
-
-
-            tour.Cities.Clear();
-            tour.Categories.Clear();
-            
 
             List<Category> categories = new List<Category>();
 

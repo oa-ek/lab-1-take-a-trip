@@ -10,8 +10,6 @@ namespace TakeTripAsp.Application.Features.TourFeatures.Commands.CreateTour
 
         public string? Description { get; set; }
 
-        public string Continent { get; set; }
-
         public DateTime Start { get; set; }
 
         public DateTime End { get; set; }

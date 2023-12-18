@@ -34,7 +34,6 @@ namespace TakeTripAsp.Application.Features.TourFeatures.Commands.CreateTour
             {
                 Name = request.Name,
                 Description = request.Description,
-                Continent = request.Continent,
                 Start = request.Start,
                 End = request.End,
                 FullPrice = request.FullPrice,

@@ -13,14 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration);
 
-// Add services to the container.
-//var connectionString = builder.Configuration.GetConnectionString("TakeTripAspDbContextConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-//builder.Services.AddDbContext<TakeTripAspDbContext>(options =>
-//    options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-//builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<TakeTripAspDbContext>();
 
 builder.Services.AddDefaultIdentity<AppUser>(options =>
 {
@@ -33,18 +26,8 @@ builder.Services.AddDefaultIdentity<AppUser>(options =>
 }).AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<TakeTripAspDbContext>();
 
-//builder.Services.AddScoped<IUserRepository, UserRepository>();
-//builder.Services.AddScoped<IRepository<Status, int>, Repository< Status, int>>();
-//builder.Services.AddScoped<IRepository<BookingStatus, int>, Repository< BookingStatus, int>>();
-//builder.Services.AddScoped<IRepository<Category, int>, Repository< Category, int>>(); 
-//builder.Services.AddScoped<IRepository<Tour, int>, Repository<Tour, int>>();
-//builder.Services.AddScoped<IRepository<Bookings, int>, Repository<Bookings, int>>();
-//builder.Services.AddScoped<IRepository<Reviews, int>, Repository<Reviews, int>>();
-//builder.Services.AddScoped<IRepository<TourManagerRequest, int>, Repository<TourManagerRequest, int>>();
-//builder.Services.AddScoped<IRepository<SelectedTour, int>, Repository<SelectedTour, int>>();
-
-
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 

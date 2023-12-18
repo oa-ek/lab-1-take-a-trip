@@ -13,6 +13,7 @@ using TakeTripAsp.Application.Features.TourFeatures.Queries.GetTour;
 using TakeTripAsp.Domain.Entity;
 using TakeTripAsp.Application.Features.SelectedTourFeatures.Commands.CreateSelectedTour;
 using TakeTripAsp.Application.Features.SelectedTourFeatures.Commands.DeleteSelectedTour;
+using TakeTripAsp.Application.Features.TourFeatures.Queries.GetTourCities;
 
 namespace TakeTripAsp.WebApp.Controllers
 {
@@ -21,14 +22,17 @@ namespace TakeTripAsp.WebApp.Controllers
         private readonly IMediator _mediator;
         private readonly UserManager<AppUser> _userManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly HttpClient _httpClient;
 
         public TourController(
             IMediator mediator,
             IWebHostEnvironment webHostEnvironment,
+            HttpClient httpClient,
             UserManager<AppUser> userManager)
         {
             _mediator = mediator;
             _webHostEnvironment = webHostEnvironment;
+            _httpClient = httpClient;
             _userManager = userManager;
         }
 
@@ -63,7 +67,6 @@ namespace TakeTripAsp.WebApp.Controllers
             {
                 Name = model.Name,
                 Description = model.Description,
-                Continent = model.Continent,
                 Start = model.Start,
                 End = model.End,
                 FullPrice = model.FullPrice,
@@ -110,7 +113,6 @@ namespace TakeTripAsp.WebApp.Controllers
                 Id = model.Id,
                 Name = model.Name,
                 Description = model.Description,
-                Continent = model.Continent,
                 Start = model.Start,
                 End = model.End,
                 FullPrice = model.FullPrice,
@@ -150,5 +152,11 @@ namespace TakeTripAsp.WebApp.Controllers
 
             return RedirectToAction("Index", "Tour");
         }
+
+        public async Task<IActionResult> Maps(int id)
+        {
+            return View(await _mediator.Send(new GetTourCitiesQueries { Id = id, httpClient = _httpClient }));
+        }
+
     }
 }
