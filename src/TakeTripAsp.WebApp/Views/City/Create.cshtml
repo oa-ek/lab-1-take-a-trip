@@ -2,7 +2,7 @@
 @model CreateCityDto
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Створити";
     Layout = "_TakeATripAdminLayout";
 }
 
@@ -15,19 +15,19 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="CityName" class="control-label"></label>
+                <label asp-for="CityName" class="control-label">Введіть назву міста</label>
                 <input asp-for="CityName" class="form-control" style="width: 500px;" />
                 <span asp-validation-for="CityName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CountryId" class="control-label"></label>
+                <label asp-for="CountryId" class="control-label">Виберіть країну</label>
                 <select asp-for="CountryId" asp-items="@(ViewBag.Countries != null ? new SelectList(ViewBag.Countries, "Value", "Text") : null)" class="form-control">
-                    <option value="">Select Country</option>
+                    <option value="">Виберіть країну</option>
                 </select>
                 <span asp-validation-for="CountryId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Додатии" class="btn btn-outline-success btn-fw" />
+                <input type="submit" value="Додати" class="btn btn-outline-success btn-fw" />
             </div>
         </form>
     </div>
@@ -42,3 +42,6 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+
+

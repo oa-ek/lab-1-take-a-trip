@@ -8,14 +8,14 @@
 
 <h1>Редагування</h1>
 
-<h4>Статусу турів</h4>
+<h4>Статусу туру</h4>
 <hr />
 <div class="row ml-3 mb-3">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label">Введіть оновлений статус туру</label>
                 <input asp-for="Name" class="form-control" style="width: 500px;" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
@@ -35,4 +35,7 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+
+
 

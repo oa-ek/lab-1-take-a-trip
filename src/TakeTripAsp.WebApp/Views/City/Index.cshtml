@@ -2,7 +2,7 @@
 @model IEnumerable<ReadCityDto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Індекс";
     Layout = "_TakeATripAdminLayout";
 }
 
@@ -15,28 +15,35 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CityName)
+                @Html.DisplayName("Назва міста")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CountryId)
+                @Html.DisplayName("Id країни")
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CityName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CountryId)
-            </td>
-            <td>
-                    <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "City", new { id = item.Id, CityName = item.CityName  })">Редагувати</a>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CountryId)
+                </td>
+                <td>
+                    <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "City", new { id = item.Id, CityName = item.CityName })">Редагувати</a>
                     <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "City", new { id = item.Id, CityName = item.CityName })">Видалити</a>
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+
+
+
+
+

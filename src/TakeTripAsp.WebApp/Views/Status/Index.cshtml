@@ -15,30 +15,33 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayName("  Id  ")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayName("Назва статусу туру")
             </th>
+           
             <th></th>
         </tr>
     </thead>
-    <tbody >
+    <tbody>
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                    @Html.DisplayFor(modelItem => item.Name)
                 </td>
 
                 <td>
                     <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "Status", new { id = item.Id })">Редагувати</a>
-                    <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "Status", new { id = item.Id })">Видалити</a>
+                    <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "Status", new { id = item.Id, Name =  item.Name })">Видалити</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+

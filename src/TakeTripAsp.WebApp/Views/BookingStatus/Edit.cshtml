@@ -8,7 +8,7 @@
 
 <h1>Редагування</h1>
 
-<h4>Статус бронювання</h4>
+<h4>Статусу бронювання</h4>
 <hr />
 <div class="row ml-3 mb-3">
     <div class="col-md-4">
@@ -40,41 +40,3 @@
 
 
 
-@*@using TakeTripAsp.Application.Features.BookingStatusFeatures.BookingStatusDtos;
-@model ReadBookingStatusDto
-
-@{
-    ViewData["Title"] = "Редагування";
-    Layout = "_TakeATripAdminLayout";
-}
-
-<h1>Редагування</h1>
-
-<h4>Статусу бронювання</h4>
-<hr />
-<div class="row ml-3 mb-3">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" style="width: 500px;" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-             <div class="form-group">
-                <input type="submit" value=" Редагувати " class="btn btn-outline-primary btn-fw" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div class="mb-3">
-    <a asp-action="Index" class="btn btn-outline-info btn-fw">Повернутись до списку</a>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    
-}*@

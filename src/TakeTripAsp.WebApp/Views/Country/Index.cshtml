@@ -14,28 +14,33 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayName("Id країни")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayName("Назва країни")
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "Country", new { id = item.Id, Name = item.Name })">Редагувати</a>
-                <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "Country", new { id = item.Id, Name = item.Name })">Видалити</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a class="btn btn-outline-secondary btn-fw" href="@Url.Action("Edit", "Country", new { id = item.Id, Name = item.Name })">Редагувати</a>
+                    <a class="btn btn-outline-dark btn-fw" href="@Url.Action("Delete", "Country", new { id = item.Id, Name = item.Name })">Видалити</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+
+
+
